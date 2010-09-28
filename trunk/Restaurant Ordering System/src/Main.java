@@ -16,16 +16,19 @@ public class Main extends JFrame  implements  ActionListener{
         JComponent pane = (JComponent)this.getContentPane();
     
     public Main() {
+           
         initComponents();
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(800,600);
-            setTitle("Restaurant Ordering System");
-            setVisible(true);
-            setLocationRelativeTo(null);
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(806,600);
+        setTitle("Restaurant Ordering System");
+        setVisible(true);
+        setLocationRelativeTo(null);
+ 
     }
     
-    private void initComponents() {
     
+    private void initComponents() {
+    	
         jPanel1 = new JPanel();
         jPanel2 = new JPanel();
         Title = new JLabel();
@@ -179,25 +182,38 @@ public class Main extends JFrame  implements  ActionListener{
         
         void Cashier()
         {
-                pane.removeAll() ;
-        /*
-                Cashier CashierMain=new Cashier()
+            pane.removeAll() ;
+            jPanel1 = new JPanel();
+            
+            CashierModule CashierMain=new CashierModule()
+            {
+                public String getParameter(String name)
                 {
-                        public String getParameter(String name)
-                        {
-                           if (name.equalsIgnoreCase("msg"))
-                           {
-                              return "Local Frame";
-                           }
-                           return null;
-                     }
-                };
-                setSize(800,600);
-        this.setLocationRelativeTo(null);
+                    if (name.equalsIgnoreCase("msg"))
+                    {
+                        return "Local Frame";
+                    }
+                        return null;
+                }
+            };
+
+            layout = new GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+          
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(CashierMain, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+            
+            layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(CashierMain, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            );
+
         CashierMain.init();
-        this.getContentPane().add(CashierMain, BorderLayout.CENTER);
-            this.setVisible(true);
-            */
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+            
         }
         void Kitchen()
         {
