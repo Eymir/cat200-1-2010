@@ -1,3 +1,4 @@
+
 import java.awt.*;
 
 import javax.swing.*;
@@ -217,7 +218,10 @@ public class Main extends JFrame  implements  ActionListener{
         }
         void Kitchen()
         {
-                pane.removeAll() ;
+        	Kitchen kitchen= new Kitchen();
+        	kitchen.show();
+        	kitchen.setSize(800,600);
+              // pane.removeAll() ;
                 
                 /*
                 Kitchen KitchenMain = new Kitchen()
