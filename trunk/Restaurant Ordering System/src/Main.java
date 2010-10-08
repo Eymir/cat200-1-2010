@@ -160,25 +160,9 @@ public class Main extends JFrame  implements  ActionListener{
 
         void Customer()
         {
-                pane.removeAll() ;
-                /*
-                Customer CustomerMain=new Customer()
-                {
-                        public String getParameter(String name)
-                        {
-                           if (name.equalsIgnoreCase("msg"))
-                           {
-                              return "Local Frame";
-                           }
-                           return null;
-                    }
-                };
-                setSize(800,600);
-        this.setLocationRelativeTo(null);
-        CustomerMain.init();
-        this.getContentPane().add(CustomerMain, BorderLayout.CENTER);
-            this.setVisible(true);
-        */
+                CustomerMenu CustMain = new CustomerMenu();
+                CustMain.setVisible(true);
+                CustMain.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         }
         
         void Cashier()
