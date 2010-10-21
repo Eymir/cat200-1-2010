@@ -115,7 +115,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         tableNoTextField = new javax.swing.JTextField();
         backgroundLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CustomerMenu");
         setMinimumSize(new java.awt.Dimension(640, 480));
         setResizable(false);

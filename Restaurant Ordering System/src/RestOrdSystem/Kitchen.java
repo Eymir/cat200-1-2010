@@ -22,6 +22,7 @@ public class Kitchen extends javax.swing.JFrame {
     /** Creates new form KitchenGUI */
     public Kitchen() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     private void initComponents() {
@@ -32,7 +33,7 @@ public class Kitchen extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
