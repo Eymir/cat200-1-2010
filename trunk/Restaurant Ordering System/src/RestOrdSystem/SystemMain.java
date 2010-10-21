@@ -9,9 +9,10 @@ import java.awt.event.*;
 public class SystemMain extends JFrame {
 
 	
-    static public CustomerMenu CustomerMenu = new CustomerMenu();
+    static public CustomerMenu CustomerModule = new CustomerMenu();
     static public CashierModule CashierModule = new CashierModule();
-    static public Kitchen Kitchen = new Kitchen();
+    static public Kitchen KitchenModule = new Kitchen();
+    static public AdministratorLogIn AdministratorModule = new AdministratorLogIn();
     
     private JButton CustomerModuleButton;    
     private JButton CashierModuleButton;
@@ -93,7 +94,11 @@ public class SystemMain extends JFrame {
         
         AdministratorModuleButton.setText("Administrator Module");
         AdministratorModuleButton.setBounds(100, 210, 200, 30);
-
+        AdministratorModuleButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	AdministratorModuleActionPerformed(evt);
+            }
+        });
         
         pack();
     }
@@ -101,7 +106,7 @@ public class SystemMain extends JFrame {
     
     private void CustomerModuleActionPerformed(ActionEvent evt) 
     {
-        CustomerMenu.setVisible(true);
+        CustomerModule.setVisible(true);
     }
     
     
@@ -113,6 +118,11 @@ public class SystemMain extends JFrame {
     
     private void KitchenModuleActionPerformed(ActionEvent evt) 
     {
-       Kitchen.setVisible(true);
+       KitchenModule.setVisible(true);
+    }
+    
+    private void AdministratorModuleActionPerformed(ActionEvent evt) 
+    {
+       AdministratorModule.setVisible(true);
     }
 }
