@@ -88,7 +88,7 @@ public class Kitchen extends javax.swing.JFrame {
                 jLayeredPane1.add(rdbtnDone);
                 jLabel1 = new javax.swing.JLabel();
                 
-                        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Yinger\\Desktop\\4033133321_4cf4012508_o.png")); // NOI18N
+                        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/background.png"))); 
                         jLabel1.setText("jLabel1");
                         jLabel1.setBounds(0, 0, 800, 600);
                         jLayeredPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
