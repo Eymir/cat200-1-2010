@@ -14,8 +14,11 @@ import java.util.*;
 public class CashierModule extends JFrame {
 
 	static public String [] TableStatus;
+	static public String Available="                        Available";
+	static public String Unavailable="                     Unavailable";
+	static public String Billing="                           Billing";
 	static public int TableNumber; 
-	
+	static public Color [] TableStatusColor;
 	
 	static public Calendar Calender;
     static public int DayOfWeek;
@@ -30,7 +33,7 @@ public class CashierModule extends JFrame {
 	private JScrollPane BillTableScrollPane;
 	
 	
-	private JPanel BasePanel,ButtonPanel;
+	private JPanel BasePanel,ButtonPanel,InstructionPanel,TotalPricePanel;
 	
 	
 	private JToggleButton Table1Button,Table2Button,Table3Button,Table4Button,Table5Button,
@@ -39,12 +42,22 @@ public class CashierModule extends JFrame {
 						  Table16Button,Table17Button,Table18Button,Table19Button,Table20Button;
 	
 	
+	private JButton ConfirmPrint;
+	
+	
 	private JLabel Table1Label,Table2Label,Table3Label,Table4Label,Table5Label,
 				   Table6Label,Table7Label,Table8Label,Table9Label,Table10Label,
    				   Table11Label,Table12Label,Table13Label,Table14Label,Table15Label,
    				   Table16Label,Table17Label,Table18Label,Table19Label,Table20Label;
 	
     
+	private JPanel RedBox,BlueBox,GreenBox;
+	private JLabel AvailableLabel,UnavailableLabel,BillingLabel;
+	
+	
+	private JLabel TotalLabel, TotalPriceLabel;
+	
+	
 	public CashierModule() {
         initComponents();
     }
@@ -63,9 +76,29 @@ public class CashierModule extends JFrame {
         Date = simpleFormatter.format(Today);
     }
     
-    /**
-     * 
-     */
+    
+    public void setTableStatusColor(){
+        for(int i=0;i<20;i++){
+        	if(TableStatus[i]==Available){
+        		TableStatusColor[i]=new Color(20,255,20);
+        	} 
+        	else if(TableStatus[i]==Unavailable){
+        		TableStatusColor[i]=new Color(20,255,255);
+        	}
+        	else if(TableStatus[i]==Billing){
+        		TableStatusColor[i]=new Color(255,0,0);
+        	}
+    	}
+    }
+  
+    
+    public void initTableStatus(){
+    	for(int i=0;i<20;i++){
+        	TableStatus[i]=Available;
+        	} 
+    }
+    
+    
     @SuppressWarnings("serial")
 	private void initComponents() {
     	 
@@ -75,6 +108,7 @@ public class CashierModule extends JFrame {
             	
     	
         TableStatus = new String[20];
+        TableStatusColor = new Color[20];
         TableNumber = 1;
         
         
@@ -86,6 +120,23 @@ public class CashierModule extends JFrame {
         
         BasePanel = new JPanel();
         ButtonPanel = new JPanel();
+        InstructionPanel = new JPanel();
+        TotalPricePanel = new JPanel();
+        
+        
+        RedBox = new JPanel();
+        BlueBox = new JPanel();
+        GreenBox = new JPanel();
+        AvailableLabel = new JLabel();
+        UnavailableLabel = new JLabel();
+        BillingLabel = new JLabel();
+        
+        
+        ConfirmPrint = new JButton();
+        
+        
+        TotalLabel = new JLabel();
+        TotalPriceLabel = new JLabel();
         
         
     	Table1Button = new JToggleButton();
@@ -131,6 +182,7 @@ public class CashierModule extends JFrame {
     	Table19Label = new JLabel();
     	Table20Label = new JLabel();
     	
+    	
     	date();
         switch (DayOfWeek)
         {
@@ -155,13 +207,9 @@ public class CashierModule extends JFrame {
             case 7:
                 Day="Saturday";
                 break;
-        }
+        } 
     	
-    	for(int i=0;i<20;i++)
-    	{
-    		TableStatus[i]="                        Available";
-    	}  
-    	
+        
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Restaurant Ordering System - Cashier                                                 "+Day+", "+Date);
         setResizable(false);
@@ -179,9 +227,25 @@ public class CashierModule extends JFrame {
         
         BasePanel.add(BillTableScrollPane);
         BasePanel.add(ButtonPanel);
+        BasePanel.add(InstructionPanel);
+        
+        
+        BasePanel.add(ConfirmPrint);
+        
+        
+        BasePanel.add(TotalLabel);
+        BasePanel.add(TotalPricePanel);
         
         
         BillTableScrollPane.add(BillTable);
+        
+        
+        InstructionPanel.add(RedBox);
+        InstructionPanel.add(BlueBox);
+        InstructionPanel.add(GreenBox);
+        InstructionPanel.add(AvailableLabel);
+        InstructionPanel.add(UnavailableLabel);
+        InstructionPanel.add(BillingLabel);
         
         
         ButtonPanel.add(Table1Button);
@@ -227,17 +291,66 @@ public class CashierModule extends JFrame {
         ButtonPanel.add(Table19Label);
         ButtonPanel.add(Table20Label);
         
- ///////Button Panel Layout//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////Total Price Label//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        TotalPricePanel.add(TotalPriceLabel);
+        TotalPricePanel.setLayout(null);
+        
+        TotalLabel.setBounds(600,495,70,25);
+        TotalPricePanel.setBounds(685,495,100,25);
+        TotalPricePanel.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
+        
+        TotalLabel.setForeground(new Color(220,220,220));
+        TotalPriceLabel.setForeground(new Color(51,51,51));
+        TotalPriceLabel.setBounds(0,0,100,25);
+        TotalPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        TotalPriceLabel.setText("RM 100");
+        
+        TotalLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        TotalLabel.setText("Total :");
+        
+///////Instruction Panel//////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        InstructionPanel.setBounds(10,533,480,23);
+        InstructionPanel.setLayout(null);
+        InstructionPanel.setBackground(new Color(51,51,51));
+        
+        GreenBox.setBounds(7,2,15,15);
+        BlueBox.setBounds(100,2,15,15);
+        RedBox.setBounds(206,2,15,15);
+        
+        GreenBox.setBackground(new Color(20,255,20));
+        BlueBox.setBackground(new Color(20,255,255));
+        RedBox.setBackground(new Color(255,20,20));
+        
+        GreenBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
+        BlueBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
+        RedBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
+        
+        AvailableLabel.setBounds(30,3,150,15);
+        UnavailableLabel.setBounds(122,3,150,15);
+        BillingLabel.setBounds(227,3,150,15);
+        
+        AvailableLabel.setText("Available");
+        UnavailableLabel.setText("Unavailable");
+        BillingLabel.setText("Billing");
+        
+        AvailableLabel.setForeground(new Color(220,220,220));
+        UnavailableLabel.setForeground(new Color(220,220,220));
+        BillingLabel.setForeground(new Color(220,220,220));
+        
+        
+///////Button Panel Layout//////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         ButtonPanel.setLayout(null);
-        ButtonPanel.setBounds(10,7,480,520);
+        ButtonPanel.setBounds(10,7,480,523);
         ButtonPanel.setBackground(new Color(51,51,51));
         ButtonPanel.setBorder(BorderFactory.createTitledBorder(null,"Table's Status",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
         
         
 ////////Bill Table with Scroll Pane///////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        BillTableScrollPane.setBounds(497,7,290,456);
+        BillTableScrollPane.setBounds(497,7,290,476);
         BillTable.setModel(new DefaultTableModel(
                 new Object [][] {
                     {null, null, null, null},
@@ -250,6 +363,7 @@ public class CashierModule extends JFrame {
                     {null, null, null, null},
                     {null, null, null, null},
                     {null, null, null, null}, 
+                    {null, null, null, null},
                     {null, null, null, null},
                     {null, null, null, null},
                     {null, null, null, null},
@@ -296,6 +410,10 @@ public class CashierModule extends JFrame {
         BillTableScrollPane.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
      
         
+////////Confirm & Print Button and Function//////////////////////////////////////////////////////////////////////////////
+        
+        ConfirmPrint.setBounds(499,530,286,25);
+        ConfirmPrint.setText("Confirm & Print Bill");
         
 ////////Table Label//////////////////////////////////////////////////////////////////////////////////////////////////////
         
@@ -321,26 +439,29 @@ public class CashierModule extends JFrame {
         Table20Label.setHorizontalAlignment(SwingConstants.CENTER);
         
         
-        Table1Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table2Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table3Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table4Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table5Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table6Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table7Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table8Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table9Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table10Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table11Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table12Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table13Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table14Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table15Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table16Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table17Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table18Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table19Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
-        Table20Label.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table1Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table2Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table3Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table4Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table5Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table6Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table7Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table8Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table9Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table10Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table11Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table12Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table13Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table14Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table15Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table16Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table17Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table18Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table19Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        Table20Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        
+        
+        initTableStatus();
         
         
         Table1Label.setText(TableStatus[0]);
@@ -364,27 +485,29 @@ public class CashierModule extends JFrame {
         Table19Label.setText(TableStatus[18]);
         Table20Label.setText(TableStatus[19]);
         
+        setTableStatusColor();
         
-        Table1Label.setForeground(new Color(220,220,220));
-        Table2Label.setForeground(new Color(220,220,220));
-        Table3Label.setForeground(new Color(220,220,220));
-        Table4Label.setForeground(new Color(220,220,220));
-        Table5Label.setForeground(new Color(220,220,220));
-        Table6Label.setForeground(new Color(220,220,220));
-        Table7Label.setForeground(new Color(220,220,220));
-        Table8Label.setForeground(new Color(220,220,220));
-        Table9Label.setForeground(new Color(220,220,220));
-        Table10Label.setForeground(new Color(220,220,220));
-        Table11Label.setForeground(new Color(220,220,220));
-        Table12Label.setForeground(new Color(220,220,220));
-        Table13Label.setForeground(new Color(220,220,220));
-        Table14Label.setForeground(new Color(220,220,220));
-        Table15Label.setForeground(new Color(220,220,220));
-        Table16Label.setForeground(new Color(220,220,220));
-        Table17Label.setForeground(new Color(220,220,220));
-        Table18Label.setForeground(new Color(220,220,220));
-        Table19Label.setForeground(new Color(220,220,220));
-        Table20Label.setForeground(new Color(220,220,220));
+        
+        Table1Label.setForeground(TableStatusColor[0]);
+        Table2Label.setForeground(TableStatusColor[1]);
+        Table3Label.setForeground(TableStatusColor[2]);
+        Table4Label.setForeground(TableStatusColor[3]);
+        Table5Label.setForeground(TableStatusColor[4]);
+        Table6Label.setForeground(TableStatusColor[5]);
+        Table7Label.setForeground(TableStatusColor[6]);
+        Table8Label.setForeground(TableStatusColor[7]);
+        Table9Label.setForeground(TableStatusColor[8]);
+        Table10Label.setForeground(TableStatusColor[9]);
+        Table11Label.setForeground(TableStatusColor[10]);
+        Table12Label.setForeground(TableStatusColor[11]);
+        Table13Label.setForeground(TableStatusColor[12]);
+        Table14Label.setForeground(TableStatusColor[13]);
+        Table15Label.setForeground(TableStatusColor[14]);
+        Table16Label.setForeground(TableStatusColor[15]);
+        Table17Label.setForeground(TableStatusColor[16]);
+        Table18Label.setForeground(TableStatusColor[17]);
+        Table19Label.setForeground(TableStatusColor[18]);
+        Table20Label.setForeground(TableStatusColor[19]);
         
         
         Table1Label.setBounds(30,17,200,46);
@@ -407,6 +530,7 @@ public class CashierModule extends JFrame {
         Table18Label.setBounds(270,367,200,46);
         Table19Label.setBounds(270,417,200,46);
         Table20Label.setBounds(270,467,200,46);
+                     
         
 ////////Table Button//////////////////////////////////////////////////////////////////////////////////////////
         
