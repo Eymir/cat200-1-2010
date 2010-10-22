@@ -2,13 +2,17 @@ package RestOrdSystem;
 
 
 import javax.swing.*;
-
+import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.table.*;
 import javax.swing.border.*;
 import java.text.*;
 import java.util.*;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 public class CashierModule extends JFrame {
@@ -25,6 +29,24 @@ public class CashierModule extends JFrame {
     static public String Day;
     static public String Date;
     static public Date Today;
+    
+    private Connection con;
+    private String SQL;
+    public static Statement stmt;
+    private ResultSet rs;
+    
+    public Connection getCon()
+    {
+       try {
+           DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
+           con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+           System.out.println("connection established");
+       }
+       catch (Exception e) {
+           System.err.println("connection error!!!");
+       }
+       return con;
+   }
     
     
 	private JTable BillTable;
@@ -60,6 +82,7 @@ public class CashierModule extends JFrame {
 	
 	public CashierModule() {
         initComponents();
+        getCon();
     }
     
 	
@@ -98,6 +121,10 @@ public class CashierModule extends JFrame {
         	} 
     }
     
+    
+    public void refresh(){
+    	BillTableScrollPane.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
+    }
     
     @SuppressWarnings("serial")
 	private void initComponents() {
@@ -576,8 +603,613 @@ public class CashierModule extends JFrame {
         Table18Button.setBounds(250,370,100,40);
         Table19Button.setBounds(250,420,100,40);
         Table20Button.setBounds(250,470,100,40);
+        
+        
+        Table1Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table1ButtonActionPerformed(evt);
+            }
+        });
+        Table2Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table2ButtonActionPerformed(evt);
+            }
+        });
+        Table3Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table3ButtonActionPerformed(evt);
+            }
+        });
+        Table4Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table4ButtonActionPerformed(evt);
+            }
+        });
+        Table5Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table5ButtonActionPerformed(evt);
+            }
+        });
+        Table6Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table6ButtonActionPerformed(evt);
+            }
+        });
+        Table7Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table7ButtonActionPerformed(evt);
+            }
+        });
+        Table8Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table8ButtonActionPerformed(evt);
+            }
+        });
+        Table9Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table9ButtonActionPerformed(evt);
+            }
+        });
+        Table10Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table10ButtonActionPerformed(evt);
+            }
+        });
+        Table11Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table11ButtonActionPerformed(evt);
+            }
+        });
+        Table12Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table12ButtonActionPerformed(evt);
+            }
+        });
+        Table13Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table13ButtonActionPerformed(evt);
+            }
+        });
+        Table14Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table14ButtonActionPerformed(evt);
+            }
+        });
+        Table15Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table15ButtonActionPerformed(evt);
+            }
+        });
+        Table16Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table16ButtonActionPerformed(evt);
+            }
+        });
+        Table17Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table17ButtonActionPerformed(evt);
+            }
+        });
+        Table18Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table18ButtonActionPerformed(evt);
+            }
+        });
+        Table19Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table19ButtonActionPerformed(evt);
+            }
+        });
+        Table20Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	Table20ButtonActionPerformed(evt);
+            }
+        });
+        
            
  /////////////////////////////////////////////////////////////////////////////////////////////////////////      
         pack();
     }
+    
+ //////Table Button Function//////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    public void Table1ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(true);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=1;
+    	refresh();
+    };
+    
+    public void Table2ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(true);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=2;
+    	refresh();
+    };
+    
+    public void Table3ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(true);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=3;
+    	refresh();
+    };
+    
+    public void Table4ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(true);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=4;
+    	refresh();
+    };
+    
+    public void Table5ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(true);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=5;
+    	refresh();
+    };
+    
+    public void Table6ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(true);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=6;
+    	refresh();
+    };
+    
+    public void Table7ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(true);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=7;
+    	refresh();
+    };
+    
+    public void Table8ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(true);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=8;
+    	refresh();
+    };
+    
+    public void Table9ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(true);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=9;
+    	refresh();
+    };
+    
+    public void Table10ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(true);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=10;
+    	refresh();
+    };
+    
+    public void Table11ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(true);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=11;
+    	refresh();
+    };
+    
+    public void Table12ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(true);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=12;
+    	refresh();
+    };
+    
+    public void Table13ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(true);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=13;
+    	refresh();
+    };
+    
+    public void Table14ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(true);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=14;
+    	refresh();
+    };
+    
+    public void Table15ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(true);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=15;
+    	refresh();
+    };
+    
+    public void Table16ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(true);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=16;
+    	refresh();
+    };
+    
+    public void Table17ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(true);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=17;
+    	refresh();
+    };
+    
+    public void Table18ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(true);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(false);
+    	TableNumber=18;
+    	refresh();
+    };
+    
+    public void Table19ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(true);
+    	Table20Button.setSelected(false);
+    	TableNumber=19;
+    	refresh();
+    };
+    
+    public void Table20ButtonActionPerformed(ActionEvent evt){
+    	Table1Button.setSelected(false);
+    	Table2Button.setSelected(false);
+    	Table3Button.setSelected(false);
+    	Table4Button.setSelected(false);
+    	Table5Button.setSelected(false);
+    	Table6Button.setSelected(false);
+    	Table7Button.setSelected(false);
+    	Table8Button.setSelected(false);
+    	Table9Button.setSelected(false);
+    	Table10Button.setSelected(false);
+    	Table11Button.setSelected(false);
+    	Table12Button.setSelected(false);
+    	Table13Button.setSelected(false);
+    	Table14Button.setSelected(false);
+    	Table15Button.setSelected(false);
+    	Table16Button.setSelected(false);
+    	Table17Button.setSelected(false);
+    	Table18Button.setSelected(false);
+    	Table19Button.setSelected(false);
+    	Table20Button.setSelected(true);
+    	TableNumber=20;
+    	refresh();
+    };
 }
