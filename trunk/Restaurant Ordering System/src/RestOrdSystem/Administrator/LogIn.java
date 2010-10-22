@@ -8,9 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LogIn extends JFrame {
 
@@ -27,6 +31,9 @@ public class LogIn extends JFrame {
 				try {
 					LogIn frame = new LogIn();
 					frame.setVisible(true);
+					frame.setResizable(false);
+		
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,7 +45,7 @@ public class LogIn extends JFrame {
 	 * Create the frame.
 	 */
 	public LogIn() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 457, 310);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,11 +72,37 @@ public class LogIn extends JFrame {
 		contentPane.add(passwordField);
 		
 		JButton CancelJButton = new JButton("Cancel");
+		CancelJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				userNameJField.setText("");
+				passwordField.setText("");
+			}
+		});
 		CancelJButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		CancelJButton.setBounds(66, 189, 103, 35);
-		contentPane.add(CancelJButton);
-		
+		contentPane.add(CancelJButton);		
+		userNameJField.requestFocus();		
 		JButton ConfirmJButton = new JButton("Confirm");
+		ConfirmJButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			
+					AdministratorModel admin=new AdministratorModel();
+					admin.setUserID(userNameJField.getText());	
+					admin.setPassword(new String(passwordField.getPassword()));
+					
+					boolean flag=new AdministratorBusiness().judgeLogIn(admin);
+					
+					if(flag){				
+						new Administrator().launchFrame();
+						dispose();
+				
+					}else{
+						JOptionPane.showMessageDialog(null, "username or password has problem", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+			
+			}
+		});
 		ConfirmJButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		ConfirmJButton.setBounds(224, 189, 96, 35);
 		contentPane.add(ConfirmJButton);
