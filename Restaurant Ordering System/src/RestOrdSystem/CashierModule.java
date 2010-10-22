@@ -2,10 +2,13 @@ package RestOrdSystem;
 
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.TitledBorder;
+import javax.swing.table.*;
+import javax.swing.border.*;
+import java.text.*;
+import java.util.*;
 
 
 public class CashierModule extends JFrame {
@@ -14,6 +17,13 @@ public class CashierModule extends JFrame {
 	static public int TableNumber; 
 	
 	
+	static public Calendar Calender;
+    static public int DayOfWeek;
+    static public String Day;
+    static public String Date;
+    static public Date Today;
+    
+    
 	private JTable BillTable;
 	
 	
@@ -34,7 +44,7 @@ public class CashierModule extends JFrame {
    				   Table11Label,Table12Label,Table13Label,Table14Label,Table15Label,
    				   Table16Label,Table17Label,Table18Label,Table19Label,Table20Label;
 	
-	
+    
 	public CashierModule() {
         initComponents();
     }
@@ -48,10 +58,22 @@ public class CashierModule extends JFrame {
         });
     }
     
+    public void date() {
+        SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+        Date = simpleFormatter.format(Today);
+    }
     
+    /**
+     * 
+     */
     @SuppressWarnings("serial")
 	private void initComponents() {
     	 
+    	Today = new Date();
+        Calender = new GregorianCalendar();
+    	DayOfWeek = Calender.get(Calendar.DAY_OF_WEEK);
+            	
+    	
         TableStatus = new String[20];
         TableNumber = 1;
         
@@ -109,14 +131,39 @@ public class CashierModule extends JFrame {
     	Table19Label = new JLabel();
     	Table20Label = new JLabel();
     	
+    	date();
+        switch (DayOfWeek)
+        {
+            case 1:
+                Day="Sunday";
+                break;
+            case 2:
+                Day="Monday";
+                break;
+            case 3:
+                Day="Tuesday";
+                break;
+            case 4:
+                Day="Wednesday";
+                break;
+            case 5:
+                Day="Thursday";
+                break;
+            case 6:
+                Day="Friday";
+                break;
+            case 7:
+                Day="Saturday";
+                break;
+        }
     	
     	for(int i=0;i<20;i++)
     	{
     		TableStatus[i]="                        Available";
-    	}
+    	}  
     	
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Restaurant Ordering System - Cashier");
+        setTitle("Restaurant Ordering System - Cashier                                                 "+Day+", "+Date);
         setResizable(false);
         setMinimumSize(new Dimension(800,600));
         getContentPane().setLayout(null);
@@ -183,14 +230,14 @@ public class CashierModule extends JFrame {
  ///////Button Panel Layout//////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         ButtonPanel.setLayout(null);
-        ButtonPanel.setBounds(10,10,480,520);
+        ButtonPanel.setBounds(10,7,480,520);
         ButtonPanel.setBackground(new Color(51,51,51));
-        ButtonPanel.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
+        ButtonPanel.setBorder(BorderFactory.createTitledBorder(null,"Table's Status",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
         
         
 ////////Bill Table with Scroll Pane///////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        BillTableScrollPane.setBounds(495,10,285,456);
+        BillTableScrollPane.setBounds(497,7,290,456);
         BillTable.setModel(new DefaultTableModel(
                 new Object [][] {
                     {null, null, null, null},

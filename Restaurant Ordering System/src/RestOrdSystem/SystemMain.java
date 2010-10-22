@@ -47,7 +47,7 @@ public class SystemMain extends JFrame {
         Title = new JLabel();
         
         
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Launcher");
         setResizable(false);
         getContentPane().setLayout(null);
