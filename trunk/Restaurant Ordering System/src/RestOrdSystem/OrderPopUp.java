@@ -5,10 +5,13 @@ import java.util.Vector;
 
 public class OrderPopUp extends javax.swing.JFrame {
 
+    
     public OrderPopUp() {
         initComponents();
         setLocationRelativeTo(null);
     }
+
+    
     
     private void initComponents() {
 
@@ -33,7 +36,6 @@ public class OrderPopUp extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        priceTextField.setBackground(new java.awt.Color(255, 255, 255));
         priceTextField.setEditable(false);
         priceTextField.setFont(new java.awt.Font("Tahoma", 0, 18));
         priceTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -65,7 +67,7 @@ public class OrderPopUp extends javax.swing.JFrame {
 
         descriptionLabel.setFont(new java.awt.Font("Tahoma", 1, 15));
         descriptionLabel.setText("Description");
-        descriptionLabel.setBounds(10, 230, 100, 19);
+        descriptionLabel.setBounds(10, 230, 100, -1);
         jLayeredPane1.add(descriptionLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         foodPictLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,21 +111,20 @@ public class OrderPopUp extends javax.swing.JFrame {
         jLayeredPane1.add(cancelButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         backLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        backLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/windows-7-wallpaper-500x400.jpg"))); // NOI18N
+        backLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/BlueBackground_1_500x400.jpg")));
         backLabel.setBounds(0, 0, 500, 400);
         jLayeredPane1.add(backLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 500, 400);
 
-        pack();
+        //pack();
     }
 
-    Vector tempTableColVec = new Vector();
-    Vector tableHeaderVec = new Vector(3);
     boolean sameName = false;
+    double totalPriceDbl = 0;
 
-    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
 
         DecimalFormat df = new DecimalFormat("0.00");
 
@@ -141,7 +142,10 @@ public class OrderPopUp extends javax.swing.JFrame {
             CustomerMenu.orderFoodQnVec.addElement(quantityJSpinner.getValue());
             CustomerMenu.orderFoodPriceVec.addElement(df.format(Double.valueOf(priceTextField.getText())*(Integer)quantityJSpinner.getValue()));
         }
-        
+
+        //set up a table with empty values inside---------------------------------------
+        Vector tempTableColVec = new Vector();
+        Vector tableHeaderVec = new Vector(3);
         for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
             Vector tempTableRowVec = new Vector(3);
             for (int b=0;b<3;b++) {
@@ -151,8 +155,8 @@ public class OrderPopUp extends javax.swing.JFrame {
             tempTableRowVec.clear();
         }//for end
 
-        tableHeaderVec.addElement("Invoice No");
-        tableHeaderVec.addElement("Date");
+        tableHeaderVec.addElement("Food Name");
+        tableHeaderVec.addElement("Quantity");
         tableHeaderVec.addElement("Price");
 
         CustomerMenu.orderJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -162,21 +166,27 @@ public class OrderPopUp extends javax.swing.JFrame {
             }
         });
         CustomerMenu.orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+        //----------------------------------------------------------------------------------
 
         for (int a=0;a<tempTableColVec.size();a++) {
             CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodNameVec.elementAt(a), a, 0);
             CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodQnVec.elementAt(a), a, 1);
             CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodPriceVec.elementAt(a), a, 2);
+
+            totalPriceDbl += Double.valueOf((String)CustomerMenu.orderFoodPriceVec.get(a));
         }//for end
 
+        CustomerMenu.totalPriceJTextField.setText(df.format(totalPriceDbl));
+
         dispose();
-    }
+    }                                        
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        
         dispose();
-    }
+    }                                            
 
+
+    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
