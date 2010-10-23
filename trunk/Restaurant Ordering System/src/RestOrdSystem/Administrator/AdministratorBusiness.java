@@ -88,5 +88,28 @@ public class AdministratorBusiness {
 		return flag;
 		
 	}
+	
+	
+	public boolean updatePassword(AdministratorModel ad){
+		boolean flag=false;
+		String sql="update ADMINTABLE set USER_PASSWORD =? where lower(USER_ID) = lower(?)";
+		
+		try {
+			pst=new DBAccess().connOracle(sql);
+			pst.setString(1, ad.getPassword());
+			pst.setString(2,ad.getUserID());
+			if(pst.executeUpdate()>0){
+				flag=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return flag;
+		
+	}
 
 }
