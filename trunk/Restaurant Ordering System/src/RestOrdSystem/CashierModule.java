@@ -5,13 +5,13 @@ import javax.swing.*;
 import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.table.*;
 import javax.swing.border.*;
 import java.text.*;
 import java.util.*;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 
@@ -32,21 +32,28 @@ public class CashierModule extends JFrame {
     
     private Connection con;
     private String SQL;
-    public static Statement stmt;
+    private Statement stmt;
     private ResultSet rs;
     
+    private int No,NumberOfItemOrdered,TableReceiptNumber;
+    private double TotalPrice;
+    private Vector Title,BillDetails,BillDetailsRow;
+   
     public Connection getCon()
     {
        try {
            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+           stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
            System.out.println("connection established");
        }
        catch (Exception e) {
            System.err.println("connection error!!!");
        }
+       
        return con;
-   }
+       
+    }
     
     
 	private JTable BillTable;
@@ -81,8 +88,8 @@ public class CashierModule extends JFrame {
 	
 	
 	public CashierModule() {
-        initComponents();
-        getCon();
+       getCon();
+       initComponents();
     }
     
 	
@@ -124,10 +131,10 @@ public class CashierModule extends JFrame {
     
     public void refresh(){
     	BillTableScrollPane.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
+    	SetBillTableDataOutputAndTotalPrice();
     }
     
-    @SuppressWarnings("serial")
-	private void initComponents() {
+    private void initComponents() {
     	 
     	Today = new Date();
         Calender = new GregorianCalendar();
@@ -143,6 +150,11 @@ public class CashierModule extends JFrame {
         
         
         BillTable = new JTable();
+        
+        
+        Title = new Vector<String>();
+        BillDetails = new Vector();
+        BillDetailsRow = new Vector();
         
         
         BasePanel = new JPanel();
@@ -209,7 +221,7 @@ public class CashierModule extends JFrame {
     	Table19Label = new JLabel();
     	Table20Label = new JLabel();
     	
-    	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     	date();
         switch (DayOfWeek)
         {
@@ -236,7 +248,12 @@ public class CashierModule extends JFrame {
                 break;
         } 
     	
-        
+        Title.addElement("No.");
+        Title.addElement("Item");
+        Title.addElement("Unit");
+        Title.addElement("Price");
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Restaurant Ordering System - Cashier                                                 "+Day+", "+Date);
         setResizable(false);
@@ -378,65 +395,12 @@ public class CashierModule extends JFrame {
 ////////Bill Table with Scroll Pane///////////////////////////////////////////////////////////////////////////////////////////////////////
         
         BillTableScrollPane.setBounds(497,7,290,476);
-        BillTable.setModel(new DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}, 
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-
-                },
-                new String [] {
-                    "No.", "Item", "Unit", "Price"
-                }
-            ) {
-
-				boolean[] canEdit = new boolean [] {
-                    false, false, false, false
-                };
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
-            });
-        
-        BillTableScrollPane.setViewportView(BillTable);
-        BillTable.getColumnModel().getColumn(0).setResizable(false);
-        BillTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-        BillTable.getColumnModel().getColumn(1).setResizable(false);
-        BillTable.getColumnModel().getColumn(1).setPreferredWidth(150);
-        BillTable.getColumnModel().getColumn(2).setResizable(false);
-        BillTable.getColumnModel().getColumn(2).setPreferredWidth(40);
-        BillTable.getColumnModel().getColumn(3).setResizable(false);
-        BillTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+        SetBillTableDataOutputAndTotalPrice();
        
+        
         BillTableScrollPane.setBackground(new Color(51,51,51));
         BillTableScrollPane.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
-     
-        
+             
 ////////Confirm & Print Button and Function//////////////////////////////////////////////////////////////////////////////
         
         ConfirmPrint.setBounds(499,530,286,25);
@@ -604,6 +568,8 @@ public class CashierModule extends JFrame {
         Table19Button.setBounds(250,420,100,40);
         Table20Button.setBounds(250,470,100,40);
         
+        Table1Button.setSelected(true);
+        
         
         Table1Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -705,8 +671,8 @@ public class CashierModule extends JFrame {
             	Table20ButtonActionPerformed(evt);
             }
         });
+                
         
-           
  /////////////////////////////////////////////////////////////////////////////////////////////////////////      
         pack();
     }
@@ -1212,4 +1178,94 @@ public class CashierModule extends JFrame {
     	TableNumber=20;
     	refresh();
     };
+
+    
+    private int NoIncrement()
+    {
+        ++No;
+        return new Integer(No);
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public void SetBillTableDataOutputAndTotalPrice(){
+
+    	No=0;
+    	BillDetailsRow.clear();
+    	BillDetails.clear();
+    	
+    	try {
+            SQL = "SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = '"+TableNumber+"'";
+            rs = stmt.executeQuery(SQL);
+            rs.first();
+            TableReceiptNumber = rs.getInt(1);
+        } catch (Exception e) {
+        	System.out.println("data retrieval failed...");
+        }
+        
+    	try {
+            SQL = "SELECT COUNT(DISTINCT ORDER_NO) FROM ORDERTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"'";
+            rs = stmt.executeQuery(SQL);
+            rs.first();
+            NumberOfItemOrdered = rs.getInt(1);
+        } catch (Exception e) {
+        	System.out.println("data retrieval failed...");
+        }
+    	
+        ///////////////////////////////////////////////////////
+    	try {
+            SQL = "SELECT ORD_FOOD_NAME,ORD_FOOD_QN,FOOD_PRICE FROM ORDERTABLE,FOODTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"' AND ORDERTABLE.ORD_FOOD_NAME = FOODTABLE.FOOD_NAME";
+            rs = stmt.executeQuery(SQL);
+            while(rs.next()){
+            	BillDetailsRow = new Vector();
+            	BillDetailsRow.addElement(NoIncrement());
+            	BillDetailsRow.addElement(rs.getString(1));
+            	BillDetailsRow.addElement(rs.getInt(2));
+            	BillDetailsRow.addElement(rs.getDouble(3));
+            	BillDetails.addElement(BillDetailsRow);
+            	
+            	
+            	
+            	
+            	
+            	TotalPrice = TotalPrice + rs.getDouble(3)*rs.getInt(2);
+            	
+            }
+            TotalPriceLabel.setText("RM "+TotalPrice);
+            TotalPrice=0;
+        } catch (Exception e) {
+        	System.out.println("data retrieval failed...");
+        }
+        
+        //////////////////////////////////////////////////////////////
+
+        
+    	@SuppressWarnings("serial")
+		DefaultTableModel model = new DefaultTableModel(BillDetails,Title){
+
+			boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };      
+        BillTable.setModel(model); 
+        BillTableScrollPane.setViewportView(BillTable);
+        BillTable.getColumnModel().getColumn(0).setResizable(false);
+        BillTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+        BillTable.getColumnModel().getColumn(1).setResizable(false);
+        BillTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+        BillTable.getColumnModel().getColumn(2).setResizable(false);
+        BillTable.getColumnModel().getColumn(2).setPreferredWidth(40);
+        BillTable.getColumnModel().getColumn(3).setResizable(false);
+        BillTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+
+    }
+   
+
 }
+
+	
+
