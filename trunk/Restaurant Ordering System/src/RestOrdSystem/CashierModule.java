@@ -38,6 +38,7 @@ public class CashierModule extends JFrame {
     private int No,NumberOfItemOrdered,TableReceiptNumber;
     private double TotalPrice;
     private Vector Title,BillDetails,BillDetailsRow;
+    private DecimalFormat df = new DecimalFormat("0.00");
    
     public Connection getCon()
     {
@@ -82,7 +83,7 @@ public class CashierModule extends JFrame {
     
 	private JPanel RedBox,BlueBox,GreenBox;
 	private JLabel AvailableLabel,UnavailableLabel,BillingLabel;
-	
+		
 	
 	private JLabel TotalLabel, TotalPriceLabel;
 	
@@ -124,14 +125,65 @@ public class CashierModule extends JFrame {
     
     public void initTableStatus(){
     	for(int i=0;i<20;i++){
-        	TableStatus[i]=Available;
+        	TableStatus[i]=Billing;
         	} 
     }
     
     
     public void refresh(){
+
+        Table1Label.setText(TableStatus[0]);
+        Table2Label.setText(TableStatus[1]);
+        Table3Label.setText(TableStatus[2]);
+        Table4Label.setText(TableStatus[3]);
+        Table5Label.setText(TableStatus[4]);
+        Table6Label.setText(TableStatus[5]);
+        Table7Label.setText(TableStatus[6]);
+        Table8Label.setText(TableStatus[7]);
+        Table9Label.setText(TableStatus[8]);
+        Table10Label.setText(TableStatus[9]);
+        Table11Label.setText(TableStatus[10]);
+        Table12Label.setText(TableStatus[11]);
+        Table13Label.setText(TableStatus[12]);
+        Table14Label.setText(TableStatus[13]);
+        Table15Label.setText(TableStatus[14]);
+        Table16Label.setText(TableStatus[15]);
+        Table17Label.setText(TableStatus[16]);
+        Table18Label.setText(TableStatus[17]);
+        Table19Label.setText(TableStatus[18]);
+        Table20Label.setText(TableStatus[19]);
+        
+        setTableStatusColor();
+        
+        Table1Label.setForeground(TableStatusColor[0]);
+        Table2Label.setForeground(TableStatusColor[1]);
+        Table3Label.setForeground(TableStatusColor[2]);
+        Table4Label.setForeground(TableStatusColor[3]);
+        Table5Label.setForeground(TableStatusColor[4]);
+        Table6Label.setForeground(TableStatusColor[5]);
+        Table7Label.setForeground(TableStatusColor[6]);
+        Table8Label.setForeground(TableStatusColor[7]);
+        Table9Label.setForeground(TableStatusColor[8]);
+        Table10Label.setForeground(TableStatusColor[9]);
+        Table11Label.setForeground(TableStatusColor[10]);
+        Table12Label.setForeground(TableStatusColor[11]);
+        Table13Label.setForeground(TableStatusColor[12]);
+        Table14Label.setForeground(TableStatusColor[13]);
+        Table15Label.setForeground(TableStatusColor[14]);
+        Table16Label.setForeground(TableStatusColor[15]);
+        Table17Label.setForeground(TableStatusColor[16]);
+        Table18Label.setForeground(TableStatusColor[17]);
+        Table19Label.setForeground(TableStatusColor[18]);
+        Table20Label.setForeground(TableStatusColor[19]);
+        
     	BillTableScrollPane.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
+    	
     	SetBillTableDataOutputAndTotalPrice();
+    	
+        if(TableStatus[TableNumber-1]!=Billing)
+            ConfirmPrint.setEnabled(false);
+        else if(TableStatus[TableNumber-1]==Billing)
+        	ConfirmPrint.setEnabled(true);
     }
     
     private void initComponents() {
@@ -155,7 +207,6 @@ public class CashierModule extends JFrame {
         Title = new Vector<String>();
         BillDetails = new Vector();
         BillDetailsRow = new Vector();
-        
         
         BasePanel = new JPanel();
         ButtonPanel = new JPanel();
@@ -394,9 +445,9 @@ public class CashierModule extends JFrame {
         
 ////////Bill Table with Scroll Pane///////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        BillTableScrollPane.setBounds(497,7,290,476);
-        SetBillTableDataOutputAndTotalPrice();
-       
+        BillTableScrollPane.setBounds(497,7,290,479);
+        BillTable.setEnabled(false);
+        BillTable.getTableHeader().setReorderingAllowed(false);
         
         BillTableScrollPane.setBackground(new Color(51,51,51));
         BillTableScrollPane.setBorder(BorderFactory.createTitledBorder(null,"Table "+TableNumber+"'s Bill",TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new Font("Dialog", 1, 12),new Color(220,220,220)));
@@ -570,6 +621,7 @@ public class CashierModule extends JFrame {
         
         Table1Button.setSelected(true);
         
+        SetBillTableDataOutputAndTotalPrice();
         
         Table1Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -671,8 +723,15 @@ public class CashierModule extends JFrame {
             	Table20ButtonActionPerformed(evt);
             }
         });
-                
         
+        
+        ConfirmPrint.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	ConfirmPrintButtonActionPerformed(evt);
+            }
+        });
+        if(TableStatus[TableNumber]!=Billing)
+            ConfirmPrint.setEnabled(false);
  /////////////////////////////////////////////////////////////////////////////////////////////////////////      
         pack();
     }
@@ -1178,7 +1237,20 @@ public class CashierModule extends JFrame {
     	TableNumber=20;
     	refresh();
     };
+    
+    Object[] confirm = {"Confirm & Print","Cancel"};
+    
+    public void ConfirmPrintButtonActionPerformed(ActionEvent evt){
 
+    	int n = Confirmation();
+    	
+    	if (n==0)
+    	{
+    		TableStatus[TableNumber-1]=Available;
+    		
+    	}
+    	refresh();
+    }
     
     private int NoIncrement()
     {
@@ -1189,7 +1261,8 @@ public class CashierModule extends JFrame {
     
     @SuppressWarnings("unchecked")
 	public void SetBillTableDataOutputAndTotalPrice(){
-
+    	
+    	if(TableStatus[TableNumber-1]==Unavailable || TableStatus[TableNumber-1]== Billing){
     	No=0;
     	BillDetailsRow.clear();
     	BillDetails.clear();
@@ -1204,7 +1277,7 @@ public class CashierModule extends JFrame {
         }
         
     	try {
-            SQL = "SELECT COUNT(DISTINCT ORDER_NO) FROM ORDERTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"'";
+            SQL = "SELECT COUNT(DISTINCT ORD_FOOD_NAME) FROM ORDERTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"'";
             rs = stmt.executeQuery(SQL);
             rs.first();
             NumberOfItemOrdered = rs.getInt(1);
@@ -1214,32 +1287,31 @@ public class CashierModule extends JFrame {
     	
         ///////////////////////////////////////////////////////
     	try {
-            SQL = "SELECT ORD_FOOD_NAME,ORD_FOOD_QN,FOOD_PRICE FROM ORDERTABLE,FOODTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"' AND ORDERTABLE.ORD_FOOD_NAME = FOODTABLE.FOOD_NAME";
+            SQL = "SELECT ORD_FOOD_NAME,SUM(ORD_FOOD_QN), FOOD_PRICE FROM ORDERTABLE,FOODTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"' AND ORDERTABLE.ORD_FOOD_NAME = FOODTABLE.FOOD_NAME GROUP BY ORDERTABLE.ORD_FOOD_NAME,FOODTABLE.FOOD_PRICE";
             rs = stmt.executeQuery(SQL);
-            while(rs.next()){
+            for(int x=1;x<=NumberOfItemOrdered;x++){
+            	rs.next();
             	BillDetailsRow = new Vector();
-            	BillDetailsRow.addElement(NoIncrement());
+            	BillDetailsRow.addElement("  "+NoIncrement());
             	BillDetailsRow.addElement(rs.getString(1));
-            	BillDetailsRow.addElement(rs.getInt(2));
-            	BillDetailsRow.addElement(rs.getDouble(3));
-            	BillDetails.addElement(BillDetailsRow);
-            	
-            	
-            	
-            	
+            	BillDetailsRow.addElement("    "+rs.getInt(2));
+            	BillDetailsRow.addElement("  "+df.format(rs.getDouble(3)*rs.getInt(2)));
+            	BillDetails.addElement(BillDetailsRow);   	 	
             	
             	TotalPrice = TotalPrice + rs.getDouble(3)*rs.getInt(2);
             	
             }
-            TotalPriceLabel.setText("RM "+TotalPrice);
+            TotalPriceLabel.setText("RM "+df.format(TotalPrice));
             TotalPrice=0;
         } catch (Exception e) {
         	System.out.println("data retrieval failed...");
         }
-        
+    	}
         //////////////////////////////////////////////////////////////
 
-        
+    	else{
+    		BillDetails.clear();
+    	}
     	@SuppressWarnings("serial")
 		DefaultTableModel model = new DefaultTableModel(BillDetails,Title){
 
@@ -1254,18 +1326,30 @@ public class CashierModule extends JFrame {
         BillTable.setModel(model); 
         BillTableScrollPane.setViewportView(BillTable);
         BillTable.getColumnModel().getColumn(0).setResizable(false);
-        BillTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+        BillTable.getColumnModel().getColumn(0).setPreferredWidth(25);
         BillTable.getColumnModel().getColumn(1).setResizable(false);
-        BillTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+        BillTable.getColumnModel().getColumn(1).setPreferredWidth(170);
         BillTable.getColumnModel().getColumn(2).setResizable(false);
-        BillTable.getColumnModel().getColumn(2).setPreferredWidth(40);
+        BillTable.getColumnModel().getColumn(2).setPreferredWidth(35);
         BillTable.getColumnModel().getColumn(3).setResizable(false);
-        BillTable.getColumnModel().getColumn(3).setPreferredWidth(60);
-
+        BillTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+    	    		
     }
    
+	public int Confirmation(){
+    	return(JOptionPane.showOptionDialog(BasePanel,
+                "Confirm and Print Table "+TableNumber+"'s Bill?",
+                "Confirmation",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                confirm,
+                confirm[0]));
+    	}
+
 
 }
+
 
 	
 
