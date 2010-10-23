@@ -1,5 +1,6 @@
 package RestOrdSystem;
 
+import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.Vector;
 
@@ -37,7 +38,7 @@ public class OrderPopUp extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         priceTextField.setEditable(false);
-        priceTextField.setFont(new java.awt.Font("Tahoma", 0, 18));
+        priceTextField.setFont(new java.awt.Font("Tahoma", 0, 18)); 
         priceTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         priceTextField.setBounds(320, 60, 150, 50);
         jLayeredPane1.add(priceTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -75,7 +76,7 @@ public class OrderPopUp extends javax.swing.JFrame {
         foodPictLabel.setBounds(10, 40, 240, 180);
         jLayeredPane1.add(foodPictLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        foodNameLabel.setFont(new java.awt.Font("Tahoma", 1, 15));
+        foodNameLabel.setFont(new java.awt.Font("Tahoma", 1, 15)); 
         foodNameLabel.setText("<no data>");
         foodNameLabel.setBounds(10, 10, 480, 30);
         jLayeredPane1.add(foodNameLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -100,7 +101,7 @@ public class OrderPopUp extends javax.swing.JFrame {
         okButton.setBounds(120, 340, 110, 40);
         jLayeredPane1.add(okButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        cancelButton.setFont(new java.awt.Font("Tahoma", 0, 14));
+        cancelButton.setFont(new java.awt.Font("Tahoma", 0, 14)); 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,20 +112,43 @@ public class OrderPopUp extends javax.swing.JFrame {
         jLayeredPane1.add(cancelButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         backLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        backLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/BlueBackground_1_500x400.jpg")));
+        backLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/BlueBackground_1_500x400.jpg"))); 
         backLabel.setBounds(0, 0, 500, 400);
         jLayeredPane1.add(backLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 500, 400);
 
-        //pack();
-    }
+       // pack();
+    }                   
 
     boolean sameName = false;
     double totalPriceDbl = 0;
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+
+        //get selected food price from oracle-------------------------------------------
+        try {
+            CustomerMenu.rs = CustomerMenu.stmt.executeQuery("INSERT INTO KITCHENTABLE ("
+                    + "KIT_ORD_NO, TABLE_NO, FOOD_NAME, FOOD_QN, FOOD_STATUS) VALUES ("
+                    + "KIT_ORD_NO_SEQ.NEXTVAL, "
+                    + CustomerMenu.tableNoJTextField.getText() + ", "
+                    + "'" + foodNameLabel.getText() + "', "
+                    + quantityJSpinner.getValue() + ", "
+                    + "'Pending'"
+                    + ")");
+
+            CustomerMenu.rs = CustomerMenu.stmt.executeQuery("INSERT INTO ORDERTABLE ("
+                    + "ORDER_NO, RECEIPT_NO, ORD_FOOD_NAME, ORD_FOOD_QN) VALUES ("
+                    + "ORDER_NO_SEQ.NEXTVAL, "
+                    + CustomerMenu.receiptNumber + ", "
+                    + "'" + foodNameLabel.getText() + "', "
+                    + quantityJSpinner.getValue()
+                    + ")");
+        }
+        catch (SQLException e) {
+            System.err.println("ordered food insertion failed : " + e.getMessage());
+        }//try catch end----------------------------------------------------------------
 
         DecimalFormat df = new DecimalFormat("0.00");
 
@@ -135,7 +159,7 @@ public class OrderPopUp extends javax.swing.JFrame {
                 CustomerMenu.orderFoodPriceVec.set(a,df.format(Double.valueOf(priceTextField.getText())*tempNewQn));
                 sameName = true;
             }
-        }
+        }//for end
 
         if (sameName == false) {
             CustomerMenu.orderFoodNameVec.addElement(foodNameLabel.getText());
@@ -181,7 +205,8 @@ public class OrderPopUp extends javax.swing.JFrame {
         dispose();
     }                                        
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        
         dispose();
     }                                            
 
@@ -195,7 +220,7 @@ public class OrderPopUp extends javax.swing.JFrame {
         });
     }
 
-    
+                    
     private javax.swing.JLabel backLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel descriptionLabel;
@@ -210,6 +235,6 @@ public class OrderPopUp extends javax.swing.JFrame {
     private javax.swing.JLabel quantityJLabel;
     private javax.swing.JSpinner quantityJSpinner;
     private javax.swing.JLabel rmLabel;
-    
+              
 
 }
