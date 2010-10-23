@@ -49,7 +49,10 @@ public class Administrator extends JFrame {
 	private JLabel yearlabel =new JLabel("year(yyyy):");;
 	private JLabel monthlabel = new JLabel("Month(MM):");;
 	private JLabel Datelabel = new JLabel("Date(dd):"); 
-	private final JButton searchbutton = new JButton("Search");;
+	private final JButton searchbutton = new JButton("Search");
+	private JButton Addbutton = new JButton("Add");
+	private JButton Modifybutton = new JButton("Modify");
+	private JButton Deletebutton = new JButton("Delete");
 	
 
 	/**
@@ -112,6 +115,10 @@ public class Administrator extends JFrame {
 					datetextField.setVisible(true);
 					TotaltextField.setVisible(true);
 					TotaltextField.setEditable(false);
+					
+					Addbutton.setEnabled(false);
+					Modifybutton.setEnabled(false);
+					Deletebutton.setEnabled(false);
 				}else{
 					yearlabel.setVisible(false);
 					monthlabel.setVisible(false);
@@ -124,6 +131,10 @@ public class Administrator extends JFrame {
 					monthtextField.setVisible(false);
 					datetextField.setVisible(false);
 					TotaltextField.setVisible(false);
+					
+					Addbutton.setEnabled(true);
+					Modifybutton.setEnabled(true);
+					Deletebutton.setEnabled(true);
 					
 				}
 			}
@@ -140,29 +151,29 @@ public class Administrator extends JFrame {
 		ReceiptscrollPane = new JScrollPane();
 		AdministratorTabbedPane.addTab("Receipt", null, ReceiptscrollPane, null);
 		
-		JButton Deletebutton = new JButton("Delete");
+		
 		Deletebutton.setBounds(553, 420, 89, 23);
 		Deletebutton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(Deletebutton);
 		
-		JButton Modifybutton = new JButton("Modify");
+		
 		Modifybutton.setBounds(423, 420, 89, 23);
 		Modifybutton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(Modifybutton);
 		
-		JButton Addbutton = new JButton("Add");
+		
 		Addbutton.setBounds(281, 420, 89, 23);
 		Addbutton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(Addbutton);
 		
 		JButton CheckTablebutton = new JButton("Table Status");
 		CheckTablebutton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		CheckTablebutton.setBounds(24, 99, 120, 51);
+		CheckTablebutton.setBounds(25, 129, 120, 51);
 		contentPane.add(CheckTablebutton);
 		
 		JButton SpecialFoodbutton = new JButton("Special Food");
 		SpecialFoodbutton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		SpecialFoodbutton.setBounds(25, 219, 119, 51);
+		SpecialFoodbutton.setBounds(25, 250, 119, 51);
 		contentPane.add(SpecialFoodbutton);
 		
 		
