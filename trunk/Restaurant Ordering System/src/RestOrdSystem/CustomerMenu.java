@@ -134,7 +134,8 @@ public class CustomerMenu extends javax.swing.JFrame {
         totalPriceJTextField = new javax.swing.JTextField();
         backgroundJLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CustomerMenu");
         setMinimumSize(new java.awt.Dimension(800, 500));
         setResizable(false);
