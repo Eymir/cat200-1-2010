@@ -226,7 +226,8 @@ public class OrderPopUp extends JFrame {
         }//for end
 
         CustomerMenu.totalPriceJTextField.setText(df.format(totalPriceDbl));
-
+        
+        CashierModule.refresh();
         dispose();
     }//okButtonActionPerformed end
 

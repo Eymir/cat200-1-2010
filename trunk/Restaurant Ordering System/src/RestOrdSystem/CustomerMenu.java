@@ -37,6 +37,12 @@ public class CustomerMenu extends JFrame {
 
     public CustomerMenu() {
     	
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		
     	init();
         getCon();
         getFoodData();
@@ -141,6 +147,7 @@ public class CustomerMenu extends JFrame {
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
     	
+                
     	//background
         jLayeredPane1 = new JLayeredPane();
         backgroundJLabel = new JLabel();
@@ -283,6 +290,8 @@ public class CustomerMenu extends JFrame {
 
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 800, 480);
+        
+        //CashierModule.TableStatus[Integer.valueOf(tableNoJTextField.getText())-1] = CashierModule.Seated;
     }//init end
 
     private void orderButtonActionPerformed(ActionEvent evt) {
@@ -335,6 +344,8 @@ public class CustomerMenu extends JFrame {
         int confirmInt = JOptionPane.showConfirmDialog(null, "Are you sure you want to pay bill?", "Confirmation", JOptionPane.YES_NO_OPTION);
         if (confirmInt == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(null, "This meal is FREE!!!", "Surprise!!", JOptionPane.INFORMATION_MESSAGE);
+            
+            CashierModule.TableStatus[Integer.valueOf(tableNoJTextField.getText())-1] = CashierModule.Billing;
             dispose();
         }
     }//payBillButtonActionPerformed end

@@ -12,7 +12,7 @@ public class SystemMain extends JFrame {
     static public CustomerMenu CustomerModule = new CustomerMenu();
     static public CashierModule CashierModule = new CashierModule();
     static public Kitchen KitchenModule = new Kitchen();
-    static public LogIn AdministratorModule = new LogIn();
+   // static public LogIn AdministratorModule = new LogIn();
     
     private JButton CustomerModuleButton;    
     private JButton CashierModuleButton;
@@ -22,9 +22,11 @@ public class SystemMain extends JFrame {
     
     
     public SystemMain() {    	
+    	
         initComponents();
         setSize(400,300);
         setLocationRelativeTo(null);
+
     }
     
     
@@ -123,6 +125,6 @@ public class SystemMain extends JFrame {
     
     private void AdministratorModuleActionPerformed(ActionEvent evt) 
     {
-       AdministratorModule.setVisible(true);
+ //      AdministratorModule.setVisible(true);
     }
 }
