@@ -19,7 +19,7 @@ public class CashierModule extends JFrame {
 
 	static public String [] TableStatus;
 	static public String Available="                    Available";
-	static public String Unavailable="                 Unavailable";
+	static public String Seated="                   Seated";
 	static public String Billing="                       Billing";
 	static public int TableNumber; 
 	static public Color [] TableStatusColor;
@@ -113,7 +113,7 @@ public class CashierModule extends JFrame {
         	if(TableStatus[i]==Available){
         		TableStatusColor[i]=new Color(20,255,20);
         	} 
-        	else if(TableStatus[i]==Unavailable){
+        	else if(TableStatus[i]==Seated){
         		TableStatusColor[i]=new Color(20,255,255);
         	}
         	else if(TableStatus[i]==Billing){
@@ -187,7 +187,15 @@ public class CashierModule extends JFrame {
     }
     
     private void initComponents() {
-    	 
+    	
+    	
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		
+		
     	Today = new Date();
         Calender = new GregorianCalendar();
     	DayOfWeek = Calender.get(Calendar.DAY_OF_WEEK);
@@ -228,11 +236,7 @@ public class CashierModule extends JFrame {
         TotalLabel = new JLabel();
         TotalPriceLabel = new JLabel();
         
-		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
-		catch (ClassNotFoundException e) {}
-		catch (InstantiationException e) {}
-		catch (IllegalAccessException e) {}
-		catch (UnsupportedLookAndFeelException e) {}
+
     	Table1Button = new JToggleButton();
     	Table2Button = new JToggleButton();
     	Table3Button = new JToggleButton();
@@ -1266,7 +1270,7 @@ public class CashierModule extends JFrame {
     @SuppressWarnings("unchecked")
 	static public void SetBillTableDataOutputAndTotalPrice(){
     	
-    	if(TableStatus[TableNumber-1]==Unavailable || TableStatus[TableNumber-1]== Billing){
+    	if(TableStatus[TableNumber-1]==Seated || TableStatus[TableNumber-1]== Billing){
     	No=0;
     	BillDetailsRow.clear();
     	BillDetails.clear();
@@ -1330,9 +1334,9 @@ public class CashierModule extends JFrame {
         BillTable.setModel(model); 
         BillTableScrollPane.setViewportView(BillTable);
         BillTable.getColumnModel().getColumn(0).setResizable(false);
-        BillTable.getColumnModel().getColumn(0).setPreferredWidth(25);
+        BillTable.getColumnModel().getColumn(0).setPreferredWidth(30);
         BillTable.getColumnModel().getColumn(1).setResizable(false);
-        BillTable.getColumnModel().getColumn(1).setPreferredWidth(170);
+        BillTable.getColumnModel().getColumn(1).setPreferredWidth(165);
         BillTable.getColumnModel().getColumn(2).setResizable(false);
         BillTable.getColumnModel().getColumn(2).setPreferredWidth(35);
         BillTable.getColumnModel().getColumn(3).setResizable(false);
