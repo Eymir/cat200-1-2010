@@ -45,7 +45,7 @@ public class Kitchen extends javax.swing.JFrame {
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
-
+//
         jLayeredPane1.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18));
