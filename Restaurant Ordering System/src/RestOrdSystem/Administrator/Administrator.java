@@ -48,7 +48,8 @@ public class Administrator extends JFrame {
 	private JLabel Totallabel = new JLabel("Total:");;
 	private JLabel yearlabel =new JLabel("year(yyyy):");;
 	private JLabel monthlabel = new JLabel("Month(MM):");;
-	private JLabel Datelabel = new JLabel("Date(dd):"); ;
+	private JLabel Datelabel = new JLabel("Date(dd):"); 
+	private final JButton searchbutton = new JButton("Search");;
 	
 
 	/**
@@ -169,31 +170,31 @@ public class Administrator extends JFrame {
 		
 		
 		yearlabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		yearlabel.setBounds(174, 27, 80, 29);
+		yearlabel.setBounds(133, 27, 80, 29);
 		contentPane.add(yearlabel);
 		
 		
-		yeartextField.setBounds(246, 28, 86, 29);
+		yeartextField.setBounds(212, 28, 86, 29);
 		contentPane.add(yeartextField);
 		yeartextField.setColumns(10);
 		
 		
 		monthlabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		monthlabel.setBounds(342, 34, 84, 14);
+		monthlabel.setBounds(308, 34, 84, 14);
 		contentPane.add(monthlabel);
 		
 		
-		monthtextField.setBounds(423, 28, 86, 29);
+		monthtextField.setBounds(393, 28, 86, 29);
 		contentPane.add(monthtextField);
 		monthtextField.setColumns(10);
 		
 		
 		Datelabel.setFont(new Font("Tahoma", Font.BOLD, 12));
-		Datelabel.setBounds(519, 35, 71, 14);
+		Datelabel.setBounds(489, 34, 70, 14);
 		contentPane.add(Datelabel);
 		
 		
-		datetextField.setBounds(585, 28, 86, 29);
+		datetextField.setBounds(567, 28, 86, 29);
 		contentPane.add(datetextField);
 		datetextField.setColumns(10);
 		
@@ -201,10 +202,15 @@ public class Administrator extends JFrame {
 		TotaltextField.setBounds(585, 364, 106, 29);
 		contentPane.add(TotaltextField);
 		TotaltextField.setColumns(10);
+		searchbutton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		searchbutton.setBounds(667, 27, 89, 33);
+		
+		contentPane.add(searchbutton);
 		
 		
 		
 		initialize();
+		this.setResizable(false);
 	}
 	
 	
@@ -218,7 +224,7 @@ public class Administrator extends JFrame {
 			adminJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			adminJTable.setRowSelectionAllowed(true);
 			adminJTable.setRowSelectionInterval(0,0);
-			AdministratorscrollPane.getViewport().add(adminJTable);			
+			AdministratorscrollPane.setViewportView(adminJTable);
 			
 		
 			
@@ -229,7 +235,7 @@ public class Administrator extends JFrame {
 			foodJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			foodJTable.setRowSelectionAllowed(true);
 			foodJTable.setRowSelectionInterval(0,0);
-			FoodscrollPane.getViewport().add(foodJTable);		
+			FoodscrollPane.setViewportView(foodJTable);
 			
 		
 			allreceipt=new ReceiptBusiness().returnallReceipt();
@@ -239,7 +245,7 @@ public class Administrator extends JFrame {
 			receiptJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			receiptJTable.setRowSelectionAllowed(true);
 			receiptJTable.setRowSelectionInterval(0,0);
-			ReceiptscrollPane.getViewport().add(receiptJTable);
+			ReceiptscrollPane.setViewportView(receiptJTable);
 			
 			
 		
