@@ -65,5 +65,28 @@ public class AdministratorBusiness {
 		return all;
 		
 	}
+	
+	public boolean insterAdministrator(AdministratorModel ad){
+		boolean flag=false;
+		String sql="insert into ADMINTABLE values(?,?)";
+		
+		try {
+			pst=new DBAccess().connOracle(sql);
+			pst.setString(1, ad.getUserID());
+			pst.setString(2, ad.getPassword());
+			
+			if(pst.executeUpdate()>0){
+				flag=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return flag;
+		
+	}
 
 }
