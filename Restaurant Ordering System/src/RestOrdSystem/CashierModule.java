@@ -117,7 +117,7 @@ public class CashierModule extends JFrame {
     
     static public void initTableStatus(){
     	for(int i=0;i<20;i++){
-        	TableStatus[i]=Seated;
+        	TableStatus[i]=Available;
         	} 
     }
     
