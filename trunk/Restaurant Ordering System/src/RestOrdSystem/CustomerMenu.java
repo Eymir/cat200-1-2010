@@ -1,16 +1,19 @@
 package RestOrdSystem;
 
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public class CustomerMenu extends javax.swing.JFrame {
+public class CustomerMenu extends JFrame {
 
     static Connection con;
     static ResultSet rs;
     static Statement stmt;
-
+    
     Vector foodNameVec = new Vector();
     Vector foodTypeVec = new Vector();
 
@@ -33,8 +36,8 @@ public class CustomerMenu extends javax.swing.JFrame {
     static int receiptNumber = 0;
 
     public CustomerMenu() {
-        initComponents();
-        setLocationRelativeTo(null);
+    	
+    	init();
         getCon();
         getFoodData();
         setFoodData();
@@ -107,167 +110,186 @@ public class CustomerMenu extends javax.swing.JFrame {
         sideJList.setSelectedIndex(0);
     }//setFoodData end
 
+    private JLayeredPane jLayeredPane1;
+    private JLabel backgroundJLabel;
+    private JLabel titleJLabel;
+    private JLabel tableNoJLabel;
+    protected static JTextField tableNoJTextField;
+    private JButton backButton;
+    private JTabbedPane jTabbedPane1;
+    private JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane2;
+    private JScrollPane jScrollPane3;
+    private JList foodJList;
+    private JList drinkJList;
+    private JList sideJList;
+    private JButton orderButton;
+    private JLabel orderListJLabel;
+    private JScrollPane jScrollPane4;
+    protected static JTable orderJTable;
+    private JPanel totalPriceJPanel;
+    private JLabel totalPriceJLabel;
+    protected static JTextField totalPriceJTextField;
+    protected static JButton payBillButton;
+    
+    private void init() {
 
-    private void initComponents() {
-
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        foodJList = new javax.swing.JList();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        drinkJList = new javax.swing.JList();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        sideJList = new javax.swing.JList();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        orderJTable = new javax.swing.JTable();
-        tableNoJLabel = new javax.swing.JLabel();
-        tableNoJTextField = new javax.swing.JTextField();
-        orderButton = new javax.swing.JButton();
-        payBillButton = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
-        titleJLabel = new javax.swing.JLabel();
-        totalPriceJPanel = new javax.swing.JPanel();
-        totalPriceJLabel = new javax.swing.JLabel();
-        totalPriceJTextField = new javax.swing.JTextField();
-        backgroundJLabel = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    	setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CustomerMenu");
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMinimumSize(new Dimension(800, 500));
         setResizable(false);
         getContentPane().setLayout(null);
+        setLocationRelativeTo(null);
+    	
+    	//background
+        jLayeredPane1 = new JLayeredPane();
+        backgroundJLabel = new JLabel();
+        
+        //north component
+        titleJLabel = new JLabel();
+        tableNoJLabel = new JLabel();
+        tableNoJTextField = new JTextField();
+        backButton = new JButton();
+        
+        //left component
+        jTabbedPane1 = new JTabbedPane();
+        jScrollPane1 = new JScrollPane();
+        jScrollPane2 = new JScrollPane();
+        jScrollPane3 = new JScrollPane();
+        foodJList = new JList();
+        drinkJList = new JList();
+        sideJList = new JList();
+        
+        //right component
+        orderListJLabel = new JLabel();
+        jScrollPane4 = new JScrollPane();
+        orderJTable = new JTable();
+        totalPriceJPanel = new JPanel();
+        totalPriceJLabel = new JLabel();
+        totalPriceJTextField = new JTextField();
+        payBillButton = new JButton();
+        
+        //middle component
+        orderButton = new JButton();
+        
+        jLayeredPane1.setMaximumSize(new Dimension(800, 480));
 
-        jLayeredPane1.setMaximumSize(new java.awt.Dimension(800, 480));
+        jTabbedPane1.setFont(new Font("Tahoma", 0, 16));
 
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 16));
-
-        foodJList.setFont(new java.awt.Font("Tahoma", 0, 18));
-        foodJList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        foodJList.setFont(new Font("Tahoma", 0, 18));
+        foodJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(foodJList);
 
         jTabbedPane1.addTab("FOOD", jScrollPane1);
 
-        drinkJList.setFont(new java.awt.Font("Tahoma", 0, 18));
-        drinkJList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        drinkJList.setFont(new Font("Tahoma", 0, 18));
+        drinkJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(drinkJList);
 
         jTabbedPane1.addTab("DRINK", jScrollPane2);
 
-        sideJList.setFont(new java.awt.Font("Tahoma", 0, 18));
-        sideJList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        sideJList.setFont(new Font("Tahoma", 0, 18));
+        sideJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(sideJList);
 
         jTabbedPane1.addTab("SIDEORDER", jScrollPane3);
 
         jTabbedPane1.setBounds(40, 100, 260, 340);
-        jLayeredPane1.add(jTabbedPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(jTabbedPane1, JLayeredPane.DEFAULT_LAYER);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18));
-        jLabel1.setText("Order List");
-        jLabel1.setBounds(460, 80, 310, 30);
-        jLayeredPane1.add(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        orderListJLabel.setFont(new Font("Tahoma", 1, 18));
+        orderListJLabel.setText("Order List");
+        orderListJLabel.setBounds(460, 80, 310, 30);
+        jLayeredPane1.add(orderListJLabel, JLayeredPane.DEFAULT_LAYER);
 
-        orderJTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Food Name", "Quantity", "Price"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
+        orderJTable.setModel(new DefaultTableModel(
+        		new Object [][] {}, new String [] {"Food Name", "Quantity", "Price"} ) {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+            	return false;
             }
         });
-        orderJTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        orderJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         orderJTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(orderJTable);
         orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 
         jScrollPane4.setBounds(460, 110, 310, 260);
-        jLayeredPane1.add(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(jScrollPane4, JLayeredPane.DEFAULT_LAYER);
 
-        tableNoJLabel.setFont(new java.awt.Font("Tahoma", 1, 24));
+        tableNoJLabel.setFont(new Font("Tahoma", 1, 24));
         tableNoJLabel.setText("Table No :");
         tableNoJLabel.setBounds(430, 10, 180, 50);
-        jLayeredPane1.add(tableNoJLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(tableNoJLabel, JLayeredPane.DEFAULT_LAYER);
 
         tableNoJTextField.setEditable(false);
-        tableNoJTextField.setFont(new java.awt.Font("Tahoma", 0, 18));
-        tableNoJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tableNoJTextField.setFont(new Font("Tahoma", 0, 18));
+        tableNoJTextField.setHorizontalAlignment(JTextField.CENTER);
         tableNoJTextField.setBounds(580, 10, 80, 50);
-        jLayeredPane1.add(tableNoJTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(tableNoJTextField, JLayeredPane.DEFAULT_LAYER);
 
-        orderButton.setFont(new java.awt.Font("Tahoma", 0, 14));
+        orderButton.setFont(new Font("Tahoma", 0, 14));
         orderButton.setText("Order >>");
-        orderButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        orderButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 orderButtonActionPerformed(evt);
             }
         });
         orderButton.setBounds(320, 180, 120, 60);
-        jLayeredPane1.add(orderButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(orderButton, JLayeredPane.DEFAULT_LAYER);
 
-        payBillButton.setFont(new java.awt.Font("Tahoma", 0, 18));
+        payBillButton.setFont(new Font("Tahoma", 0, 18));
         payBillButton.setText("Pay Bill");
-        payBillButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        payBillButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 payBillButtonActionPerformed(evt);
             }
         });
         payBillButton.setBounds(460, 410, 310, 50);
-        jLayeredPane1.add(payBillButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(payBillButton, JLayeredPane.DEFAULT_LAYER);
 
         backButton.setText("BACK");
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
         backButton.setBounds(690, 10, 90, 50);
-        jLayeredPane1.add(backButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(backButton, JLayeredPane.DEFAULT_LAYER);
 
-        titleJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/Customer_menu_text.png")));
+        titleJLabel.setIcon(new ImageIcon(getClass().getResource("/image1/Customer_menu_text.png")));
         titleJLabel.setBounds(10, 10, 400, 60);
-        jLayeredPane1.add(titleJLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(titleJLabel, JLayeredPane.DEFAULT_LAYER);
 
         totalPriceJPanel.setLayout(null);
 
-        totalPriceJLabel.setFont(new java.awt.Font("Tahoma", 0, 18));
-        totalPriceJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalPriceJLabel.setFont(new Font("Tahoma", 0, 18));
+        totalPriceJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         totalPriceJLabel.setText("Total Price : RM");
         totalPriceJPanel.add(totalPriceJLabel);
         totalPriceJLabel.setBounds(0, 0, 150, 40);
 
         totalPriceJTextField.setEditable(false);
-        totalPriceJTextField.setFont(new java.awt.Font("Tahoma", 0, 18));
-        totalPriceJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        totalPriceJTextField.setFont(new Font("Tahoma", 0, 18));
+        totalPriceJTextField.setHorizontalAlignment(JTextField.CENTER);
         totalPriceJPanel.add(totalPriceJTextField);
         totalPriceJTextField.setBounds(150, 0, 160, 40);
 
         totalPriceJPanel.setBounds(460, 370, 310, 40);
-        jLayeredPane1.add(totalPriceJPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(totalPriceJPanel, JLayeredPane.DEFAULT_LAYER);
 
-        backgroundJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/menu_background2.jpg"))); 
+        backgroundJLabel.setIcon(new ImageIcon(getClass().getResource("/image1/menu_background2.jpg"))); 
         backgroundJLabel.setBounds(0, 0, 800, 480);
-        jLayeredPane1.add(backgroundJLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.add(backgroundJLabel, JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 800, 480);
+    }//init end
 
-        //pack();
-    }
-
-    private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        
+    private void orderButtonActionPerformed(ActionEvent evt) {
+    	
         OrderPopUp odp = new OrderPopUp();
         odp.setVisible(true);
-        odp.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        odp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         if (foodJList.isShowing())
             selectedFoodName = (String)foodJList.getSelectedValue();
@@ -294,17 +316,17 @@ public class CustomerMenu extends javax.swing.JFrame {
         }//try catch end--------------------------------------------------------------
 
         odp.foodNameLabel.setText(selectedFoodName);
-        odp.foodPictLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource(foodPictURLStr)));
+        odp.foodPictLabel.setIcon(new ImageIcon(getClass().getResource(foodPictURLStr)));
         odp.priceTextField.setText(df.format(foodPriceDbl));
         odp.descriptionTextArea.setText(foodDescptStr);
-
-    }                                           
-
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        
+    }//orderButtonActionPerformed end
+    
+    private void backButtonActionPerformed(ActionEvent evt) {
         dispose();
-    }                                          
+    }//backButtonActionPerformed end
 
-    private void payBillButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void payBillButtonActionPerformed(ActionEvent evt) {
         
         if (orderFoodNameVec.size()==0) {
             return;
@@ -315,40 +337,15 @@ public class CustomerMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "This meal is FREE!!!", "Surprise!!", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         }
-    }                                             
+    }//payBillButtonActionPerformed end
 
-
-    
+    //main function for this class
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CustomerMenu().setVisible(true);
             }
         });
-    }
-
+    }//main end
     
-    private javax.swing.JButton backButton;
-    private javax.swing.JLabel backgroundJLabel;
-    private javax.swing.JList drinkJList;
-    private javax.swing.JList foodJList;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton orderButton;
-    protected static javax.swing.JTable orderJTable;
-    protected static javax.swing.JButton payBillButton;
-    private javax.swing.JList sideJList;
-    private javax.swing.JLabel tableNoJLabel;
-    protected static javax.swing.JTextField tableNoJTextField;
-    private javax.swing.JLabel titleJLabel;
-    private javax.swing.JLabel totalPriceJLabel;
-    private javax.swing.JPanel totalPriceJPanel;
-    protected static javax.swing.JTextField totalPriceJTextField;
-    
-
 }
