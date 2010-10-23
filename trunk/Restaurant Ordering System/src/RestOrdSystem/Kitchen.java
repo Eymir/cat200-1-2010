@@ -153,7 +153,7 @@ public class Kitchen extends javax.swing.JFrame {
         });
         lblRefresh.setForeground(Color.WHITE);
         lblRefresh.setFont(new Font("Tahoma", Font.BOLD, 15));
-        lblRefresh.setBounds(515, 165, 60, 20);
+        lblRefresh.setBounds(515, 165, 65, 20);
         jLayeredPane1.add(lblRefresh);
         jLabel1 = new javax.swing.JLabel();
         jLabel1.setForeground(Color.BLACK);
