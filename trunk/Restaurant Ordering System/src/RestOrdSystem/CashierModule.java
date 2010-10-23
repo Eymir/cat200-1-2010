@@ -30,15 +30,15 @@ public class CashierModule extends JFrame {
     static public String Date;
     static public Date Today;
     
-    private Connection con;
-    private String SQL;
-    private Statement stmt;
-    private ResultSet rs;
+    static private Connection con;
+    static private String SQL;
+    static private Statement stmt;
+    static private ResultSet rs;
     
-    private int No,NumberOfItemOrdered,TableReceiptNumber;
-    private double TotalPrice;
-    private Vector Title,BillDetails,BillDetailsRow;
-    private DecimalFormat df = new DecimalFormat("0.00");
+    static private int No,NumberOfItemOrdered,TableReceiptNumber;
+    static private double TotalPrice;
+    static private Vector Title,BillDetails,BillDetailsRow;
+    static private DecimalFormat df = new DecimalFormat("0.00");
    
     public Connection getCon()
     {
@@ -57,35 +57,35 @@ public class CashierModule extends JFrame {
     }
     
     
-	private JTable BillTable;
+    static private JTable BillTable;
 	
 	
-	private JScrollPane BillTableScrollPane;
+	static private JScrollPane BillTableScrollPane;
 	
 	
-	private JPanel BasePanel,ButtonPanel,InstructionPanel,TotalPricePanel;
+	static private JPanel BasePanel,ButtonPanel,InstructionPanel,TotalPricePanel;
 	
 	
-	private JToggleButton Table1Button,Table2Button,Table3Button,Table4Button,Table5Button,
+	static private JToggleButton Table1Button,Table2Button,Table3Button,Table4Button,Table5Button,
 						  Table6Button,Table7Button,Table8Button,Table9Button,Table10Button,
 						  Table11Button,Table12Button,Table13Button,Table14Button,Table15Button,
 						  Table16Button,Table17Button,Table18Button,Table19Button,Table20Button;
 	
 	
-	private JButton ConfirmPrint;
+	static private JButton ConfirmPrint;
 	
 	
-	private JLabel Table1Label,Table2Label,Table3Label,Table4Label,Table5Label,
+	static private JLabel Table1Label,Table2Label,Table3Label,Table4Label,Table5Label,
 				   Table6Label,Table7Label,Table8Label,Table9Label,Table10Label,
    				   Table11Label,Table12Label,Table13Label,Table14Label,Table15Label,
    				   Table16Label,Table17Label,Table18Label,Table19Label,Table20Label;
 	
     
-	private JPanel RedBox,BlueBox,GreenBox;
-	private JLabel AvailableLabel,UnavailableLabel,BillingLabel;
+	static private JPanel RedBox,BlueBox,GreenBox;
+	static private JLabel AvailableLabel,UnavailableLabel,BillingLabel;
 		
 	
-	private JLabel TotalLabel, TotalPriceLabel;
+	static private JLabel TotalLabel, TotalPriceLabel;
 	
 	
 	public CashierModule() {
@@ -102,13 +102,13 @@ public class CashierModule extends JFrame {
         });
     }
     
-    public void date() {
+    static public void date() {
         SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd-MMM-yyyy");
         Date = simpleFormatter.format(Today);
     }
     
     
-    public void setTableStatusColor(){
+    static public void setTableStatusColor(){
         for(int i=0;i<20;i++){
         	if(TableStatus[i]==Available){
         		TableStatusColor[i]=new Color(20,255,20);
@@ -123,14 +123,14 @@ public class CashierModule extends JFrame {
     }
   
     
-    public void initTableStatus(){
+    static public void initTableStatus(){
     	for(int i=0;i<20;i++){
-        	TableStatus[i]=Billing;
+        	TableStatus[i]=Available;
         	} 
     }
     
     
-    public void refresh(){
+    public static void refresh(){
 
         Table1Label.setText(TableStatus[0]);
         Table2Label.setText(TableStatus[1]);
@@ -399,7 +399,7 @@ public class CashierModule extends JFrame {
         TotalPriceLabel.setForeground(new Color(51,51,51));
         TotalPriceLabel.setBounds(0,0,100,25);
         TotalPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        TotalPriceLabel.setText("RM 100");
+        TotalPriceLabel.setText("RM 0");
         
         TotalLabel.setHorizontalAlignment(SwingConstants.CENTER);
         TotalLabel.setText("Total :");
@@ -1252,7 +1252,7 @@ public class CashierModule extends JFrame {
     	refresh();
     }
     
-    private int NoIncrement()
+    static private int NoIncrement()
     {
         ++No;
         return new Integer(No);
@@ -1260,7 +1260,7 @@ public class CashierModule extends JFrame {
     
     
     @SuppressWarnings("unchecked")
-	public void SetBillTableDataOutputAndTotalPrice(){
+	static public void SetBillTableDataOutputAndTotalPrice(){
     	
     	if(TableStatus[TableNumber-1]==Unavailable || TableStatus[TableNumber-1]== Billing){
     	No=0;
