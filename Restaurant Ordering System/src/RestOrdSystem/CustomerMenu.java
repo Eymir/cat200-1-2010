@@ -7,9 +7,9 @@ import javax.swing.*;
 
 public class CustomerMenu extends javax.swing.JFrame {
 
-    Connection con;
-    ResultSet rs;
-    Statement stmt;
+    static Connection con;
+    static ResultSet rs;
+    static Statement stmt;
 
     Vector foodNameVec = new Vector();
     Vector foodTypeVec = new Vector();
@@ -29,13 +29,28 @@ public class CustomerMenu extends javax.swing.JFrame {
     static Vector orderFoodPriceVec = new Vector();
 
     DecimalFormat df = new DecimalFormat("0.00");
-    
+
+    static int receiptNumber = 0;
+
     public CustomerMenu() {
         initComponents();
         setLocationRelativeTo(null);
         getCon();
         getFoodData();
         setFoodData();
+        tableNoJTextField.setText("1");
+        receiptNumber = 100000;
+        try {
+            rs = stmt.executeQuery("INSERT INTO RECEIPTTABLE ("
+                    + "RECEIPT_NO, TABLE_NO, PRICE_CHARGED) VALUES ("
+                    //+ "RECEIPT_NO_SEQ.NEXTVAL, "
+                    + receiptNumber + ", "
+                    + tableNoJTextField.getText() + ", "
+                    + "0.00"
+                    + ")");
+        }catch(SQLException e) {
+            System.out.println("testing failed : " + e.getMessage());
+        }
     }
 
     public Connection getCon() {
@@ -93,6 +108,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     }//setFoodData end
 
 
+    
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -110,7 +126,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         tableNoJTextField = new javax.swing.JTextField();
         orderButton = new javax.swing.JButton();
         removeButton = new javax.swing.JButton();
-        confirmButton = new javax.swing.JButton();
+        payBillButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         titleJLabel = new javax.swing.JLabel();
         totalPriceJPanel = new javax.swing.JPanel();
@@ -171,6 +187,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             }
         });
         orderJTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        orderJTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(orderJTable);
         orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 
@@ -184,10 +201,11 @@ public class CustomerMenu extends javax.swing.JFrame {
 
         tableNoJTextField.setEditable(false);
         tableNoJTextField.setFont(new java.awt.Font("Tahoma", 0, 18));
+        tableNoJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tableNoJTextField.setBounds(580, 10, 80, 50);
         jLayeredPane1.add(tableNoJTextField, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        orderButton.setFont(new java.awt.Font("Tahoma", 0, 14));
+        orderButton.setFont(new java.awt.Font("Tahoma", 0, 14)); 
         orderButton.setText("Order >>");
         orderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,15 +225,15 @@ public class CustomerMenu extends javax.swing.JFrame {
         removeButton.setBounds(320, 270, 120, 60);
         jLayeredPane1.add(removeButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        confirmButton.setFont(new java.awt.Font("Tahoma", 0, 18));
-        confirmButton.setText("Confirm Order");
-        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+        payBillButton.setFont(new java.awt.Font("Tahoma", 0, 18)); 
+        payBillButton.setText("Pay Bill");
+        payBillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmButtonActionPerformed(evt);
+                payBillButtonActionPerformed(evt);
             }
         });
-        confirmButton.setBounds(460, 410, 310, 50);
-        jLayeredPane1.add(confirmButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        payBillButton.setBounds(460, 410, 310, 50);
+        jLayeredPane1.add(payBillButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         backButton.setText("BACK");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -226,7 +244,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         backButton.setBounds(690, 10, 90, 50);
         jLayeredPane1.add(backButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        titleJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/Customer_menu_text.png")));
+        titleJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/Customer_menu_text.png"))); 
         titleJLabel.setBounds(10, 10, 400, 60);
         jLayeredPane1.add(titleJLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -238,7 +256,6 @@ public class CustomerMenu extends javax.swing.JFrame {
         totalPriceJPanel.add(totalPriceJLabel);
         totalPriceJLabel.setBounds(0, 0, 150, 40);
 
-        totalPriceJTextField.setBackground(new java.awt.Color(255, 255, 255));
         totalPriceJTextField.setEditable(false);
         totalPriceJTextField.setFont(new java.awt.Font("Tahoma", 0, 18));
         totalPriceJTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -248,14 +265,14 @@ public class CustomerMenu extends javax.swing.JFrame {
         totalPriceJPanel.setBounds(460, 370, 310, 40);
         jLayeredPane1.add(totalPriceJPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        backgroundJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/menu_background2.jpg")));
+        backgroundJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/menu_background2.jpg"))); 
         backgroundJLabel.setBounds(0, 0, 800, 480);
         jLayeredPane1.add(backgroundJLabel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 800, 480);
 
-        //pack();
+       // pack();
     }
 
     private void orderButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
@@ -295,113 +312,98 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     }                                           
 
-    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
 
-        int rowSelected = orderJTable.getSelectedRow();
-
-        //return if no row is selected
-        if(rowSelected==-1) {
-            return;
-        }
-
-        double removeFoodPriceDbl = 0;
-        double newTotalPriceDbl = 0;
-
-        //get selected food price from oracle-------------------------------------------
-        try {
-            rs = stmt.executeQuery("SELECT FOOD_PRICE "
-                    + "FROM FOODTABLE "
-                    + "WHERE FOOD_NAME = '" + orderFoodNameVec.get(rowSelected) + "'");
-            rs.first();
-            if (rs.first()) {
-                removeFoodPriceDbl = rs.getDouble(1);
-            }
-        }
-        catch (Exception e) {
-            System.err.println("food price retrieval failed...");
-        }//try catch end----------------------------------------------------------------
-
-
-        if ((Integer)orderFoodQnVec.get(rowSelected) > 1) {
-            orderFoodQnVec.set(rowSelected, (Integer)orderFoodQnVec.get(rowSelected) - 1);
-            orderFoodPriceVec.set(rowSelected, df.format(Double.valueOf((String)orderFoodPriceVec.get(rowSelected)) - removeFoodPriceDbl));
-            orderJTable.setValueAt(orderFoodQnVec.elementAt(rowSelected), rowSelected, 1);
-            orderJTable.setValueAt(orderFoodPriceVec.elementAt(rowSelected), rowSelected, 2);
-            totalPriceJTextField.setText(df.format(Double.valueOf(totalPriceJTextField.getText()) - removeFoodPriceDbl));
-        }
-        else {
-            orderFoodNameVec.remove(rowSelected);
-            orderFoodQnVec.remove(rowSelected);
-            orderFoodPriceVec.remove(rowSelected);
-            //set up a table with empty values inside---------------------------------------
-            Vector tempTableColVec = new Vector();
-            Vector tableHeaderVec = new Vector(3);
-            for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
-                Vector tempTableRowVec = new Vector(3);
-                for (int b=0;b<3;b++) {
-                    tempTableRowVec.addElement("");
-                }//for end
-                tempTableColVec.addElement(tempTableRowVec);
-                tempTableRowVec.clear();
-            }//for end
-            
-            tableHeaderVec.addElement("Food Name");
-            tableHeaderVec.addElement("Quantity");
-            tableHeaderVec.addElement("Price");
-            
-            CustomerMenu.orderJTable.setModel(new javax.swing.table.DefaultTableModel(
-                    tempTableColVec,tableHeaderVec) {
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return false;
-                }
-            });
-            CustomerMenu.orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
-        //----------------------------------------------------------------------------------
-            
-            for (int a=0;a<tempTableColVec.size();a++) {
-                CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodNameVec.elementAt(a), a, 0);
-                CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodQnVec.elementAt(a), a, 1);
-                CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodPriceVec.elementAt(a), a, 2);
-                
-                newTotalPriceDbl += Double.valueOf((String)CustomerMenu.orderFoodPriceVec.get(a));
-            }//for end
-            
-            totalPriceJTextField.setText(df.format(newTotalPriceDbl));
-        }//if else end
+//        int rowSelected = orderJTable.getSelectedRow();
+//
+//        //return if no row is selected
+//        if(rowSelected==-1) {
+//            return;
+//        }
+//
+//        double removeFoodPriceDbl = 0;
+//        double newTotalPriceDbl = 0;
+//
+//        //get selected food price from oracle-------------------------------------------
+//        try {
+//            rs = stmt.executeQuery("SELECT FOOD_PRICE "
+//                    + "FROM FOODTABLE "
+//                    + "WHERE FOOD_NAME = '" + orderFoodNameVec.get(rowSelected) + "'");
+//            rs.first();
+//            if (rs.first()) {
+//                removeFoodPriceDbl = rs.getDouble(1);
+//            }
+//        }
+//        catch (Exception e) {
+//            System.err.println("food price retrieval failed...");
+//        }//try catch end----------------------------------------------------------------
+//
+//
+//        if ((Integer)orderFoodQnVec.get(rowSelected) > 1) {
+//            orderFoodQnVec.set(rowSelected, (Integer)orderFoodQnVec.get(rowSelected) - 1);
+//            orderFoodPriceVec.set(rowSelected, df.format(Double.valueOf((String)orderFoodPriceVec.get(rowSelected)) - removeFoodPriceDbl));
+//            orderJTable.setValueAt(orderFoodQnVec.elementAt(rowSelected), rowSelected, 1);
+//            orderJTable.setValueAt(orderFoodPriceVec.elementAt(rowSelected), rowSelected, 2);
+//            totalPriceJTextField.setText(df.format(Double.valueOf(totalPriceJTextField.getText()) - removeFoodPriceDbl));
+//        }
+//        else {
+//            orderFoodNameVec.remove(rowSelected);
+//            orderFoodQnVec.remove(rowSelected);
+//            orderFoodPriceVec.remove(rowSelected);
+//            //set up a table with empty values inside---------------------------------------
+//            Vector tempTableColVec = new Vector();
+//            Vector tableHeaderVec = new Vector(3);
+//            for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
+//                Vector tempTableRowVec = new Vector(3);
+//                for (int b=0;b<3;b++) {
+//                    tempTableRowVec.addElement("");
+//                }//for end
+//                tempTableColVec.addElement(tempTableRowVec);
+//                tempTableRowVec.clear();
+//            }//for end
+//
+//            tableHeaderVec.addElement("Food Name");
+//            tableHeaderVec.addElement("Quantity");
+//            tableHeaderVec.addElement("Price");
+//
+//            CustomerMenu.orderJTable.setModel(new javax.swing.table.DefaultTableModel(
+//                    tempTableColVec,tableHeaderVec) {
+//                public boolean isCellEditable(int rowIndex, int columnIndex) {
+//                    return false;
+//                }
+//            });
+//            CustomerMenu.orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+//        //----------------------------------------------------------------------------------
+//
+//            for (int a=0;a<tempTableColVec.size();a++) {
+//                CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodNameVec.elementAt(a), a, 0);
+//                CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodQnVec.elementAt(a), a, 1);
+//                CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodPriceVec.elementAt(a), a, 2);
+//
+//                newTotalPriceDbl += Double.valueOf((String)CustomerMenu.orderFoodPriceVec.get(a));
+//            }//for end
+//
+//            totalPriceJTextField.setText(df.format(newTotalPriceDbl));
+//        }//if else end
         
-    }
+    }                                            
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         dispose();
-    }
+    }                                          
 
-    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void payBillButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         
         if (orderFoodNameVec.size()==0) {
             return;
         }
 
-//        for (int a=0;a<orderFoodNameVec.size();a++) {
-//            //get selected food price from oracle-------------------------------------------
-//            try {
-//                rs = stmt.executeQuery("INSERT INTO ORDERTABLE ("
-//                        + "ORDER_NO, RECEPIT_NO, ORD_FOOD_NO, ORD_FOOD_QN) VALUES ("
-//                        + "ORDER_NO_SEQ.NEXTVAL, "
-//                        + receiptNoStr +", "
-//                        + "SELECT FOOD_NO FROM FOODTABLE WHERE FOOD_NAME = '" + orderFoodNameVec.get(a) + "', "
-//                        + orderFoodQnVec.get(a)
-//                        + ")");
-//
-//            }
-//            catch (Exception e) {
-//                System.err.println("food price retrieval failed...");
-//            }//try catch end----------------------------------------------------------------
-//        }//for end
-
-
-        JOptionPane.showMessageDialog(null, "Food Ordered", "Confirmed", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
-    }
+        int confirmInt = JOptionPane.showConfirmDialog(null, "Are you sure you want to pay bill?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        if (confirmInt == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "This meal is FREE!!!", "Surprise!!", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }
+    }                                             
 
 
     
@@ -416,7 +418,6 @@ public class CustomerMenu extends javax.swing.JFrame {
     
     private javax.swing.JButton backButton;
     private javax.swing.JLabel backgroundJLabel;
-    protected static javax.swing.JButton confirmButton;
     private javax.swing.JList drinkJList;
     private javax.swing.JList foodJList;
     private javax.swing.JLabel jLabel1;
@@ -428,10 +429,11 @@ public class CustomerMenu extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton orderButton;
     protected static javax.swing.JTable orderJTable;
+    protected static javax.swing.JButton payBillButton;
     private javax.swing.JButton removeButton;
     private javax.swing.JList sideJList;
     private javax.swing.JLabel tableNoJLabel;
-    private javax.swing.JTextField tableNoJTextField;
+    protected static javax.swing.JTextField tableNoJTextField;
     private javax.swing.JLabel titleJLabel;
     private javax.swing.JLabel totalPriceJLabel;
     private javax.swing.JPanel totalPriceJPanel;
