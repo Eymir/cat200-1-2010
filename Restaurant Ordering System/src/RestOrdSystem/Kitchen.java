@@ -195,9 +195,10 @@ public class Kitchen extends javax.swing.JFrame {
         
         try{
         	DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-
+        	
             Connection con;
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+            //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
             System.out.println("Database Connected");
         	
         	Statement stmt = con.createStatement();
@@ -285,7 +286,8 @@ public class Kitchen extends javax.swing.JFrame {
             DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 
             Connection con;
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+            //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
             System.out.println("Database Connected 1");
 
             Statement stmt = con.createStatement();
@@ -309,7 +311,7 @@ public class Kitchen extends javax.swing.JFrame {
         if(n == 0){
         	String no= (String) newtable1.getValueAt(jTable1.getSelectedRow(), 0);
         	String table = (String) newtable1.getValueAt(jTable1.getSelectedRow(), 1);
-        	String updateString = "UPDATE KITCHENTABLE SET FOOD_STATUS='"+status+"' WHERE KIT_ORD_NO = '"+no+"'AND FOOD_NAME='"+table+"'";
+        	String updateString = "UPDATE KITCHENTABLE SET FOOD_STATUS='"+status+"' WHERE KIT_ORD_NO = '"+no+"' AND TABLE_NO='"+table+"'";
 
             update(updateString);
             btnServed.setEnabled(false);
