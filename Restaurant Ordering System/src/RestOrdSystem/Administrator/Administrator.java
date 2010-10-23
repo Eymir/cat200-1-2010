@@ -158,6 +158,13 @@ public class Administrator extends JFrame {
 		Deletebutton.setBounds(553, 420, 89, 23);
 		Deletebutton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(Deletebutton);
+		Modifybutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(JTableindex==0){
+					modifyAdminAction();
+				}
+			}
+		});
 		
 		
 		Modifybutton.setBounds(423, 420, 89, 23);
@@ -166,8 +173,7 @@ public class Administrator extends JFrame {
 		Addbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(JTableindex==0){
-					addAction();
-					
+					addAdminAction();				
 					
 				}
 			}
@@ -279,7 +285,17 @@ public class Administrator extends JFrame {
 		
 	}
 	
-	public void addAction(){
+	public void addAdminAction(){
 		new AddAdministrator(this);
+	}
+	
+	public void modifyAdminAction(){
+		int index=adminJTable.getSelectedRow();
+		Vector admin=(Vector) alladmin.get(index);
+		
+		AdministratorModel ad=new AdministratorModel();
+		ad.setUserID(admin.get(0).toString());
+		ad.setPassword(admin.get(1).toString());
+		new ModifyAddministrator(this,ad);
 	}
 }
