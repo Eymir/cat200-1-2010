@@ -5,21 +5,36 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import RestOrdSystem.Administrator.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 public class SystemMain extends JFrame {
 
 	
-    static public CustomerMenu CustomerModule = new CustomerMenu();
-    static public CashierModule CashierModule = new CashierModule();
-    static public Kitchen KitchenModule = new Kitchen();
-   // static public LogIn AdministratorModule = new LogIn();
+    static public CustomerMenu CustomerModule;
+    static public CashierModule CashierModule;
+    static public Kitchen KitchenModule;
+   // static public LogIn AdministratorModule;
     
     private JButton CustomerModuleButton;    
     private JButton CashierModuleButton;
     private JButton KitchenModuleButton;
     private JButton AdministratorModuleButton;
     private JLabel Title;
+	static public Calendar Calender;
+    static public int DayOfWeek;
+    static public String Day;
+    static public String Date;
+    static public Date Today;
+    static public String getToday;
     
+    static public void date() {
+        SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+        Date = simpleFormatter.format(Today);
+    }
     
     public SystemMain() {    	
     	
@@ -42,6 +57,47 @@ public class SystemMain extends JFrame {
     private void initComponents() {
     	
     	
+      
+        
+    	Today = new Date();
+        Calender = new GregorianCalendar();
+    	DayOfWeek = Calender.get(Calendar.DAY_OF_WEEK);
+    	
+    	date();
+        switch (DayOfWeek)
+        {
+            case 1:
+                Day="Sunday";
+                break;
+            case 2:
+                Day="Monday";
+                break;
+            case 3:
+                Day="Tuesday";
+                break;
+            case 4:
+                Day="Wednesday";
+                break;
+            case 5:
+                Day="Thursday";
+                break;
+            case 6:
+                Day="Friday";
+                break;
+            case 7:
+                Day="Saturday";
+                break;
+        } 
+        
+        getToday=Day+", "+Date;
+        
+        
+        CustomerModule = new CustomerMenu();
+        CashierModule = new CashierModule();
+        KitchenModule = new Kitchen();
+        //AdministratorModule = new LogIn();
+        
+        
         CustomerModuleButton = new JButton();
         CashierModuleButton = new JButton();
         KitchenModuleButton = new JButton();
@@ -54,6 +110,7 @@ public class SystemMain extends JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
         
+
         
         getContentPane().add(Title);
         getContentPane().add(CustomerModuleButton);

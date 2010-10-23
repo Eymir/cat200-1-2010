@@ -10,7 +10,7 @@ import javax.swing.table.*;
 import javax.swing.border.*;
 import java.text.*;
 import java.util.*;
-import java.util.Date;
+
 
 
 
@@ -24,11 +24,6 @@ public class CashierModule extends JFrame {
 	static public int TableNumber; 
 	static public Color [] TableStatusColor;
 	
-	static public Calendar Calender;
-    static public int DayOfWeek;
-    static public String Day;
-    static public String Date;
-    static public Date Today;
     
     static private Connection con;
     static private String SQL;
@@ -82,7 +77,7 @@ public class CashierModule extends JFrame {
 	
     
 	static private JPanel RedBox,BlueBox,GreenBox;
-	static private JLabel AvailableLabel,UnavailableLabel,BillingLabel;
+	static private JLabel AvailableLabel,SeatedLabel,BillingLabel;
 		
 	
 	static private JLabel TotalLabel, TotalPriceLabel;
@@ -102,10 +97,7 @@ public class CashierModule extends JFrame {
         });
     }
     
-    static public void date() {
-        SimpleDateFormat simpleFormatter = new SimpleDateFormat("dd-MMM-yyyy");
-        Date = simpleFormatter.format(Today);
-    }
+
     
     
     static public void setTableStatusColor(){
@@ -194,12 +186,7 @@ public class CashierModule extends JFrame {
 		catch (InstantiationException e) {}
 		catch (IllegalAccessException e) {}
 		catch (UnsupportedLookAndFeelException e) {}
-		
-		
-    	Today = new Date();
-        Calender = new GregorianCalendar();
-    	DayOfWeek = Calender.get(Calendar.DAY_OF_WEEK);
-            	
+	        	
     	
         TableStatus = new String[20];
         TableStatusColor = new Color[20];
@@ -226,7 +213,7 @@ public class CashierModule extends JFrame {
         BlueBox = new JPanel();
         GreenBox = new JPanel();
         AvailableLabel = new JLabel();
-        UnavailableLabel = new JLabel();
+        SeatedLabel = new JLabel();
         BillingLabel = new JLabel();
         
         
@@ -281,31 +268,7 @@ public class CashierModule extends JFrame {
     	Table20Label = new JLabel();
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    	date();
-        switch (DayOfWeek)
-        {
-            case 1:
-                Day="Sunday";
-                break;
-            case 2:
-                Day="Monday";
-                break;
-            case 3:
-                Day="Tuesday";
-                break;
-            case 4:
-                Day="Wednesday";
-                break;
-            case 5:
-                Day="Thursday";
-                break;
-            case 6:
-                Day="Friday";
-                break;
-            case 7:
-                Day="Saturday";
-                break;
-        } 
+
     	
         Title.addElement("No.");
         Title.addElement("Item");
@@ -314,7 +277,7 @@ public class CashierModule extends JFrame {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Restaurant Ordering System - Cashier                                                 "+Day+", "+Date);
+        setTitle("Restaurant Ordering System - Cashier                                                    "+SystemMain.getToday);
         setResizable(false);
         setMinimumSize(new Dimension(800,600));
         getContentPane().setLayout(null);
@@ -347,7 +310,7 @@ public class CashierModule extends JFrame {
         InstructionPanel.add(BlueBox);
         InstructionPanel.add(GreenBox);
         InstructionPanel.add(AvailableLabel);
-        InstructionPanel.add(UnavailableLabel);
+        InstructionPanel.add(SeatedLabel);
         InstructionPanel.add(BillingLabel);
         
         
@@ -420,7 +383,7 @@ public class CashierModule extends JFrame {
         
         GreenBox.setBounds(7,2,15,15);
         BlueBox.setBounds(106,2,15,15);
-        RedBox.setBounds(222,2,15,15);
+        RedBox.setBounds(194,2,15,15);
         
         GreenBox.setBackground(new Color(20,255,20));
         BlueBox.setBackground(new Color(20,255,255));
@@ -430,16 +393,16 @@ public class CashierModule extends JFrame {
         BlueBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
         RedBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
         
-        AvailableLabel.setBounds(28,3,150,15);
-        UnavailableLabel.setBounds(126,3,150,15);
-        BillingLabel.setBounds(243,3,150,15);
+        AvailableLabel.setBounds(30,0,150,18);
+        SeatedLabel.setBounds(128,0,150,18);
+        BillingLabel.setBounds(217,0,150,18);
         
         AvailableLabel.setText("Available");
-        UnavailableLabel.setText("Unavailable");
+        SeatedLabel.setText("Seated");
         BillingLabel.setText("Billing");
         
         AvailableLabel.setForeground(new Color(220,220,220));
-        UnavailableLabel.setForeground(new Color(220,220,220));
+        SeatedLabel.setForeground(new Color(220,220,220));
         BillingLabel.setForeground(new Color(220,220,220));
         
         
