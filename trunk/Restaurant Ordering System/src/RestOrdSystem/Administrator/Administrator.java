@@ -104,6 +104,7 @@ public class Administrator extends JFrame {
 					monthlabel.setVisible(true);
 					Datelabel.setVisible(true);
 					Totallabel.setVisible(true);
+					searchbutton.setVisible(true);
 					
 					
 					yeartextField.setVisible(true);
@@ -116,6 +117,7 @@ public class Administrator extends JFrame {
 					monthlabel.setVisible(false);
 					Datelabel.setVisible(false);
 					Totallabel.setVisible(false);
+					searchbutton.setVisible(false);
 					
 					
 					yeartextField.setVisible(false);
