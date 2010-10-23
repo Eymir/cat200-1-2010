@@ -228,7 +228,11 @@ public class CashierModule extends JFrame {
         TotalLabel = new JLabel();
         TotalPriceLabel = new JLabel();
         
-        
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
     	Table1Button = new JToggleButton();
     	Table2Button = new JToggleButton();
     	Table3Button = new JToggleButton();
