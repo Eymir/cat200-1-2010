@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Administrator extends JFrame {
 
@@ -53,6 +55,7 @@ public class Administrator extends JFrame {
 	private JButton Addbutton = new JButton("Add");
 	private JButton Modifybutton = new JButton("Modify");
 	private JButton Deletebutton = new JButton("Delete");
+	Administrator frame;
 	
 
 	/**
@@ -62,7 +65,7 @@ public class Administrator extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Administrator frame = new Administrator();
+					frame = new Administrator();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -160,6 +163,15 @@ public class Administrator extends JFrame {
 		Modifybutton.setBounds(423, 420, 89, 23);
 		Modifybutton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(Modifybutton);
+		Addbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(JTableindex==0){
+					addAction();
+					
+					
+				}
+			}
+		});
 		
 		
 		Addbutton.setBounds(281, 420, 89, 23);
@@ -222,13 +234,14 @@ public class Administrator extends JFrame {
 		
 		
 		
-		initialize();
+		initializeAdmin();
+		initializeFood();
+		initializeReceipt();
 		this.setResizable(false);
 	}
 	
 	
-	public void initialize(){
-				
+	public void initializeAdmin(){				
 			
 			alladmin=new AdministratorBusiness().returnAlladmin();
 			admindefault=new DefaultTableModel(alladmin,admincolumn);
@@ -237,31 +250,36 @@ public class Administrator extends JFrame {
 			adminJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			adminJTable.setRowSelectionAllowed(true);
 			adminJTable.setRowSelectionInterval(0,0);
-			AdministratorscrollPane.setViewportView(adminJTable);
-			
+			AdministratorscrollPane.setViewportView(adminJTable);		
+	}
+	
+	
+	public void initializeFood(){
+		allfood=new FoodBusiness().returnallFood();
+		fooddefault=new DefaultTableModel(allfood,foodcolumn);
+		foodJTable=new JTable(fooddefault);
 		
-			
-			allfood=new FoodBusiness().returnallFood();
-			fooddefault=new DefaultTableModel(allfood,foodcolumn);
-			foodJTable=new JTable(fooddefault);
-			
-			foodJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			foodJTable.setRowSelectionAllowed(true);
-			foodJTable.setRowSelectionInterval(0,0);
-			FoodscrollPane.setViewportView(foodJTable);
-			
+		foodJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		foodJTable.setRowSelectionAllowed(true);
+		foodJTable.setRowSelectionInterval(0,0);
+		FoodscrollPane.setViewportView(foodJTable);
 		
-			allreceipt=new ReceiptBusiness().returnallReceipt();
-			receiptdefault=new DefaultTableModel(allreceipt,receiptcolumn);
-			receiptJTable=new JTable(receiptdefault);
-			
-			receiptJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			receiptJTable.setRowSelectionAllowed(true);
-			receiptJTable.setRowSelectionInterval(0,0);
-			ReceiptscrollPane.setViewportView(receiptJTable);
-			
-			
+	}
+	
+	
+	public void initializeReceipt(){
+		allreceipt=new ReceiptBusiness().returnallReceipt();
+		receiptdefault=new DefaultTableModel(allreceipt,receiptcolumn);
+		receiptJTable=new JTable(receiptdefault);
 		
+		receiptJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		receiptJTable.setRowSelectionAllowed(true);
+		receiptJTable.setRowSelectionInterval(0,0);
+		ReceiptscrollPane.setViewportView(receiptJTable);
 		
+	}
+	
+	public void addAction(){
+		new AddAdministrator(this);
 	}
 }
