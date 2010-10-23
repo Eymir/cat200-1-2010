@@ -14,7 +14,7 @@ public class AdministratorBusiness {
 		
 		boolean flag=false;
 		
-		String sql="select * from ADMINTABLE  where USER_ID =upper(?) and USER_PASSWORD =?";
+		String sql="select * from ADMINTABLE  where lower(USER_ID) =lower(?) and lower(USER_PASSWORD) =lower(?)";
 		
 		try {
 			pst=new DBAccess().connOracle(sql);
