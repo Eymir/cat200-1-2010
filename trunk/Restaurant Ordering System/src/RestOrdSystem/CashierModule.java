@@ -117,7 +117,7 @@ public class CashierModule extends JFrame {
     
     static public void initTableStatus(){
     	for(int i=0;i<20;i++){
-        	TableStatus[i]=Available;
+        	TableStatus[i]=Seated;
         	} 
     }
     
@@ -269,11 +269,10 @@ public class CashierModule extends JFrame {
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    	
         Title.addElement("No.");
-        Title.addElement("Item");
+        Title.addElement("              Item");
         Title.addElement("Unit");
-        Title.addElement("Price");
+        Title.addElement("  Price");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -362,13 +361,14 @@ public class CashierModule extends JFrame {
         TotalPricePanel.add(TotalPriceLabel);
         TotalPricePanel.setLayout(null);
         
-        TotalLabel.setBounds(600,495,70,25);
+        TotalLabel.setBounds(610,494,70,25);
+        TotalLabel.setFont(new Font("Dialog", 1, 16));
         TotalPricePanel.setBounds(685,495,100,25);
         TotalPricePanel.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
         
         TotalLabel.setForeground(new Color(220,220,220));
         TotalPriceLabel.setForeground(new Color(51,51,51));
-        TotalPriceLabel.setBounds(0,0,100,25);
+        TotalPriceLabel.setBounds(0,-1,100,25);
         TotalPriceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         TotalPriceLabel.setText("RM 0");
         
@@ -404,6 +404,10 @@ public class CashierModule extends JFrame {
         AvailableLabel.setForeground(new Color(220,220,220));
         SeatedLabel.setForeground(new Color(220,220,220));
         BillingLabel.setForeground(new Color(220,220,220));
+        
+        AvailableLabel.setFont(new Font("Dialog", 1, 12));
+        SeatedLabel.setFont(new Font("Dialog", 1, 12));
+        BillingLabel.setFont(new Font("Dialog", 1, 12));
         
         
 ///////Button Panel Layout//////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -545,6 +549,27 @@ public class CashierModule extends JFrame {
         Table20Label.setBounds(270,467,200,46);
                      
         
+        Table1Label.setFont(new Font("Dialog", 1, 12));
+        Table2Label.setFont(new Font("Dialog", 1, 12));
+        Table3Label.setFont(new Font("Dialog", 1, 12));
+        Table4Label.setFont(new Font("Dialog", 1, 12));
+        Table5Label.setFont(new Font("Dialog", 1, 12));
+        Table6Label.setFont(new Font("Dialog", 1, 12));
+        Table7Label.setFont(new Font("Dialog", 1, 12));
+        Table8Label.setFont(new Font("Dialog", 1, 12));
+        Table9Label.setFont(new Font("Dialog", 1, 12));
+        Table10Label.setFont(new Font("Dialog", 1, 12));
+        Table11Label.setFont(new Font("Dialog", 1, 12));
+        Table12Label.setFont(new Font("Dialog", 1, 12));
+        Table13Label.setFont(new Font("Dialog", 1, 12));
+        Table14Label.setFont(new Font("Dialog", 1, 12));
+        Table15Label.setFont(new Font("Dialog", 1, 12));
+        Table16Label.setFont(new Font("Dialog", 1, 12));
+        Table17Label.setFont(new Font("Dialog", 1, 12));
+        Table18Label.setFont(new Font("Dialog", 1, 12));
+        Table19Label.setFont(new Font("Dialog", 1, 12));
+        Table20Label.setFont(new Font("Dialog", 1, 12));
+        
 ////////Table Button//////////////////////////////////////////////////////////////////////////////////////////
         
         Table1Button.setText("Table 1");
@@ -568,6 +593,28 @@ public class CashierModule extends JFrame {
         Table19Button.setText("Table 19");
         Table20Button.setText("Table 20");
                
+        
+        Table1Button.setFont(new Font("Dialog", 1, 13));
+        Table2Button.setFont(new Font("Dialog", 1, 13));
+        Table3Button.setFont(new Font("Dialog", 1, 13));
+        Table4Button.setFont(new Font("Dialog", 1, 13));
+        Table5Button.setFont(new Font("Dialog", 1, 13));
+        Table6Button.setFont(new Font("Dialog", 1, 13));
+        Table7Button.setFont(new Font("Dialog", 1, 13));
+        Table8Button.setFont(new Font("Dialog", 1, 13));
+        Table9Button.setFont(new Font("Dialog", 1, 13));
+        Table10Button.setFont(new Font("Dialog", 1, 13));
+        Table11Button.setFont(new Font("Dialog", 1, 13));
+        Table12Button.setFont(new Font("Dialog", 1, 13));
+        Table13Button.setFont(new Font("Dialog", 1, 13));
+        Table14Button.setFont(new Font("Dialog", 1, 13));
+        Table15Button.setFont(new Font("Dialog", 1, 13));
+        Table16Button.setFont(new Font("Dialog", 1, 13));
+        Table17Button.setFont(new Font("Dialog", 1, 13));
+        Table18Button.setFont(new Font("Dialog", 1, 13));
+        Table19Button.setFont(new Font("Dialog", 1, 13));
+        Table20Button.setFont(new Font("Dialog", 1, 13));
+        
         
         Table1Button.setBounds(10,20,100,40);
         Table2Button.setBounds(10,70,100,40);
@@ -1265,7 +1312,7 @@ public class CashierModule extends JFrame {
             	BillDetailsRow = new Vector();
             	BillDetailsRow.addElement("  "+NoIncrement());
             	BillDetailsRow.addElement(rs.getString(1));
-            	BillDetailsRow.addElement("    "+rs.getInt(2));
+            	BillDetailsRow.addElement("   "+rs.getInt(2));
             	BillDetailsRow.addElement("  "+df.format(rs.getDouble(3)*rs.getInt(2)));
             	BillDetails.addElement(BillDetailsRow);   	 	
             	
@@ -1299,11 +1346,11 @@ public class CashierModule extends JFrame {
         BillTable.getColumnModel().getColumn(0).setResizable(false);
         BillTable.getColumnModel().getColumn(0).setPreferredWidth(30);
         BillTable.getColumnModel().getColumn(1).setResizable(false);
-        BillTable.getColumnModel().getColumn(1).setPreferredWidth(165);
+        BillTable.getColumnModel().getColumn(1).setPreferredWidth(157);
         BillTable.getColumnModel().getColumn(2).setResizable(false);
         BillTable.getColumnModel().getColumn(2).setPreferredWidth(35);
         BillTable.getColumnModel().getColumn(3).setResizable(false);
-        BillTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+        BillTable.getColumnModel().getColumn(3).setPreferredWidth(58);
     	    		
     }
    
