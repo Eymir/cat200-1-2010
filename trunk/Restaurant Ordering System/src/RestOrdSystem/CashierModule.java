@@ -18,9 +18,9 @@ import java.util.Date;
 public class CashierModule extends JFrame {
 
 	static public String [] TableStatus;
-	static public String Available="                        Available";
-	static public String Unavailable="                     Unavailable";
-	static public String Billing="                           Billing";
+	static public String Available="                    Available";
+	static public String Unavailable="                 Unavailable";
+	static public String Billing="                       Billing";
 	static public int TableNumber; 
 	static public Color [] TableStatusColor;
 	
@@ -411,8 +411,8 @@ public class CashierModule extends JFrame {
         InstructionPanel.setBackground(new Color(51,51,51));
         
         GreenBox.setBounds(7,2,15,15);
-        BlueBox.setBounds(100,2,15,15);
-        RedBox.setBounds(206,2,15,15);
+        BlueBox.setBounds(106,2,15,15);
+        RedBox.setBounds(222,2,15,15);
         
         GreenBox.setBackground(new Color(20,255,20));
         BlueBox.setBackground(new Color(20,255,255));
@@ -422,9 +422,9 @@ public class CashierModule extends JFrame {
         BlueBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
         RedBox.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102),2));
         
-        AvailableLabel.setBounds(30,3,150,15);
-        UnavailableLabel.setBounds(122,3,150,15);
-        BillingLabel.setBounds(227,3,150,15);
+        AvailableLabel.setBounds(28,3,150,15);
+        UnavailableLabel.setBounds(126,3,150,15);
+        BillingLabel.setBounds(243,3,150,15);
         
         AvailableLabel.setText("Available");
         UnavailableLabel.setText("Unavailable");
