@@ -119,5 +119,26 @@ public class FoodBusiness {
 		}
 		return flag;
 	}
+	
+	
+	public boolean deleteFood(FoddModel model){
+		boolean flag=false;
+		String sql="delete from FOODTABLE where lower(FOOD_NAME)=lower(?)";
+		
+		try {
+			pst=new DBAccess().connOracle(sql);
+			pst.setString(1,model.getFoodName());
+			if(pst.executeUpdate()>0){
+				flag=true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return flag;
+	}
 
 }
