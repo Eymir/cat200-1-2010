@@ -14,7 +14,8 @@ import java.util.GregorianCalendar;
 public class SystemMain extends JFrame {
 
 	
-    static public CustomerMenu CustomerModule;
+    //static public CustomerMenu CustomerModule;
+	static public Table TableModule;
     static public CashierModule CashierModule;
     static public Kitchen KitchenModule;
    // static public LogIn AdministratorModule;
@@ -92,7 +93,8 @@ public class SystemMain extends JFrame {
         getToday=Day+", "+Date;
         
         
-        CustomerModule = new CustomerMenu();
+        //CustomerModule = new CustomerMenu();
+        TableModule = new Table();
         CashierModule = new CashierModule();
         KitchenModule = new Kitchen();
         //AdministratorModule = new LogIn();
@@ -105,7 +107,7 @@ public class SystemMain extends JFrame {
         Title = new JLabel();
         
         
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Launcher");
         setResizable(false);
         getContentPane().setLayout(null);
@@ -165,19 +167,22 @@ public class SystemMain extends JFrame {
     
     private void CustomerModuleActionPerformed(ActionEvent evt) 
     {
-        CustomerModule.setVisible(true);
+    	TableModule.setVisible(true);
+    	TableModule.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
     
     
     private void CashierModuleActionPerformed(ActionEvent evt) 
     {
         CashierModule.setVisible(true);
+        CashierModule.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
     
     
     private void KitchenModuleActionPerformed(ActionEvent evt) 
     {
        KitchenModule.setVisible(true);
+       KitchenModule.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
     
     private void AdministratorModuleActionPerformed(ActionEvent evt) 

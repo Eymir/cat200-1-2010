@@ -33,8 +33,6 @@ public class CustomerMenu extends JFrame {
 
     DecimalFormat df = new DecimalFormat("0.00");
 
-    static int receiptNumber = 0;
-
     public CustomerMenu() {
     	
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
@@ -43,24 +41,13 @@ public class CustomerMenu extends JFrame {
 		catch (IllegalAccessException e) {}
 		catch (UnsupportedLookAndFeelException e) {}
 		
-    	init();
-        getCon();
+		init();
+		getCon();
         getFoodData();
         setFoodData();
-        tableNoJTextField.setText("1");
-        receiptNumber = 100000;
-        try {
-            rs = stmt.executeQuery("INSERT INTO RECEIPTTABLE ("
-                    + "RECEIPT_NO, TABLE_NO, PRICE_CHARGED) VALUES ("
-                    //+ "RECEIPT_NO_SEQ.NEXTVAL, "
-                    + receiptNumber + ", "
-                    + tableNoJTextField.getText() + ", "
-                    + "0.00"
-                    + ")");
-        }catch(SQLException e) {
-            System.out.println("testing failed : " + e.getMessage());
-        }
+        
     }
+    
 
     public Connection getCon() {
         try {
@@ -116,7 +103,7 @@ public class CustomerMenu extends JFrame {
         sideJList.setSelectedIndex(0);
     }//setFoodData end
 
-    private JLayeredPane jLayeredPane1;
+    protected static JLayeredPane jLayeredPane1;
     private JLabel backgroundJLabel;
     private JLabel titleJLabel;
     private JLabel tableNoJLabel;
@@ -141,12 +128,12 @@ public class CustomerMenu extends JFrame {
     private void init() {
 
     	setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CustomerMenu");
+        setTitle("Restaurant Ordering System - Customer Menu                  "+SystemMain.Day+", "+SystemMain.Date);
         setMinimumSize(new Dimension(800, 500));
         setResizable(false);
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
-    	
+        
                 
     	//background
         jLayeredPane1 = new JLayeredPane();
@@ -254,14 +241,14 @@ public class CustomerMenu extends JFrame {
         payBillButton.setBounds(460, 410, 310, 50);
         jLayeredPane1.add(payBillButton, JLayeredPane.DEFAULT_LAYER);
 
-        backButton.setText("BACK");
-        backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-        backButton.setBounds(690, 10, 90, 50);
-        jLayeredPane1.add(backButton, JLayeredPane.DEFAULT_LAYER);
+//        backButton.setText("BACK");
+//        backButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent evt) {
+//                backButtonActionPerformed(evt);
+//            }
+//        });
+//        backButton.setBounds(690, 10, 90, 50);
+//        jLayeredPane1.add(backButton, JLayeredPane.DEFAULT_LAYER);
 
         titleJLabel.setIcon(new ImageIcon(getClass().getResource("/image1/Customer_menu_text.png")));
         titleJLabel.setBounds(10, 10, 400, 60);
@@ -291,14 +278,14 @@ public class CustomerMenu extends JFrame {
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 800, 480);
         
-        //CashierModule.TableStatus[Integer.valueOf(tableNoJTextField.getText())-1] = CashierModule.Seated;
+        
     }//init end
 
     private void orderButtonActionPerformed(ActionEvent evt) {
     	
         OrderPopUp odp = new OrderPopUp();
         odp.setVisible(true);
-        odp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        odp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         if (foodJList.isShowing())
             selectedFoodName = (String)foodJList.getSelectedValue();
@@ -331,9 +318,9 @@ public class CustomerMenu extends JFrame {
         
     }//orderButtonActionPerformed end
     
-    private void backButtonActionPerformed(ActionEvent evt) {
-        dispose();
-    }//backButtonActionPerformed end
+//    private void backButtonActionPerformed(ActionEvent evt) {
+//        dispose();
+//    }//backButtonActionPerformed end
 
     private void payBillButtonActionPerformed(ActionEvent evt) {
         
@@ -342,21 +329,53 @@ public class CustomerMenu extends JFrame {
         }
 
         int confirmInt = JOptionPane.showConfirmDialog(null, "Are you sure you want to pay bill?", "Confirmation", JOptionPane.YES_NO_OPTION);
+        
         if (confirmInt == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "This meal is FREE!!!", "Surprise!!", JOptionPane.INFORMATION_MESSAGE);
+            
+        	JOptionPane.showMessageDialog(null, "Thank you. Your bill will come in a short moment.", "Thank you", JOptionPane.INFORMATION_MESSAGE);
             
             CashierModule.TableStatus[Integer.valueOf(tableNoJTextField.getText())-1] = CashierModule.Billing;
+            CashierModule.refresh();
+            
             dispose();
+            
         }
     }//payBillButtonActionPerformed end
 
+    public static void refreshTable() {
+    	
+    	if (tableNoJTextField.getText().equals("1")) Table.Button1.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("2")) Table.Button2.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("3")) Table.Button3.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("4")) Table.Button4.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("5")) Table.Button5.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("6")) Table.Button6.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("7")) Table.Button7.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("8")) Table.Button8.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("9")) Table.Button9.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("10")) Table.Button10.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("11")) Table.Button11.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("12")) Table.Button12.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("13")) Table.Button13.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("14")) Table.Button14.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("15")) Table.Button15.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("16")) Table.Button16.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("17")) Table.Button17.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("18")) Table.Button18.setEnabled(true);
+        else if (tableNoJTextField.getText().equals("19")) Table.Button19.setEnabled(true);
+        else Table.Button20.setEnabled(true);
+    	
+    }
+    
+    
+    
     //main function for this class
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomerMenu().setVisible(true);
-            }
-        });
-    }//main end
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CustomerMenu().setVisible(true);
+//            }
+//        });
+//    }//main end
     
 }
