@@ -17,7 +17,8 @@ import java.util.*;
 
 public class CashierModule extends JFrame {
 
-	static public String [] TableStatus;
+	static public String [] TableStatus = new String[20];
+	
 	static public String Available="                    Available";
 	static public String Seated="                   Seated";
 	static public String Billing="                       Billing";
@@ -86,6 +87,10 @@ public class CashierModule extends JFrame {
 	public CashierModule() {
        getCon();
        initComponents();
+       initTableStatus();
+       Available="                    Available";
+   		Seated="                   Seated";
+   		Billing="                       Billing";
     }
     
 	
@@ -188,7 +193,7 @@ public class CashierModule extends JFrame {
 		catch (UnsupportedLookAndFeelException e) {}
 	        	
     	
-        TableStatus = new String[20];
+        
         TableStatusColor = new Color[20];
         TableNumber = 1;
         
@@ -275,7 +280,7 @@ public class CashierModule extends JFrame {
         Title.addElement("  Price");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Restaurant Ordering System - Cashier                                                    "+SystemMain.getToday);
         setResizable(false);
         setMinimumSize(new Dimension(800,600));
@@ -478,7 +483,7 @@ public class CashierModule extends JFrame {
         Table20Label.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
         
         
-        initTableStatus();
+
         
         
         Table1Label.setText(TableStatus[0]);
@@ -1265,8 +1270,11 @@ public class CashierModule extends JFrame {
     	if (n==0)
     	{
     		TableStatus[TableNumber-1]=Available;
-    		
+    		    		
     	}
+    	
+    	CustomerMenu.refreshTable();
+    	
     	refresh();
     }
     

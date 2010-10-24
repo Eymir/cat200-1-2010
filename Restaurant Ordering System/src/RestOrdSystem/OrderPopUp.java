@@ -56,7 +56,7 @@ public class OrderPopUp extends JFrame {
         okButton = new JButton();
         cancelButton = new JButton();
         
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Order Pop Up");
         setMinimumSize(new Dimension(500, 420));
         setResizable(false);
@@ -166,7 +166,7 @@ public class OrderPopUp extends JFrame {
             CustomerMenu.rs = CustomerMenu.stmt.executeQuery("INSERT INTO ORDERTABLE ("
                     + "ORDER_NO, RECEIPT_NO, ORD_FOOD_NAME, ORD_FOOD_QN) VALUES ("
                     + "ORDER_NO_SEQ.NEXTVAL, "
-                    + CustomerMenu.receiptNumber + ", "
+                    + "(SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = "+CustomerMenu.tableNoJTextField.getText()+"), "
                     + "'" + foodNameLabel.getText() + "', "
                     + quantityJSpinner.getValue()
                     + ")");
@@ -226,7 +226,6 @@ public class OrderPopUp extends JFrame {
         }//for end
 
         CustomerMenu.totalPriceJTextField.setText(df.format(totalPriceDbl));
-        
         CashierModule.refresh();
         dispose();
     }//okButtonActionPerformed end
