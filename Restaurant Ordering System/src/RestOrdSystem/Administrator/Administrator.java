@@ -169,6 +169,8 @@ public class Administrator extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(JTableindex==0){
 					modifyAdminAction();
+				}else if(JTableindex==1){
+					modifyFoodAction();
 				}
 			}
 		});
@@ -336,5 +338,23 @@ public class Administrator extends JFrame {
 	
 	public void addFoodAction(){
 		new AddFood(this);
+	}
+	
+	
+	public void modifyFoodAction(){
+		int index=foodJTable.getSelectedRow();
+		Vector food=(Vector) allfood.get(index);
+		
+		FoddModel model=new FoddModel();
+		model.setFoodName(food.get(0).toString());
+		model.setFoodType(food.get(1).toString());
+		model.setFoodPrice(new Integer(food.get(2).toString()).intValue());
+		model.setFoodQoh(new Integer(food.get(3).toString()).intValue());
+		model.setFoodMin(new Integer(food.get(4).toString()).intValue());
+		model.setPicture(food.get(5).toString());
+		model.setDescription(food.get(6).toString());
+		
+		new ModifyFood(this,model);
+		
 	}
 }
