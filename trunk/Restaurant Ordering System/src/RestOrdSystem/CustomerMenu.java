@@ -47,14 +47,14 @@ public class CustomerMenu extends JFrame {
 		orderFoodQnVec = new Vector();
 		orderFoodPriceVec = new Vector();
 		
-		getCon();
+		//getCon();
         getFoodData();
         setFoodData();
         
     }
     
 
-    public Connection getCon() {
+    public static Connection getCon() {
         try {
             DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");

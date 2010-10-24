@@ -39,6 +39,7 @@ public class SystemMain extends JFrame {
     
     public SystemMain() {    	
     	
+    	CustomerMenu.getCon();
         initComponents();
         setSize(400,300);
         setLocationRelativeTo(null);
