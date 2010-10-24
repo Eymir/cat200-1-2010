@@ -27,9 +27,9 @@ public class CustomerMenu extends JFrame {
     String foodDescptStr = "";
     String receiptNoStr = "";
 
-    static Vector orderFoodNameVec = new Vector();
-    static Vector orderFoodQnVec = new Vector();
-    static Vector orderFoodPriceVec = new Vector();
+    static Vector orderFoodNameVec;
+    static Vector orderFoodQnVec;
+    static Vector orderFoodPriceVec;
 
     DecimalFormat df = new DecimalFormat("0.00");
 
@@ -42,6 +42,11 @@ public class CustomerMenu extends JFrame {
 		catch (UnsupportedLookAndFeelException e) {}
 		
 		init();
+		
+		orderFoodNameVec = new Vector();
+		orderFoodQnVec = new Vector();
+		orderFoodPriceVec = new Vector();
+		
 		getCon();
         getFoodData();
         setFoodData();
