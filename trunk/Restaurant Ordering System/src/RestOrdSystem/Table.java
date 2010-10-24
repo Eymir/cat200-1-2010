@@ -65,8 +65,8 @@ public class Table extends JFrame {
     protected static JButton Button18;
     protected static JButton Button19;
     protected static JButton Button20;
-    private JButton okButton;
-    private JButton cancelButton;
+//    private JButton okButton;
+//    private JButton cancelButton;
     
     
     
@@ -106,8 +106,8 @@ public class Table extends JFrame {
         selectTableJLabel = new JLabel();
         promotionJLabel = new JLabel();
         restaurantJLabel = new JLabel();
-        okButton = new JButton();
-        cancelButton = new JButton();
+//        okButton = new JButton();
+//        cancelButton = new JButton();
 
         
 
@@ -377,24 +377,24 @@ public class Table extends JFrame {
         jPanel1.add(Button20);
         Button20.setBounds(690, 340, 71, 61);
         
-        okButton.setIcon(new ImageIcon(getClass().getResource("/image1/OK.jpg")));
+//        okButton.setIcon(new ImageIcon(getClass().getResource("/image1/OK.jpg")));
 //        okButton.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent evt) {
 //                okButtonActionPerformed(evt);
 //            }
 //        });
-        
-        jPanel1.add(okButton);
-        okButton.setBounds(490, 420, 70, 40);
+//        
+//        jPanel1.add(okButton);
+//        okButton.setBounds(490, 420, 70, 40);
 
-        cancelButton.setIcon(new ImageIcon(getClass().getResource("/image1/cancel.jpg")));
+//        cancelButton.setIcon(new ImageIcon(getClass().getResource("/image1/cancel.jpg")));
 //        cancelButton.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent evt) {
 //                cancelButtonActionPerformed(evt);
 //            }
 //        });
-        jPanel1.add(cancelButton);
-        cancelButton.setBounds(600, 420, 70, 40);
+//        jPanel1.add(cancelButton);
+//        cancelButton.setBounds(600, 420, 70, 40);
         
         
         getContentPane().add(jPanel1);
