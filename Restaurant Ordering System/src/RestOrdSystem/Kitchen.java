@@ -42,7 +42,7 @@ public class Kitchen extends javax.swing.JFrame {
         rdbtnDone.setEnabled(false);
 //        timer = new Timer(500, task);
  //       timer.start();
-        
+  //      timer.stop();
     }
 
     private void initComponents() {
