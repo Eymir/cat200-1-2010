@@ -12,17 +12,27 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import java.util.Date;
+import javax.swing.Timer;
 
 public class Kitchen extends javax.swing.JFrame {
-
+	
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date myDate=new Date();
+	Timer timer;
+	
     public Kitchen() {
         initComponents();
-        setTitle("Kitchen");
+        setTitle("Restaurant Ordering System - Kitchen                                                    "+dateFormat.format(myDate));
         setResizable(false);
         setLocationRelativeTo(null);
         tableview();
@@ -30,13 +40,16 @@ public class Kitchen extends javax.swing.JFrame {
         rdbtnPending.setEnabled(false);
         rdbtnInProgress.setEnabled(false);
         rdbtnDone.setEnabled(false);
+//        timer = new Timer(500, task);
+ //       timer.start();
+        
     }
 
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
-        jLabel2.setIcon(new ImageIcon(Kitchen.class.getResource("/image1/kitchen.jpg")));
+        jLabel2.setIcon(new ImageIcon(Kitchen.class.getResource("/image1/kitchen1.png")));
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -45,7 +58,7 @@ public class Kitchen extends javax.swing.JFrame {
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
-//
+
         jLayeredPane1.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18));
@@ -131,7 +144,8 @@ public class Kitchen extends javax.swing.JFrame {
         jLayeredPane1.add(rdbtnDone);
         
         JButton button = new JButton("");
-        button.setIcon(new ImageIcon(Kitchen.class.getResource("/image1/Symbol Black Refresh.jpg")));
+        button.setBackground(Color.WHITE);
+        button.setIcon(new ImageIcon(Kitchen.class.getResource("/image1/Refresh1.png")));
         button.setBounds(520, 114, 50, 50);
         jLayeredPane1.add(button);
         
@@ -155,7 +169,17 @@ public class Kitchen extends javax.swing.JFrame {
         lblRefresh.setFont(new Font("Tahoma", Font.BOLD, 15));
         lblRefresh.setBounds(515, 165, 65, 20);
         jLayeredPane1.add(lblRefresh);
+        
+        JLabel label = new JLabel("New label");
+        label.setForeground(SystemColor.inactiveCaptionBorder);
+        label.setFont(new Font("Tahoma", Font.BOLD, 26));
+        label.setBounds(617, 73, 109, 62);
+        jLayeredPane1.add(label);
+        //timer.setActionCommand(command);
+        //label.setText(myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
+        
         jLabel1 = new javax.swing.JLabel();
+        jLabel1.setBackground(SystemColor.controlDkShadow);
         jLabel1.setForeground(Color.BLACK);
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 11));
         
