@@ -63,6 +63,7 @@ public class ModifyFood extends JFrame {
 	
 	public ModifyFood(Administrator ads,FoddModel model) {
 		this.setVisible(true);
+		this.setResizable(false);
 		this.food=model;
 		admin=ads;
 		
