@@ -152,7 +152,7 @@ public class OrderPopUp extends JFrame {
 
     private void okButtonActionPerformed(ActionEvent evt) {
 
-        //get selected food price from oracle-------------------------------------------
+        //insert ordered food detail into oracle-------------------------------------------
         try {
             CustomerMenu.rs = CustomerMenu.stmt.executeQuery("INSERT INTO KITCHENTABLE ("
                     + "KIT_ORD_NO, TABLE_NO, FOOD_NAME, FOOD_QN, FOOD_STATUS) VALUES ("
@@ -192,7 +192,24 @@ public class OrderPopUp extends JFrame {
             CustomerMenu.orderFoodPriceVec.addElement(df.format(Double.valueOf(priceTextField.getText())*(Integer)quantityJSpinner.getValue()));
         }
 
-        //set up a table with empty values inside---------------------------------------
+        resetTable();
+
+        for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
+            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodNameVec.elementAt(a), a, 0);
+            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodQnVec.elementAt(a), a, 1);
+            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodPriceVec.elementAt(a), a, 2);
+
+            totalPriceDbl += Double.valueOf((String)CustomerMenu.orderFoodPriceVec.get(a));
+        }//for end
+
+        CustomerMenu.totalPriceJTextField.setText(df.format(totalPriceDbl));
+        CashierModule.refresh();
+        dispose();
+    }//okButtonActionPerformed end
+
+    void resetTable() {
+    	
+    	//set up a table with empty values inside---------------------------------------
         Vector tempTableColVec = new Vector();
         Vector tableHeaderVec = new Vector(3);
         for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
@@ -216,20 +233,9 @@ public class OrderPopUp extends JFrame {
         });
         CustomerMenu.orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
         //----------------------------------------------------------------------------------
-
-        for (int a=0;a<tempTableColVec.size();a++) {
-            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodNameVec.elementAt(a), a, 0);
-            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodQnVec.elementAt(a), a, 1);
-            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodPriceVec.elementAt(a), a, 2);
-
-            totalPriceDbl += Double.valueOf((String)CustomerMenu.orderFoodPriceVec.get(a));
-        }//for end
-
-        CustomerMenu.totalPriceJTextField.setText(df.format(totalPriceDbl));
-        CashierModule.refresh();
-        dispose();
-    }//okButtonActionPerformed end
-
+    	
+    }
+    
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         
         dispose();
