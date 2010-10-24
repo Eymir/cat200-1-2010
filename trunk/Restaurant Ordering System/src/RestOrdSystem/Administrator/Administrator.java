@@ -205,14 +205,9 @@ public class Administrator extends JFrame {
 		Addbutton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(Addbutton);
 		
-		JButton CheckTablebutton = new JButton("Table Status");
-		CheckTablebutton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		CheckTablebutton.setBounds(25, 129, 120, 51);
-		contentPane.add(CheckTablebutton);
-		
 		JButton SpecialFoodbutton = new JButton("Special Food");
 		SpecialFoodbutton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		SpecialFoodbutton.setBounds(25, 250, 119, 51);
+		SpecialFoodbutton.setBounds(30, 177, 119, 51);
 		contentPane.add(SpecialFoodbutton);
 		
 		
