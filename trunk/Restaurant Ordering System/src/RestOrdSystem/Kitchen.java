@@ -13,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.text.DateFormat;
-import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -21,14 +20,21 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
 import javax.swing.Timer;
+import javax.swing.JPanel;
 
 public class Kitchen extends javax.swing.JFrame {
 	
 	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	Date myDate=new Date();
 	Timer timer;
+	private long hr;//=myDate.getHours();
+	private long min;//=myDate.getMinutes();
+	private long sec;//=myDate.getSeconds();
 	
     public Kitchen() {
         initComponents();
@@ -43,6 +49,9 @@ public class Kitchen extends javax.swing.JFrame {
 //        timer = new Timer(500, task);
  //       timer.start();
   //      timer.stop();
+   //     timer = new Kitchen.TimeLabelTimer( );
+      //  timer.start( );
+       // timer.stop();
     }
 
     private void initComponents() {
@@ -136,6 +145,7 @@ public class Kitchen extends javax.swing.JFrame {
         		status = "Done";
         		warn();
         		tableview();
+        		btnServed.setEnabled(true);
         	}
         });
         
@@ -170,13 +180,14 @@ public class Kitchen extends javax.swing.JFrame {
         lblRefresh.setBounds(515, 165, 65, 20);
         jLayeredPane1.add(lblRefresh);
         
-        JLabel label = new JLabel("New label");
+        label = new JLabel("New label");
         label.setForeground(SystemColor.inactiveCaptionBorder);
         label.setFont(new Font("Tahoma", Font.BOLD, 26));
-        label.setBounds(617, 73, 109, 62);
+        label.setBounds(610, 75, 120, 65);
         jLayeredPane1.add(label);
-        //timer.setActionCommand(command);
-        //label.setText(myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
+        //timer.setActionCommand(hr);
+        label.setText(myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
+        //label.setText(hr+":"+min+":"+sec);
         
         jLabel1 = new javax.swing.JLabel();
         jLabel1.setBackground(SystemColor.controlDkShadow);
@@ -221,8 +232,8 @@ public class Kitchen extends javax.swing.JFrame {
         	DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
         	
             Connection con;
-            //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+           // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
             System.out.println("Database Connected");
         	
         	Statement stmt = con.createStatement();
@@ -310,8 +321,8 @@ public class Kitchen extends javax.swing.JFrame {
             DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
 
             Connection con;
-            //con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+           // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
             System.out.println("Database Connected 1");
 
             Statement stmt = con.createStatement();
@@ -350,7 +361,7 @@ public class Kitchen extends javax.swing.JFrame {
         
         	String no= (String) newtable1.getValueAt(jTable1.getSelectedRow(), 0);
         	String table = (String) newtable1.getValueAt(jTable1.getSelectedRow(), 1);
-        	String deleteString = "DELETE FROM KITCHENTABLE WHERE KIT_ORD_NO = '"+no+"'AND FOOD_NAME='"+table+"'";
+        	String deleteString = "DELETE FROM KITCHENTABLE WHERE KIT_ORD_NO = '"+no+"'AND TABLE_NO='"+table+"'";
 
             update(deleteString);
         }
@@ -388,6 +399,29 @@ public class Kitchen extends javax.swing.JFrame {
                 ok,
                 ok[0]));
     }
+/*    private       TimeZone         defaultTimeZone = null;
+    private       Calendar         calendar        = null;
+    private class TimeLabelTimer extends Timer implements ActionListener
+    {
+        private final String           TIME_FORMAT     = " HH:mm:ss ";
+        private       SimpleDateFormat timeFormat      = null;
+
+        TimeLabelTimer( )
+        {
+            
+            super(1000, null);  
+            addActionListener(this);
+
+            timeFormat      = new SimpleDateFormat(TIME_FORMAT);
+            timeFormat.setTimeZone(defaultTimeZone);
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            calendar = Calendar.getInstance(defaultTimeZone);
+            label.setText(timeFormat.format(calendar.getTime( )));
+        }
+    }*/
+
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -408,5 +442,6 @@ public class Kitchen extends javax.swing.JFrame {
     private JRadioButton rdbtnInProgress;
     private JRadioButton rdbtnDone;
     private javax.swing.JLabel lblRefresh;
+    private javax.swing.JLabel label;
     private final ButtonGroup buttonGroup = new ButtonGroup();
 }
