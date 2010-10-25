@@ -1,44 +1,26 @@
 package RestOrdSystem;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
-import javax.swing.Timer;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Kitchen extends javax.swing.JFrame {
-	
-	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	Date myDate=new Date();
-	Timer timer;
-	private long hr;//=myDate.getHours();
-	private long min;//=myDate.getMinutes();
-	private long sec;//=myDate.getSeconds();
-	
+
     public Kitchen() {
         initComponents();
-        setTitle("Restaurant Ordering System - Kitchen                                                    "+dateFormat.format(myDate));
+        setTitle("Restaurant Ordering System - Kitchen                                                    "+SystemMain.getToday);
         setResizable(false);
         setLocationRelativeTo(null);
         tableview();
@@ -46,16 +28,26 @@ public class Kitchen extends javax.swing.JFrame {
         rdbtnPending.setEnabled(false);
         rdbtnInProgress.setEnabled(false);
         rdbtnDone.setEnabled(false);
-//        timer = new Timer(500, task);
- //       timer.start();
-  //      timer.stop();
-   //     timer = new Kitchen.TimeLabelTimer( );
-      //  timer.start( );
-       // timer.stop();
+
     }
+    
+    private JButton jButton1;
+    private JLabel jLabel1;
+    private JLabel jLabel2;
+    private JLayeredPane jLayeredPane1;
+    private JScrollPane jScrollPane1;
+    private JTable jTable1;
+    private JButton btnServed;
+    private JButton button;
+    private JRadioButton rdbtnPending;
+    private JRadioButton rdbtnInProgress;
+    private JRadioButton rdbtnDone;
+    private JLabel lblRefresh;
+    private final ButtonGroup buttonGroup = new ButtonGroup();
+    private JPanel panel;
 
     private void initComponents() {
-
+ 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         jLabel2.setIcon(new ImageIcon(Kitchen.class.getResource("/image1/kitchen1.png")));
@@ -84,7 +76,7 @@ public class Kitchen extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Table Number", "Food", "Quantity", "Status"
+                "ORDER NUMBER", "Table Number", "Food", "Quantity", "Status"
             }
         ));
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -153,7 +145,7 @@ public class Kitchen extends javax.swing.JFrame {
         rdbtnDone.setBounds(617, 244, 109, 23);
         jLayeredPane1.add(rdbtnDone);
         
-        JButton button = new JButton("");
+        button = new JButton("");
         button.setBackground(Color.WHITE);
         button.setIcon(new ImageIcon(Kitchen.class.getResource("/image1/Refresh1.png")));
         button.setBounds(520, 114, 50, 50);
@@ -180,15 +172,23 @@ public class Kitchen extends javax.swing.JFrame {
         lblRefresh.setBounds(515, 165, 65, 20);
         jLayeredPane1.add(lblRefresh);
         
-        label = new JLabel("New label");
-        label.setForeground(SystemColor.inactiveCaptionBorder);
-        label.setFont(new Font("Tahoma", Font.BOLD, 26));
-        label.setBounds(610, 75, 120, 65);
-        jLayeredPane1.add(label);
-        //timer.setActionCommand(hr);
-        label.setText(myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds());
-        //label.setText(hr+":"+min+":"+sec);
+        panel = new JPanel(){
+        	public void paintComponent(Graphics g) {
+        		Time current= new Time();
+              super.paintComponent(g);
+              digitalclock();
+              g.setFont(new Font("Tahoma", Font.BOLD, 25));
+              g.setColor(Color.WHITE);
+              g.drawString(current.gettime(),2,35);
+               }
+        	
+        };
+        panel.setBackground(Color.BLACK);
+        panel.setBounds(605, 100, 120, 50);
+        jLayeredPane1.add(panel);
         
+        //myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds()
+     
         jLabel1 = new javax.swing.JLabel();
         jLabel1.setBackground(SystemColor.controlDkShadow);
         jLabel1.setForeground(Color.BLACK);
@@ -309,7 +309,17 @@ public class Kitchen extends javax.swing.JFrame {
     public void update(String edit){
 
         try {
-        	SystemMain.stmt.executeUpdate(edit);
+            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
+
+            Connection con;
+           // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+            System.out.println("Database Connected 1");
+
+            Statement stmt = con.createStatement();
+            System.out.println("success2");
+            stmt.executeUpdate(edit);
+            System.out.println("success3");
         }
 
         catch(Exception e){
@@ -380,29 +390,28 @@ public class Kitchen extends javax.swing.JFrame {
                 ok,
                 ok[0]));
     }
-/*    private       TimeZone         defaultTimeZone = null;
-    private       Calendar         calendar        = null;
-    private class TimeLabelTimer extends Timer implements ActionListener
-    {
-        private final String           TIME_FORMAT     = " HH:mm:ss ";
-        private       SimpleDateFormat timeFormat      = null;
+    
+    public class Time{
+    	
+    	public static final String currentTime = "HH:mm:ss";
+    
+    public String gettime(){
+    	
+    	Calendar rightnow = Calendar.getInstance();
+	    SimpleDateFormat sdf = new SimpleDateFormat(currentTime);
+	    return sdf.format(rightnow.getTime());
+    }
+    }
 
-        TimeLabelTimer( )
-        {
-            
-            super(1000, null);  
-            addActionListener(this);
-
-            timeFormat      = new SimpleDateFormat(TIME_FORMAT);
-            timeFormat.setTimeZone(defaultTimeZone);
-        }
-        public void actionPerformed(ActionEvent e)
-        {
-            calendar = Calendar.getInstance(defaultTimeZone);
-            label.setText(timeFormat.format(calendar.getTime( )));
-        }
-    }*/
-
+    public void digitalclock()
+	{
+		Timer clock;
+		
+		clock=new Timer(1000, null);
+		clock.start();
+		this.repaint();
+		
+	}
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -412,17 +421,4 @@ public class Kitchen extends javax.swing.JFrame {
         });
     }
 
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private JButton btnServed;
-    private JRadioButton rdbtnPending;
-    private JRadioButton rdbtnInProgress;
-    private JRadioButton rdbtnDone;
-    private javax.swing.JLabel lblRefresh;
-    private javax.swing.JLabel label;
-    private final ButtonGroup buttonGroup = new ButtonGroup();
 }
