@@ -309,17 +309,8 @@ public class Kitchen extends javax.swing.JFrame {
     public void update(String edit){
 
         try {
-            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
+        	SystemMain.stmt.executeUpdate(edit);
 
-            Connection con;
-           // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
-            System.out.println("Database Connected 1");
-
-            Statement stmt = con.createStatement();
-            System.out.println("success2");
-            stmt.executeUpdate(edit);
-            System.out.println("success3");
         }
 
         catch(Exception e){
