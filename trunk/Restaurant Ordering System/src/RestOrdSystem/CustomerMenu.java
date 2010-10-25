@@ -9,17 +9,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class CustomerMenu extends JFrame {
+	
+    Vector<String> foodNameVec = new Vector<String>();
+    Vector<String> foodTypeVec = new Vector<String>();
 
-    static Connection con;
-    static ResultSet rs;
-    static Statement stmt;
-    
-    Vector foodNameVec = new Vector();
-    Vector foodTypeVec = new Vector();
-
-    Vector typeFoodVec = new Vector();
-    Vector typeDrinkVec = new Vector();
-    Vector typeSideVec = new Vector();
+    Vector<String> typeFoodVec = new Vector<String>();
+    Vector<String> typeDrinkVec = new Vector<String>();
+    Vector<String> typeSideVec = new Vector<String>();
 
     String selectedFoodName = "";
     double foodPriceDbl = 0.00;
@@ -27,13 +23,13 @@ public class CustomerMenu extends JFrame {
     String foodDescptStr = "";
     String receiptNoStr = "";
 
-    static Vector orderFoodNameVec;
-    static Vector orderFoodQnVec;
-    static Vector orderFoodPriceVec;
-
     DecimalFormat df = new DecimalFormat("0.00");
 
-    public CustomerMenu() {
+    int tableNo;
+    
+    public CustomerMenu(int tbNo) {
+    	
+    	tableNo = tbNo;
     	
 		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
 		catch (ClassNotFoundException e) {}
@@ -43,9 +39,7 @@ public class CustomerMenu extends JFrame {
 		
 		init();
 		
-		orderFoodNameVec = new Vector();
-		orderFoodQnVec = new Vector();
-		orderFoodPriceVec = new Vector();
+		tableNoJTextField.setText(Integer.toString(tableNo));
 		
 		//getCon();
         getFoodData();
@@ -54,33 +48,21 @@ public class CustomerMenu extends JFrame {
     }
     
 
-    public static Connection getCon() {
-        try {
-            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
-            System.out.println("connection established");
-        }
-        catch (Exception e) {
-            System.err.println("connection error!!!");
-        }
-
-        return con;
-    }//getCon end
+    
 
     void getFoodData() {
 
         try {
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = stmt.executeQuery("SELECT FOOD_NAME, FOOD_TYPE " +
+        	SystemMain.rs = SystemMain.stmt.executeQuery("SELECT FOOD_NAME, FOOD_TYPE " +
             		"FROM FOODTABLE");
-
-            while (rs.next()) {
-            	foodNameVec.addElement(rs.getString(1));
-                foodTypeVec.addElement(rs.getString(2));
+            
+            while (SystemMain.rs.next()) {
+            	foodNameVec.addElement(SystemMain.rs.getString(1));
+                foodTypeVec.addElement(SystemMain.rs.getString(2));
             }//while end
         }
-        catch (Exception e) {
-            System.err.println("database retrieval failed...");
+        catch (SQLException e) {
+            System.err.println("database retrieval failed : " + e.getMessage());
         }//try catch end
 
     }//getFoodData end
@@ -112,8 +94,7 @@ public class CustomerMenu extends JFrame {
     private JLabel backgroundJLabel;
     private JLabel titleJLabel;
     private JLabel tableNoJLabel;
-    protected static JTextField tableNoJTextField;
-    private JButton backButton;
+    private JTextField tableNoJTextField;
     private JTabbedPane jTabbedPane1;
     private JScrollPane jScrollPane1;
     private JScrollPane jScrollPane2;
@@ -124,11 +105,51 @@ public class CustomerMenu extends JFrame {
     private JButton orderButton;
     private JLabel orderListJLabel;
     private JScrollPane jScrollPane4;
-    protected static JTable orderJTable;
     private JPanel totalPriceJPanel;
     private JLabel totalPriceJLabel;
-    protected static JTextField totalPriceJTextField;
     protected static JButton payBillButton;
+    
+    protected static JTable orderJTable1;
+    protected static JTable orderJTable2;
+    protected static JTable orderJTable3;
+    protected static JTable orderJTable4;
+    protected static JTable orderJTable5;
+    protected static JTable orderJTable6;
+    protected static JTable orderJTable7;
+    protected static JTable orderJTable8;
+    protected static JTable orderJTable9;
+    protected static JTable orderJTable10;
+    protected static JTable orderJTable11;
+    protected static JTable orderJTable12;
+    protected static JTable orderJTable13;
+    protected static JTable orderJTable14;
+    protected static JTable orderJTable15;
+    protected static JTable orderJTable16;
+    protected static JTable orderJTable17;
+    protected static JTable orderJTable18;
+    protected static JTable orderJTable19;
+    protected static JTable orderJTable20;
+    
+    protected static JTextField totalPriceJTextField1;
+    protected static JTextField totalPriceJTextField2;
+    protected static JTextField totalPriceJTextField3;
+    protected static JTextField totalPriceJTextField4;
+    protected static JTextField totalPriceJTextField5;
+    protected static JTextField totalPriceJTextField6;
+    protected static JTextField totalPriceJTextField7;
+    protected static JTextField totalPriceJTextField8;
+    protected static JTextField totalPriceJTextField9;
+    protected static JTextField totalPriceJTextField10;
+    protected static JTextField totalPriceJTextField11;
+    protected static JTextField totalPriceJTextField12;
+    protected static JTextField totalPriceJTextField13;
+    protected static JTextField totalPriceJTextField14;
+    protected static JTextField totalPriceJTextField15;
+    protected static JTextField totalPriceJTextField16;
+    protected static JTextField totalPriceJTextField17;
+    protected static JTextField totalPriceJTextField18;
+    protected static JTextField totalPriceJTextField19;
+    protected static JTextField totalPriceJTextField20;
     
     private void init() {
 
@@ -148,7 +169,6 @@ public class CustomerMenu extends JFrame {
         titleJLabel = new JLabel();
         tableNoJLabel = new JLabel();
         tableNoJTextField = new JTextField();
-        backButton = new JButton();
         
         //left component
         jTabbedPane1 = new JTabbedPane();
@@ -162,10 +182,28 @@ public class CustomerMenu extends JFrame {
         //right component
         orderListJLabel = new JLabel();
         jScrollPane4 = new JScrollPane();
-        orderJTable = new JTable();
+        if (tableNo==1) { orderJTable1 = new JTable(); totalPriceJTextField1 = new JTextField(); }
+        else if (tableNo==2) { orderJTable2 = new JTable(); totalPriceJTextField2 = new JTextField(); }
+        else if (tableNo==3) { orderJTable3 = new JTable(); totalPriceJTextField3 = new JTextField(); }
+        else if (tableNo==4) { orderJTable4 = new JTable(); totalPriceJTextField4 = new JTextField(); }
+        else if (tableNo==5) { orderJTable5 = new JTable(); totalPriceJTextField5 = new JTextField(); }
+        else if (tableNo==6) { orderJTable6 = new JTable(); totalPriceJTextField6 = new JTextField(); }
+        else if (tableNo==7) { orderJTable7 = new JTable(); totalPriceJTextField7 = new JTextField(); }
+        else if (tableNo==8) { orderJTable8 = new JTable(); totalPriceJTextField8 = new JTextField(); }
+        else if (tableNo==9) { orderJTable9 = new JTable(); totalPriceJTextField9 = new JTextField(); }
+        else if (tableNo==10) { orderJTable10 = new JTable(); totalPriceJTextField10 = new JTextField(); }
+        else if (tableNo==11) { orderJTable11 = new JTable(); totalPriceJTextField11 = new JTextField(); }
+        else if (tableNo==12) { orderJTable12 = new JTable(); totalPriceJTextField12 = new JTextField(); }
+        else if (tableNo==13) { orderJTable13 = new JTable(); totalPriceJTextField13 = new JTextField(); }
+        else if (tableNo==14) { orderJTable14 = new JTable(); totalPriceJTextField14 = new JTextField(); }
+        else if (tableNo==15) { orderJTable15 = new JTable(); totalPriceJTextField15 = new JTextField(); }
+        else if (tableNo==16) { orderJTable16 = new JTable(); totalPriceJTextField16 = new JTextField(); }
+        else if (tableNo==17) { orderJTable17 = new JTable(); totalPriceJTextField17 = new JTextField(); }
+        else if (tableNo==18) { orderJTable18 = new JTable(); totalPriceJTextField18 = new JTextField(); }
+        else if (tableNo==19) { orderJTable19 = new JTable(); totalPriceJTextField19 = new JTextField(); }
+        else if (tableNo==20) { orderJTable20 = new JTable(); totalPriceJTextField20 = new JTextField(); }
         totalPriceJPanel = new JPanel();
         totalPriceJLabel = new JLabel();
-        totalPriceJTextField = new JTextField();
         payBillButton = new JButton();
         
         //middle component
@@ -201,16 +239,26 @@ public class CustomerMenu extends JFrame {
         orderListJLabel.setBounds(460, 80, 310, 30);
         jLayeredPane1.add(orderListJLabel, JLayeredPane.DEFAULT_LAYER);
 
-        orderJTable.setModel(new DefaultTableModel(
-        		new Object [][] {}, new String [] {"Food Name", "Quantity", "Price"} ) {
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-            	return false;
-            }
-        });
-        orderJTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        orderJTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(orderJTable);
-        orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+        if (tableNo==1) initJTable(orderJTable1);
+        else if (tableNo==2) initJTable(orderJTable2);
+        else if (tableNo==3) initJTable(orderJTable3);
+        else if (tableNo==4) initJTable(orderJTable4);
+        else if (tableNo==5) initJTable(orderJTable5);
+        else if (tableNo==6) initJTable(orderJTable6);
+        else if (tableNo==7) initJTable(orderJTable7);
+        else if (tableNo==8) initJTable(orderJTable8);
+        else if (tableNo==9) initJTable(orderJTable9);
+        else if (tableNo==10) initJTable(orderJTable10);
+        else if (tableNo==11) initJTable(orderJTable11);
+        else if (tableNo==12) initJTable(orderJTable12);
+        else if (tableNo==13) initJTable(orderJTable13);
+        else if (tableNo==14) initJTable(orderJTable14);
+        else if (tableNo==15) initJTable(orderJTable15);
+        else if (tableNo==16) initJTable(orderJTable16);
+        else if (tableNo==17) initJTable(orderJTable17);
+        else if (tableNo==18) initJTable(orderJTable18);
+        else if (tableNo==19) initJTable(orderJTable19);
+        else if (tableNo==20) initJTable(orderJTable20);
 
         jScrollPane4.setBounds(460, 110, 310, 260);
         jLayeredPane1.add(jScrollPane4, JLayeredPane.DEFAULT_LAYER);
@@ -246,15 +294,6 @@ public class CustomerMenu extends JFrame {
         payBillButton.setBounds(460, 410, 310, 50);
         jLayeredPane1.add(payBillButton, JLayeredPane.DEFAULT_LAYER);
 
-//        backButton.setText("BACK");
-//        backButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent evt) {
-//                backButtonActionPerformed(evt);
-//            }
-//        });
-//        backButton.setBounds(690, 10, 90, 50);
-//        jLayeredPane1.add(backButton, JLayeredPane.DEFAULT_LAYER);
-
         titleJLabel.setIcon(new ImageIcon(getClass().getResource("/image1/Customer_menu_text.png")));
         titleJLabel.setBounds(10, 10, 400, 60);
         jLayeredPane1.add(titleJLabel, JLayeredPane.DEFAULT_LAYER);
@@ -266,12 +305,27 @@ public class CustomerMenu extends JFrame {
         totalPriceJLabel.setText("Total Price : RM");
         totalPriceJPanel.add(totalPriceJLabel);
         totalPriceJLabel.setBounds(0, 0, 150, 40);
-
-        totalPriceJTextField.setEditable(false);
-        totalPriceJTextField.setFont(new Font("Tahoma", 0, 18));
-        totalPriceJTextField.setHorizontalAlignment(JTextField.CENTER);
-        totalPriceJPanel.add(totalPriceJTextField);
-        totalPriceJTextField.setBounds(150, 0, 160, 40);
+        
+        if (tableNo==1) inittotalPriceTextField (totalPriceJTextField1);
+        else if (tableNo==2) inittotalPriceTextField (totalPriceJTextField2);
+        else if (tableNo==3) inittotalPriceTextField (totalPriceJTextField3);
+        else if (tableNo==4) inittotalPriceTextField (totalPriceJTextField4);
+        else if (tableNo==5) inittotalPriceTextField (totalPriceJTextField5);
+        else if (tableNo==6) inittotalPriceTextField (totalPriceJTextField6);
+        else if (tableNo==7) inittotalPriceTextField (totalPriceJTextField7);
+        else if (tableNo==8) inittotalPriceTextField (totalPriceJTextField8);
+        else if (tableNo==9) inittotalPriceTextField (totalPriceJTextField9);
+        else if (tableNo==10) inittotalPriceTextField (totalPriceJTextField10);
+        else if (tableNo==11) inittotalPriceTextField (totalPriceJTextField11);
+        else if (tableNo==12) inittotalPriceTextField (totalPriceJTextField12);
+        else if (tableNo==13) inittotalPriceTextField (totalPriceJTextField13);
+        else if (tableNo==14) inittotalPriceTextField (totalPriceJTextField14);
+        else if (tableNo==15) inittotalPriceTextField (totalPriceJTextField15);
+        else if (tableNo==16) inittotalPriceTextField (totalPriceJTextField16);
+        else if (tableNo==17) inittotalPriceTextField (totalPriceJTextField17);
+        else if (tableNo==18) inittotalPriceTextField (totalPriceJTextField18);
+        else if (tableNo==19) inittotalPriceTextField (totalPriceJTextField19);
+        else if (tableNo==20) inittotalPriceTextField (totalPriceJTextField20);
 
         totalPriceJPanel.setBounds(460, 370, 310, 40);
         jLayeredPane1.add(totalPriceJPanel, JLayeredPane.DEFAULT_LAYER);
@@ -283,12 +337,32 @@ public class CustomerMenu extends JFrame {
         getContentPane().add(jLayeredPane1);
         jLayeredPane1.setBounds(0, 0, 800, 480);
         
-        
     }//init end
 
+    void initJTable(JTable jtb) {
+    	jtb.setModel(new DefaultTableModel(
+        		new Object [][] {}, new String [] {"Food Name", "Quantity", "Price"} ) {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+            	return false;
+            }
+        });
+    	jtb.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    	jtb.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(jtb);
+        jtb.getColumnModel().getColumn(0).setPreferredWidth(200);
+    }
+    
+    void inittotalPriceTextField (JTextField priceTxt) {
+    	priceTxt.setEditable(false);
+    	priceTxt.setFont(new Font("Tahoma", 0, 18));
+    	priceTxt.setHorizontalAlignment(JTextField.CENTER);
+        totalPriceJPanel.add(priceTxt);
+        priceTxt.setBounds(150, 0, 160, 40);
+    }
+    
     private void orderButtonActionPerformed(ActionEvent evt) {
     	
-        OrderPopUp odp = new OrderPopUp();
+        OrderPopUp odp = new OrderPopUp(tableNo);
         odp.setVisible(true);
         odp.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -301,19 +375,19 @@ public class CustomerMenu extends JFrame {
 
         //get selected food detail from oracle----------------------------------------
         try {
-            rs = stmt.executeQuery("SELECT FOOD_PRICE, FOOD_PICT_URL, FOOD_DESCPT "
+        	SystemMain.rs = SystemMain.stmt.executeQuery("SELECT FOOD_PRICE, FOOD_PICT_URL, FOOD_DESCPT "
                     + "FROM FOODTABLE "
                     + "WHERE FOOD_NAME = '" + selectedFoodName + "'");
             
-            rs.first();
-            if (rs.first()) {
-                foodPriceDbl = rs.getDouble(1);
-            	foodPictURLStr = rs.getString(2);
-                foodDescptStr = rs.getString(3);
+        	SystemMain.rs.first();
+            if (SystemMain.rs.first()) {
+                foodPriceDbl = SystemMain.rs.getDouble(1);
+            	foodPictURLStr = SystemMain.rs.getString(2);
+                foodDescptStr = SystemMain.rs.getString(3);
             }
         }
-        catch (Exception e) {
-            System.err.println("food detail retrieval failed...");
+        catch (SQLException e) {
+            System.err.println("food detail retrieval failed..." + e.getMessage());
         }//try catch end--------------------------------------------------------------
 
         odp.foodNameLabel.setText(selectedFoodName);
@@ -323,15 +397,28 @@ public class CustomerMenu extends JFrame {
         
     }//orderButtonActionPerformed end
     
-//    private void backButtonActionPerformed(ActionEvent evt) {
-//        dispose();
-//    }//backButtonActionPerformed end
-
     private void payBillButtonActionPerformed(ActionEvent evt) {
         
-        if (orderFoodNameVec.size()==0) {
-            return;
-        }
+        if (tableNo==1 && Table.orderFoodNameVec1.size()==0) return;
+        else if (tableNo==2 && Table.orderFoodNameVec2.size()==0) return;
+        else if (tableNo==3 && Table.orderFoodNameVec3.size()==0) return;
+        else if (tableNo==4 && Table.orderFoodNameVec4.size()==0) return;
+        else if (tableNo==5 && Table.orderFoodNameVec5.size()==0) return;
+        else if (tableNo==6 && Table.orderFoodNameVec6.size()==0) return;
+        else if (tableNo==7 && Table.orderFoodNameVec7.size()==0) return;
+        else if (tableNo==8 && Table.orderFoodNameVec8.size()==0) return;
+        else if (tableNo==9 && Table.orderFoodNameVec9.size()==0) return;
+        else if (tableNo==10 && Table.orderFoodNameVec10.size()==0) return;
+        else if (tableNo==11 && Table.orderFoodNameVec11.size()==0) return;
+        else if (tableNo==12 && Table.orderFoodNameVec12.size()==0) return;
+        else if (tableNo==13 && Table.orderFoodNameVec13.size()==0) return;
+        else if (tableNo==14 && Table.orderFoodNameVec14.size()==0) return;
+        else if (tableNo==15 && Table.orderFoodNameVec15.size()==0) return;
+        else if (tableNo==16 && Table.orderFoodNameVec16.size()==0) return;
+        else if (tableNo==17 && Table.orderFoodNameVec17.size()==0) return;
+        else if (tableNo==18 && Table.orderFoodNameVec18.size()==0) return;
+        else if (tableNo==19 && Table.orderFoodNameVec19.size()==0) return;
+        else if (tableNo==20 && Table.orderFoodNameVec20.size()==0) return;
 
         int confirmInt = JOptionPane.showConfirmDialog(null, "Are you sure you want to pay bill?", "Confirmation", JOptionPane.YES_NO_OPTION);
         
@@ -339,40 +426,13 @@ public class CustomerMenu extends JFrame {
             
         	JOptionPane.showMessageDialog(null, "Thank you. Your bill will come in a short moment.", "Thank you", JOptionPane.INFORMATION_MESSAGE);
             
-            CashierModule.TableStatus[Integer.valueOf(tableNoJTextField.getText())-1] = CashierModule.Billing;
+            CashierModule.TableStatus[tableNo-1] = CashierModule.Billing;
             CashierModule.refresh();
             
             dispose();
             
         }
     }//payBillButtonActionPerformed end
-
-    public static void refreshTable() {
-    	
-    	if (tableNoJTextField.getText().equals("1")) Table.Button1.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("2")) Table.Button2.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("3")) Table.Button3.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("4")) Table.Button4.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("5")) Table.Button5.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("6")) Table.Button6.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("7")) Table.Button7.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("8")) Table.Button8.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("9")) Table.Button9.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("10")) Table.Button10.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("11")) Table.Button11.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("12")) Table.Button12.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("13")) Table.Button13.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("14")) Table.Button14.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("15")) Table.Button15.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("16")) Table.Button16.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("17")) Table.Button17.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("18")) Table.Button18.setEnabled(true);
-        else if (tableNoJTextField.getText().equals("19")) Table.Button19.setEnabled(true);
-        else Table.Button20.setEnabled(true);
-    	
-    }
-    
-    
     
     //main function for this class
 //    public static void main(String args[]) {
@@ -383,4 +443,4 @@ public class CustomerMenu extends JFrame {
 //        });
 //    }//main end
     
-}
+}//class CustomerMenu end

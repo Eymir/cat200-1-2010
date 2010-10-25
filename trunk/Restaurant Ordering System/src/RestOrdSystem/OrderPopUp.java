@@ -5,13 +5,15 @@ import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
 import java.awt.event.*;
 
 public class OrderPopUp extends JFrame {
 	
-    public OrderPopUp() {
+	int tbNo;
+	
+    public OrderPopUp(int tbno) {
+    	tbNo = tbno;
         init();
     }//default constructor end
     
@@ -154,19 +156,19 @@ public class OrderPopUp extends JFrame {
 
         //insert ordered food detail into oracle-------------------------------------------
         try {
-            CustomerMenu.rs = CustomerMenu.stmt.executeQuery("INSERT INTO KITCHENTABLE ("
+        	SystemMain.rs = SystemMain.stmt.executeQuery("INSERT INTO KITCHENTABLE ("
                     + "KIT_ORD_NO, TABLE_NO, FOOD_NAME, FOOD_QN, FOOD_STATUS) VALUES ("
                     + "KIT_ORD_NO_SEQ.NEXTVAL, "
-                    + CustomerMenu.tableNoJTextField.getText() + ", "
+                    + Integer.toString(tbNo) + ", "
                     + "'" + foodNameLabel.getText() + "', "
                     + quantityJSpinner.getValue() + ", "
                     + "'Pending'"
                     + ")");
 
-            CustomerMenu.rs = CustomerMenu.stmt.executeQuery("INSERT INTO ORDERTABLE ("
+        	SystemMain.rs = SystemMain.stmt.executeQuery("INSERT INTO ORDERTABLE ("
                     + "ORDER_NO, RECEIPT_NO, ORD_FOOD_NAME, ORD_FOOD_QN) VALUES ("
                     + "ORDER_NO_SEQ.NEXTVAL, "
-                    + "(SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = "+CustomerMenu.tableNoJTextField.getText()+"), "
+                    + "(SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = "+Integer.toString(tbNo)+"), "
                     + "'" + foodNameLabel.getText() + "', "
                     + quantityJSpinner.getValue()
                     + ")");
@@ -175,44 +177,72 @@ public class OrderPopUp extends JFrame {
             System.err.println("ordered food insertion failed : " + e.getMessage());
         }//try catch end----------------------------------------------------------------
 
-        DecimalFormat df = new DecimalFormat("0.00");
+        if (tbNo==1) assignIntoVector(Table.orderFoodNameVec1, Table.orderFoodQnVec1, Table.orderFoodPriceVec1, CustomerMenu.orderJTable1, CustomerMenu.totalPriceJTextField1);
+        else if (tbNo==2) assignIntoVector(Table.orderFoodNameVec2, Table.orderFoodQnVec2, Table.orderFoodPriceVec2, CustomerMenu.orderJTable2, CustomerMenu.totalPriceJTextField2);
+        else if (tbNo==3) assignIntoVector(Table.orderFoodNameVec3, Table.orderFoodQnVec3, Table.orderFoodPriceVec3, CustomerMenu.orderJTable3, CustomerMenu.totalPriceJTextField3);
+        else if (tbNo==4) assignIntoVector(Table.orderFoodNameVec4, Table.orderFoodQnVec4, Table.orderFoodPriceVec4, CustomerMenu.orderJTable4, CustomerMenu.totalPriceJTextField4);
+        else if (tbNo==5) assignIntoVector(Table.orderFoodNameVec5, Table.orderFoodQnVec5, Table.orderFoodPriceVec5, CustomerMenu.orderJTable5, CustomerMenu.totalPriceJTextField5);
+        else if (tbNo==6) assignIntoVector(Table.orderFoodNameVec6, Table.orderFoodQnVec6, Table.orderFoodPriceVec6, CustomerMenu.orderJTable6, CustomerMenu.totalPriceJTextField6);
+        else if (tbNo==7) assignIntoVector(Table.orderFoodNameVec7, Table.orderFoodQnVec7, Table.orderFoodPriceVec7, CustomerMenu.orderJTable7, CustomerMenu.totalPriceJTextField7);
+        else if (tbNo==8) assignIntoVector(Table.orderFoodNameVec8, Table.orderFoodQnVec8, Table.orderFoodPriceVec8, CustomerMenu.orderJTable8, CustomerMenu.totalPriceJTextField8);
+        else if (tbNo==9) assignIntoVector(Table.orderFoodNameVec9, Table.orderFoodQnVec9, Table.orderFoodPriceVec9, CustomerMenu.orderJTable9, CustomerMenu.totalPriceJTextField9);
+        else if (tbNo==10) assignIntoVector(Table.orderFoodNameVec10, Table.orderFoodQnVec10, Table.orderFoodPriceVec10, CustomerMenu.orderJTable10, CustomerMenu.totalPriceJTextField10);
+        else if (tbNo==11) assignIntoVector(Table.orderFoodNameVec11, Table.orderFoodQnVec11, Table.orderFoodPriceVec11, CustomerMenu.orderJTable11, CustomerMenu.totalPriceJTextField11);
+        else if (tbNo==12) assignIntoVector(Table.orderFoodNameVec12, Table.orderFoodQnVec12, Table.orderFoodPriceVec12, CustomerMenu.orderJTable12, CustomerMenu.totalPriceJTextField12);
+        else if (tbNo==13) assignIntoVector(Table.orderFoodNameVec13, Table.orderFoodQnVec13, Table.orderFoodPriceVec13, CustomerMenu.orderJTable13, CustomerMenu.totalPriceJTextField13);
+        else if (tbNo==14) assignIntoVector(Table.orderFoodNameVec14, Table.orderFoodQnVec14, Table.orderFoodPriceVec14, CustomerMenu.orderJTable14, CustomerMenu.totalPriceJTextField14);
+        else if (tbNo==15) assignIntoVector(Table.orderFoodNameVec15, Table.orderFoodQnVec15, Table.orderFoodPriceVec15, CustomerMenu.orderJTable15, CustomerMenu.totalPriceJTextField15);
+        else if (tbNo==16) assignIntoVector(Table.orderFoodNameVec16, Table.orderFoodQnVec16, Table.orderFoodPriceVec16, CustomerMenu.orderJTable16, CustomerMenu.totalPriceJTextField16);
+        else if (tbNo==17) assignIntoVector(Table.orderFoodNameVec17, Table.orderFoodQnVec17, Table.orderFoodPriceVec17, CustomerMenu.orderJTable17, CustomerMenu.totalPriceJTextField17);
+        else if (tbNo==18) assignIntoVector(Table.orderFoodNameVec18, Table.orderFoodQnVec18, Table.orderFoodPriceVec18, CustomerMenu.orderJTable18, CustomerMenu.totalPriceJTextField18);
+        else if (tbNo==19) assignIntoVector(Table.orderFoodNameVec19, Table.orderFoodQnVec19, Table.orderFoodPriceVec19, CustomerMenu.orderJTable19, CustomerMenu.totalPriceJTextField19);
+        else if (tbNo==20) assignIntoVector(Table.orderFoodNameVec20, Table.orderFoodQnVec20, Table.orderFoodPriceVec20, CustomerMenu.orderJTable20, CustomerMenu.totalPriceJTextField20);
+        
+        CashierModule.refresh();
+        dispose();
+    }//okButtonActionPerformed end
 
-        for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
-            if (CustomerMenu.orderFoodNameVec.elementAt(a)==foodNameLabel.getText()) {
-                int tempNewQn = (Integer)CustomerMenu.orderFoodQnVec.get(a)+(Integer)quantityJSpinner.getValue();
-                CustomerMenu.orderFoodQnVec.set(a,tempNewQn);
-                CustomerMenu.orderFoodPriceVec.set(a,df.format(Double.valueOf(priceTextField.getText())*tempNewQn));
+    DecimalFormat df = new DecimalFormat("0.00");
+    
+    void assignIntoVector(Vector<String> ordFNameVec, Vector<Integer> ordFQnVec, Vector<Double> ordFPriceVec, JTable jTab, JTextField jTxt) {
+    	
+    	for (int a=0;a<ordFNameVec.size();a++) {
+            if (ordFNameVec.elementAt(a)==foodNameLabel.getText()) {
+                int tempNewQn = ordFQnVec.get(a)+(Integer)quantityJSpinner.getValue();
+                ordFQnVec.set(a,tempNewQn);
+                ordFPriceVec.set(a,Double.valueOf(priceTextField.getText())*tempNewQn);
                 sameName = true;
             }
         }//for end
 
         if (sameName == false) {
-            CustomerMenu.orderFoodNameVec.addElement(foodNameLabel.getText());
-            CustomerMenu.orderFoodQnVec.addElement(quantityJSpinner.getValue());
-            CustomerMenu.orderFoodPriceVec.addElement(df.format(Double.valueOf(priceTextField.getText())*(Integer)quantityJSpinner.getValue()));
+        	ordFNameVec.addElement(foodNameLabel.getText());
+        	ordFQnVec.addElement((Integer)quantityJSpinner.getValue());
+        	ordFPriceVec.addElement(Double.valueOf(priceTextField.getText())*(Integer)quantityJSpinner.getValue());
         }
 
-        resetTable();
+        int size = ordFNameVec.size();
+        
+        resetTable(size, jTab);
 
-        for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
-            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodNameVec.elementAt(a), a, 0);
-            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodQnVec.elementAt(a), a, 1);
-            CustomerMenu.orderJTable.setValueAt(CustomerMenu.orderFoodPriceVec.elementAt(a), a, 2);
+        for (int a=0;a<ordFNameVec.size();a++) {
+        	jTab.setValueAt(ordFNameVec.elementAt(a), a, 0);
+        	jTab.setValueAt(ordFQnVec.elementAt(a), a, 1);
+        	jTab.setValueAt(df.format(ordFPriceVec.elementAt(a)), a, 2);
 
-            totalPriceDbl += Double.valueOf((String)CustomerMenu.orderFoodPriceVec.get(a));
+            totalPriceDbl += Double.valueOf(ordFPriceVec.get(a));
         }//for end
-
-        CustomerMenu.totalPriceJTextField.setText(df.format(totalPriceDbl));
-        CashierModule.refresh();
-        dispose();
-    }//okButtonActionPerformed end
-
-    void resetTable() {
+        
+        jTxt.setText(df.format(totalPriceDbl));
+        
+    }//end assignIntoVector
+    
+    void resetTable(int size, JTable jTab1) {
     	
     	//set up a table with empty values inside---------------------------------------
         Vector tempTableColVec = new Vector();
         Vector tableHeaderVec = new Vector(3);
-        for (int a=0;a<CustomerMenu.orderFoodNameVec.size();a++) {
+        for (int a=0;a<size;a++) {
             Vector tempTableRowVec = new Vector(3);
             for (int b=0;b<3;b++) {
                 tempTableRowVec.addElement("");
@@ -225,13 +255,13 @@ public class OrderPopUp extends JFrame {
         tableHeaderVec.addElement("Quantity");
         tableHeaderVec.addElement("Price");
 
-        CustomerMenu.orderJTable.setModel(new DefaultTableModel(
+        jTab1.setModel(new DefaultTableModel(
                 tempTableColVec,tableHeaderVec) {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return false;
             }
         });
-        CustomerMenu.orderJTable.getColumnModel().getColumn(0).setPreferredWidth(200);
+        jTab1.getColumnModel().getColumn(0).setPreferredWidth(200);
         //----------------------------------------------------------------------------------
     	
     }
@@ -243,12 +273,12 @@ public class OrderPopUp extends JFrame {
     }//cancelButtonActionPerformed end
     
     //main function for this class
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OrderPopUp().setVisible(true);
-            }
-        });
-    }//main end
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new OrderPopUp().setVisible(true);
+//            }
+//        });
+//    }//main end
 
 }//class OrderPopUp end
