@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import RestOrdSystem.Administrator.*;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,8 +14,10 @@ import java.util.GregorianCalendar;
 
 public class SystemMain extends JFrame {
 
+	static Connection con;
+    static ResultSet rs;
+    static Statement stmt;
 	
-    //static public CustomerMenu CustomerModule;
 	static public Table TableModule;
     static public CashierModule CashierModule;
     static public Kitchen KitchenModule;
@@ -39,12 +42,26 @@ public class SystemMain extends JFrame {
     
     public SystemMain() {    	
     	
-    	CustomerMenu.getCon();
+    	getCon();
         initComponents();
         setSize(400,300);
         setLocationRelativeTo(null);
 
     }
+    
+    public static Connection getCon() {
+        try {
+            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
+            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            System.out.println("connection established");
+        }
+        catch (Exception e) {
+            System.err.println("connection error!!!");
+        }
+
+        return con;
+    }//getCon end
     
     
     public static void main(String args[]) {

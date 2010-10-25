@@ -229,24 +229,15 @@ public class Kitchen extends javax.swing.JFrame {
         jTable1.setPreferredSize(THIS_SIZE);
         
         try{
-        	DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-        	
-            Connection con;
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
-           // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
-            System.out.println("Database Connected");
-        	
-        	Statement stmt = con.createStatement();
-
             String queryString = "Select* From KITCHENTABLE";
 
-            ResultSet rset = stmt.executeQuery(queryString);
+            SystemMain.rs = SystemMain.stmt.executeQuery(queryString);
 
-            while (rset.next()){
+            while (SystemMain.rs.next()){
                 countRow++;
             }
 
-            ResultSetMetaData metadata = rset.getMetaData();
+            ResultSetMetaData metadata = SystemMain.rs.getMetaData();
             countColumn = metadata.getColumnCount();
 
             newtable1.setDataSize(countRow, countColumn);
@@ -254,7 +245,7 @@ public class Kitchen extends javax.swing.JFrame {
             //end
 
             //adding column names to table model
-            DatabaseMetaData meta = con.getMetaData();
+            DatabaseMetaData meta = SystemMain.con.getMetaData();
 
             ResultSet rset2 = meta.getColumns(null, null, "KITCHENTABLE", null);
             
@@ -268,17 +259,17 @@ public class Kitchen extends javax.swing.JFrame {
             count = 0;
             // end
 
-            rset = stmt.executeQuery(queryString);
-            while(rset.next()){
-            	newtable1.addString(countRow2, countColumn2, rset.getString("KIT_ORD_NO"));
+            SystemMain.rs = SystemMain.stmt.executeQuery(queryString);
+            while(SystemMain.rs.next()){
+            	newtable1.addString(countRow2, countColumn2, SystemMain.rs.getString("KIT_ORD_NO"));
                 countColumn2++;
-                newtable1.addString(countRow2, countColumn2, rset.getString("TABLE_NO"));
+                newtable1.addString(countRow2, countColumn2, SystemMain.rs.getString("TABLE_NO"));
                 countColumn2++;
-                newtable1.addString(countRow2, countColumn2, rset.getString("FOOD_NAME"));
+                newtable1.addString(countRow2, countColumn2, SystemMain.rs.getString("FOOD_NAME"));
                 countColumn2++;
-                newtable1.addString(countRow2, countColumn2, rset.getString("FOOD_QN"));
+                newtable1.addString(countRow2, countColumn2, SystemMain.rs.getString("FOOD_QN"));
                 countColumn2++;
-                newtable1.addString(countRow2, countColumn2, rset.getString("FOOD_STATUS"));
+                newtable1.addString(countRow2, countColumn2, SystemMain.rs.getString("FOOD_STATUS"));
                 countColumn2++;
 
                 countColumn2 = 0;
@@ -318,17 +309,7 @@ public class Kitchen extends javax.swing.JFrame {
     public void update(String edit){
 
         try {
-            DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-
-            Connection con;
-            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hihi", "hihi");
-           // con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
-            System.out.println("Database Connected 1");
-
-            Statement stmt = con.createStatement();
-            System.out.println("success2");
-            stmt.executeUpdate(edit);
-            System.out.println("success3");
+        	SystemMain.stmt.executeUpdate(edit);
         }
 
         catch(Exception e){

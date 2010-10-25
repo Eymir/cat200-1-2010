@@ -1,19 +1,13 @@
 package RestOrdSystem;
 
-
 import javax.swing.*;
 import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.table.*;
 import javax.swing.border.*;
 import java.text.*;
 import java.util.*;
-
-
-
-
 
 public class CashierModule extends JFrame {
 
@@ -25,32 +19,14 @@ public class CashierModule extends JFrame {
 	static public int TableNumber; 
 	static public Color [] TableStatusColor;
 	
-    
-    static private Connection con;
     static private String SQL;
-    static private Statement stmt;
-    static private ResultSet rs;
     
     static private int No,NumberOfItemOrdered,TableReceiptNumber;
     static private double TotalPrice;
     static private Vector Title,BillDetails,BillDetailsRow;
     static private DecimalFormat df = new DecimalFormat("0.00");
    
-    public Connection getCon()
-    {
-       try {
-           DriverManager.registerDriver (new oracle.jdbc.OracleDriver());
-           con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
-           stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-           System.out.println("connection established");
-       }
-       catch (Exception e) {
-           System.err.println("connection error!!!");
-       }
-       
-       return con;
-       
-    }
+   
     
     
     static private JTable BillTable;
@@ -85,7 +61,6 @@ public class CashierModule extends JFrame {
 	
 	
 	public CashierModule() {
-       getCon();
        initComponents();
        initTableStatus();
        Available="                    Available";
@@ -1262,6 +1237,7 @@ public class CashierModule extends JFrame {
     };
     
     Object[] confirm = {"Confirm & Print","Cancel"};
+    String TPrice;
     
     public void ConfirmPrintButtonActionPerformed(ActionEvent evt){
 
@@ -1273,8 +1249,37 @@ public class CashierModule extends JFrame {
     		    		
     	}
     	
-    	CustomerMenu.refreshTable();
+    	if (TableNumber==1) { Table.Button1.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField1.getText(); }
+        if (TableNumber==2) { Table.Button2.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField2.getText(); }
+         if (TableNumber==3) { Table.Button3.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField3.getText(); }
+         if (TableNumber==4) { Table.Button4.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField4.getText(); }
+         if (TableNumber==5) { Table.Button5.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField5.getText(); }
+         if (TableNumber==6) { Table.Button6.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField6.getText(); }
+         if (TableNumber==7) { Table.Button7.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField7.getText(); }
+         if (TableNumber==8) { Table.Button8.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField8.getText(); }
+         if (TableNumber==9) { Table.Button9.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField9.getText(); }
+         if (TableNumber==10) { Table.Button10.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField10.getText(); }
+         if (TableNumber==11) { Table.Button11.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField11.getText(); }
+         if (TableNumber==12) { Table.Button12.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField12.getText(); }
+         if (TableNumber==13) { Table.Button13.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField13.getText(); }
+         if (TableNumber==14) { Table.Button14.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField14.getText(); }
+         if (TableNumber==15) { Table.Button15.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField15.getText(); }
+         if (TableNumber==16) { Table.Button16.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField16.getText(); }
+         if (TableNumber==17) { Table.Button17.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField17.getText(); }
+         if (TableNumber==18) { Table.Button18.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField18.getText(); }
+         if (TableNumber==19) { Table.Button19.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField19.getText(); }
+         if (TableNumber==20) { Table.Button20.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField20.getText(); }
     	
+       //update total price charged into oracle-------------------------------------------
+         try {
+        	 SystemMain.rs = SystemMain.stmt.executeQuery("UPDATE RECEIPTTABLE " +
+             		"SET PRICE_CHARGED = " + TPrice + " " +
+             		"WHERE RECEIPT_NO = (SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = "+ Integer.toString(TableNumber) +")");
+         }
+         catch (SQLException e) {
+             System.err.println("update total price charged failed : " + e.getMessage());
+         }//try catch end----------------------------------------------------------------
+         
     	refresh();
     }
     
@@ -1295,18 +1300,18 @@ public class CashierModule extends JFrame {
     	
     	try {
             SQL = "SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = '"+TableNumber+"'";
-            rs = stmt.executeQuery(SQL);
-            rs.first();
-            TableReceiptNumber = rs.getInt(1);
+            SystemMain.rs = SystemMain.stmt.executeQuery(SQL);
+            SystemMain.rs.first();
+            TableReceiptNumber = SystemMain.rs.getInt(1);
         } catch (Exception e) {
         	System.out.println("data retrieval failed...");
         }
         
     	try {
             SQL = "SELECT COUNT(DISTINCT ORD_FOOD_NAME) FROM ORDERTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"'";
-            rs = stmt.executeQuery(SQL);
-            rs.first();
-            NumberOfItemOrdered = rs.getInt(1);
+            SystemMain.rs = SystemMain.stmt.executeQuery(SQL);
+            SystemMain.rs.first();
+            NumberOfItemOrdered = SystemMain.rs.getInt(1);
         } catch (Exception e) {
         	System.out.println("data retrieval failed...");
         }
@@ -1314,17 +1319,17 @@ public class CashierModule extends JFrame {
         ///////////////////////////////////////////////////////
     	try {
             SQL = "SELECT ORD_FOOD_NAME,SUM(ORD_FOOD_QN), FOOD_PRICE FROM ORDERTABLE,FOODTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"' AND ORDERTABLE.ORD_FOOD_NAME = FOODTABLE.FOOD_NAME GROUP BY ORDERTABLE.ORD_FOOD_NAME,FOODTABLE.FOOD_PRICE";
-            rs = stmt.executeQuery(SQL);
+            SystemMain.rs = SystemMain.stmt.executeQuery(SQL);
             for(int x=1;x<=NumberOfItemOrdered;x++){
-            	rs.next();
+            	SystemMain.rs.next();
             	BillDetailsRow = new Vector();
             	BillDetailsRow.addElement("  "+NoIncrement());
-            	BillDetailsRow.addElement(rs.getString(1));
-            	BillDetailsRow.addElement("   "+rs.getInt(2));
-            	BillDetailsRow.addElement("  "+df.format(rs.getDouble(3)*rs.getInt(2)));
+            	BillDetailsRow.addElement(SystemMain.rs.getString(1));
+            	BillDetailsRow.addElement("   "+SystemMain.rs.getInt(2));
+            	BillDetailsRow.addElement("  "+df.format(SystemMain.rs.getDouble(3)*SystemMain.rs.getInt(2)));
             	BillDetails.addElement(BillDetailsRow);   	 	
             	
-            	TotalPrice = TotalPrice + rs.getDouble(3)*rs.getInt(2);
+            	TotalPrice = TotalPrice + SystemMain.rs.getDouble(3)*SystemMain.rs.getInt(2);
             	
             }
             TotalPriceLabel.setText("RM "+df.format(TotalPrice));

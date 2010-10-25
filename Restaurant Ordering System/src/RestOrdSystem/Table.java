@@ -8,8 +8,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.sql.*;
-
-import javax.swing.GroupLayout.Alignment;
+import java.util.Vector;
 
 
 public class Table extends JFrame {
@@ -18,27 +17,89 @@ public class Table extends JFrame {
 		initComponents();
 	}
 	
-	static CustomerMenu csMenu1;
-	static CustomerMenu csMenu2;
-	static CustomerMenu csMenu3;
-	static CustomerMenu csMenu4;
-	static CustomerMenu csMenu5;
-	static CustomerMenu csMenu6;
-	static CustomerMenu csMenu7;
-	static CustomerMenu csMenu8;
-	static CustomerMenu csMenu9;
-	static CustomerMenu csMenu10;
-	static CustomerMenu csMenu11;
-	static CustomerMenu csMenu12;
-	static CustomerMenu csMenu13;
-	static CustomerMenu csMenu14;
-	static CustomerMenu csMenu15;
-	static CustomerMenu csMenu16;
-	static CustomerMenu csMenu17;
-	static CustomerMenu csMenu18;
-	static CustomerMenu csMenu19;
-	static CustomerMenu csMenu20;
+	CustomerMenu csMenu1;
+	CustomerMenu csMenu2;
+	CustomerMenu csMenu3;
+	CustomerMenu csMenu4;
+	CustomerMenu csMenu5;
+	CustomerMenu csMenu6;
+	CustomerMenu csMenu7;
+	CustomerMenu csMenu8;
+	CustomerMenu csMenu9;
+	CustomerMenu csMenu10;
+	CustomerMenu csMenu11;
+	CustomerMenu csMenu12;
+	CustomerMenu csMenu13;
+	CustomerMenu csMenu14;
+	CustomerMenu csMenu15;
+	CustomerMenu csMenu16;
+	CustomerMenu csMenu17;
+	CustomerMenu csMenu18;
+	CustomerMenu csMenu19;
+	CustomerMenu csMenu20;
 	
+	static Vector<String> orderFoodNameVec1;
+	static Vector<String> orderFoodNameVec2;
+	static Vector<String> orderFoodNameVec3;
+	static Vector<String> orderFoodNameVec4;
+	static Vector<String> orderFoodNameVec5;
+	static Vector<String> orderFoodNameVec6;
+	static Vector<String> orderFoodNameVec7;
+	static Vector<String> orderFoodNameVec8;
+	static Vector<String> orderFoodNameVec9;
+	static Vector<String> orderFoodNameVec10;
+	static Vector<String> orderFoodNameVec11;
+	static Vector<String> orderFoodNameVec12;
+	static Vector<String> orderFoodNameVec13;
+	static Vector<String> orderFoodNameVec14;
+	static Vector<String> orderFoodNameVec15;
+	static Vector<String> orderFoodNameVec16;
+	static Vector<String> orderFoodNameVec17;
+	static Vector<String> orderFoodNameVec18;
+	static Vector<String> orderFoodNameVec19;
+	static Vector<String> orderFoodNameVec20;
+	
+	static Vector<Integer> orderFoodQnVec1;
+	static Vector<Integer> orderFoodQnVec2;
+	static Vector<Integer> orderFoodQnVec3;
+	static Vector<Integer> orderFoodQnVec4;
+	static Vector<Integer> orderFoodQnVec5;
+	static Vector<Integer> orderFoodQnVec6;
+	static Vector<Integer> orderFoodQnVec7;
+	static Vector<Integer> orderFoodQnVec8;
+	static Vector<Integer> orderFoodQnVec9;
+	static Vector<Integer> orderFoodQnVec10;
+	static Vector<Integer> orderFoodQnVec11;
+	static Vector<Integer> orderFoodQnVec12;
+	static Vector<Integer> orderFoodQnVec13;
+	static Vector<Integer> orderFoodQnVec14;
+	static Vector<Integer> orderFoodQnVec15;
+	static Vector<Integer> orderFoodQnVec16;
+	static Vector<Integer> orderFoodQnVec17;
+	static Vector<Integer> orderFoodQnVec18;
+	static Vector<Integer> orderFoodQnVec19;
+	static Vector<Integer> orderFoodQnVec20;
+	 
+	static Vector<Double> orderFoodPriceVec1;
+	static Vector<Double> orderFoodPriceVec2;
+	static Vector<Double> orderFoodPriceVec3;
+	static Vector<Double> orderFoodPriceVec4;
+	static Vector<Double> orderFoodPriceVec5;
+	static Vector<Double> orderFoodPriceVec6;
+	static Vector<Double> orderFoodPriceVec7;
+	static Vector<Double> orderFoodPriceVec8;
+	static Vector<Double> orderFoodPriceVec9;
+	static Vector<Double> orderFoodPriceVec10;
+	static Vector<Double> orderFoodPriceVec11;
+	static Vector<Double> orderFoodPriceVec12;
+	static Vector<Double> orderFoodPriceVec13;
+	static Vector<Double> orderFoodPriceVec14;
+	static Vector<Double> orderFoodPriceVec15;
+	static Vector<Double> orderFoodPriceVec16;
+	static Vector<Double> orderFoodPriceVec17;
+	static Vector<Double> orderFoodPriceVec18;
+	static Vector<Double> orderFoodPriceVec19;
+	static Vector<Double> orderFoodPriceVec20;
 	
     private JPanel jPanel1;
     private JSeparator jSeparator1;
@@ -65,10 +126,6 @@ public class Table extends JFrame {
     protected static JButton Button18;
     protected static JButton Button19;
     protected static JButton Button20;
-//    private JButton okButton;
-//    private JButton cancelButton;
-    
-    
     
     private void initComponents() {
     	
@@ -106,11 +163,7 @@ public class Table extends JFrame {
         selectTableJLabel = new JLabel();
         promotionJLabel = new JLabel();
         restaurantJLabel = new JLabel();
-//        okButton = new JButton();
-//        cancelButton = new JButton();
-
         
-
         jPanel1.setBackground(new Color(204, 204, 204));
         jPanel1.setPreferredSize(new Dimension(800, 480));
         jPanel1.setLayout(null);
@@ -377,26 +430,6 @@ public class Table extends JFrame {
         jPanel1.add(Button20);
         Button20.setBounds(690, 340, 71, 61);
         
-//        okButton.setIcon(new ImageIcon(getClass().getResource("/image1/OK.jpg")));
-//        okButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent evt) {
-//                okButtonActionPerformed(evt);
-//            }
-//        });
-//        
-//        jPanel1.add(okButton);
-//        okButton.setBounds(490, 420, 70, 40);
-
-//        cancelButton.setIcon(new ImageIcon(getClass().getResource("/image1/cancel.jpg")));
-//        cancelButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent evt) {
-//                cancelButtonActionPerformed(evt);
-//            }
-//        });
-//        jPanel1.add(cancelButton);
-//        cancelButton.setBounds(600, 420, 70, 40);
-        
-        
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0,0,800,480);
         
@@ -406,161 +439,202 @@ public class Table extends JFrame {
     
     private void Button1ActionPerformed(ActionEvent evt) {
     	Button1.setEnabled(false);
-    	csMenu1 = new CustomerMenu();
-    	csMenu1.tableNoJTextField.setText("1");
-    	pressedButton (csMenu1);
+    	csMenu1 = new CustomerMenu(1);
+    	orderFoodNameVec1 = new Vector<String>();
+    	orderFoodQnVec1 = new Vector<Integer>();
+    	orderFoodPriceVec1 = new Vector<Double>();
+    	pressedButton (csMenu1,"1");
     }
     
     private void Button2ActionPerformed(ActionEvent evt) {
     	Button2.setEnabled(false);
-    	csMenu2 = new CustomerMenu();
-    	csMenu2.tableNoJTextField.setText("2");
-    	pressedButton (csMenu2);
+    	csMenu2 = new CustomerMenu(2);
+    	orderFoodNameVec2 = new Vector<String>();
+    	orderFoodQnVec2 = new Vector<Integer>();
+    	orderFoodPriceVec2 = new Vector<Double>();
+    	pressedButton (csMenu2,"2");
     }
     
     private void Button3ActionPerformed(ActionEvent evt) {
     	Button3.setEnabled(false);
-    	csMenu3 = new CustomerMenu();
-    	csMenu3.tableNoJTextField.setText("3");
-    	pressedButton (csMenu3);
+    	csMenu3 = new CustomerMenu(3);
+    	orderFoodNameVec3 = new Vector<String>();
+    	orderFoodQnVec3 = new Vector<Integer>();
+    	orderFoodPriceVec3 = new Vector<Double>();
+    	pressedButton (csMenu3,"3");
     }
     
     private void Button4ActionPerformed(ActionEvent evt) {
     	Button4.setEnabled(false);
-    	csMenu4 = new CustomerMenu();
-    	csMenu4.tableNoJTextField.setText("4");
-    	pressedButton (csMenu4);
+    	csMenu4 = new CustomerMenu(4);
+    	orderFoodNameVec4 = new Vector<String>();
+    	orderFoodQnVec4 = new Vector<Integer>();
+    	orderFoodPriceVec4 = new Vector<Double>();
+    	pressedButton (csMenu4,"4");
     }
     
     private void Button5ActionPerformed(ActionEvent evt) {
     	Button5.setEnabled(false);
-    	csMenu5 = new CustomerMenu();
-    	csMenu5.tableNoJTextField.setText("5");
-    	pressedButton (csMenu5);
+    	csMenu5 = new CustomerMenu(5);
+    	orderFoodNameVec5 = new Vector<String>();
+    	orderFoodQnVec5 = new Vector<Integer>();
+    	orderFoodPriceVec5 = new Vector<Double>();
+    	pressedButton (csMenu5,"5");
     }
     
     private void Button6ActionPerformed(ActionEvent evt) {
     	Button6.setEnabled(false);
-    	csMenu6 = new CustomerMenu();
-    	csMenu6.tableNoJTextField.setText("6");
-    	pressedButton (csMenu6);
+    	csMenu6 = new CustomerMenu(6);
+    	orderFoodNameVec6 = new Vector<String>();
+    	orderFoodQnVec6 = new Vector<Integer>();
+    	orderFoodPriceVec6 = new Vector<Double>();
+    	pressedButton (csMenu6,"6");
     }
     
     private void Button7ActionPerformed(ActionEvent evt) {
     	Button7.setEnabled(false);
-    	csMenu7 = new CustomerMenu();
-    	csMenu7.tableNoJTextField.setText("7");
-    	pressedButton (csMenu7);
+    	csMenu7 = new CustomerMenu(7);
+    	orderFoodNameVec7 = new Vector<String>();
+    	orderFoodQnVec7 = new Vector<Integer>();
+    	orderFoodPriceVec7 = new Vector<Double>();
+    	pressedButton (csMenu7,"7");
     }
     
     private void Button8ActionPerformed(ActionEvent evt) {
     	Button8.setEnabled(false);
-    	csMenu8 = new CustomerMenu();
-    	csMenu8.tableNoJTextField.setText("8");
-    	pressedButton (csMenu8);
+    	csMenu8 = new CustomerMenu(8);
+    	orderFoodNameVec8 = new Vector<String>();
+    	orderFoodQnVec8 = new Vector<Integer>();
+    	orderFoodPriceVec8 = new Vector<Double>();
+    	pressedButton (csMenu8,"8");
     }
     
     private void Button9ActionPerformed(ActionEvent evt) {
     	Button9.setEnabled(false);
-    	csMenu9 = new CustomerMenu();
-    	csMenu9.tableNoJTextField.setText("9");
-    	pressedButton (csMenu9);
+    	csMenu9 = new CustomerMenu(9);
+    	orderFoodNameVec9 = new Vector<String>();
+    	orderFoodQnVec9 = new Vector<Integer>();
+    	orderFoodPriceVec9 = new Vector<Double>();
+    	pressedButton (csMenu9,"9");
     }
     
     private void Button10ActionPerformed(ActionEvent evt) {
     	Button10.setEnabled(false);
-    	csMenu10 = new CustomerMenu();
-    	csMenu10.tableNoJTextField.setText("10");
-    	pressedButton (csMenu10);
+    	csMenu10 = new CustomerMenu(10);
+    	orderFoodNameVec10 = new Vector<String>();
+    	orderFoodQnVec10 = new Vector<Integer>();
+    	orderFoodPriceVec10 = new Vector<Double>();
+    	pressedButton (csMenu10,"10");
     }
     
     private void Button11ActionPerformed(ActionEvent evt) {
     	Button11.setEnabled(false);
-    	csMenu11 = new CustomerMenu();
-    	csMenu11.tableNoJTextField.setText("11");
-    	pressedButton (csMenu11);
+    	csMenu11 = new CustomerMenu(11);
+    	orderFoodNameVec11 = new Vector<String>();
+    	orderFoodQnVec11 = new Vector<Integer>();
+    	orderFoodPriceVec11 = new Vector<Double>();
+    	pressedButton (csMenu11,"11");
     }
     
     private void Button12ActionPerformed(ActionEvent evt) {
     	Button12.setEnabled(false);
-    	csMenu12 = new CustomerMenu();
-    	csMenu12.tableNoJTextField.setText("12");
-    	pressedButton (csMenu12);
+    	csMenu12 = new CustomerMenu(12);
+    	orderFoodNameVec12 = new Vector<String>();
+    	orderFoodQnVec12 = new Vector<Integer>();
+    	orderFoodPriceVec12 = new Vector<Double>();
+    	pressedButton (csMenu12,"12");
     }
     
     private void Button13ActionPerformed(ActionEvent evt) {
     	Button13.setEnabled(false);
-    	csMenu13 = new CustomerMenu();
-    	csMenu13.tableNoJTextField.setText("13");
-    	pressedButton (csMenu13);
+    	csMenu13 = new CustomerMenu(13);
+    	orderFoodNameVec13 = new Vector<String>();
+    	orderFoodQnVec13 = new Vector<Integer>();
+    	orderFoodPriceVec13 = new Vector<Double>();
+    	pressedButton (csMenu13,"13");
     }
     
     private void Button14ActionPerformed(ActionEvent evt) {
     	Button14.setEnabled(false);
-    	csMenu14 = new CustomerMenu();
-    	csMenu14.tableNoJTextField.setText("14");
-    	pressedButton (csMenu14);
+    	csMenu14 = new CustomerMenu(14);
+    	orderFoodNameVec14 = new Vector<String>();
+    	orderFoodQnVec14 = new Vector<Integer>();
+    	orderFoodPriceVec14 = new Vector<Double>();
+    	pressedButton (csMenu14,"14");
     }
     
     private void Button15ActionPerformed(ActionEvent evt) {
     	Button15.setEnabled(false);
-    	csMenu15 = new CustomerMenu();
-    	csMenu15.tableNoJTextField.setText("15");
-    	pressedButton (csMenu15);
+    	csMenu15 = new CustomerMenu(15);
+    	orderFoodNameVec15 = new Vector<String>();
+    	orderFoodQnVec15 = new Vector<Integer>();
+    	orderFoodPriceVec15 = new Vector<Double>();
+    	pressedButton (csMenu15,"15");
     }
     
     private void Button16ActionPerformed(ActionEvent evt) {
     	Button16.setEnabled(false);
-    	csMenu16 = new CustomerMenu();
-    	csMenu16.tableNoJTextField.setText("16");
-    	pressedButton (csMenu16);
+    	csMenu16 = new CustomerMenu(16);
+    	orderFoodNameVec16 = new Vector<String>();
+    	orderFoodQnVec16 = new Vector<Integer>();
+    	orderFoodPriceVec16 = new Vector<Double>();
+    	pressedButton (csMenu16,"16");
     }
     
     private void Button17ActionPerformed(ActionEvent evt) {
     	Button17.setEnabled(false);
-    	csMenu17 = new CustomerMenu();
-    	csMenu17.tableNoJTextField.setText("17");
-    	pressedButton (csMenu17);
+    	csMenu17 = new CustomerMenu(17);
+    	orderFoodNameVec17 = new Vector<String>();
+    	orderFoodQnVec17 = new Vector<Integer>();
+    	orderFoodPriceVec17 = new Vector<Double>();
+    	pressedButton (csMenu17,"17");
     }
     
     private void Button18ActionPerformed(ActionEvent evt) {
     	Button18.setEnabled(false);
-    	csMenu18 = new CustomerMenu();
-    	csMenu18.tableNoJTextField.setText("18");
-    	pressedButton (csMenu18);
+    	csMenu18 = new CustomerMenu(18);
+    	orderFoodNameVec18 = new Vector<String>();
+    	orderFoodQnVec18 = new Vector<Integer>();
+    	orderFoodPriceVec18 = new Vector<Double>();
+    	pressedButton (csMenu18,"18");
     }
     
     private void Button19ActionPerformed(ActionEvent evt) {
     	Button19.setEnabled(false);
-    	csMenu19 = new CustomerMenu();
-    	csMenu19.tableNoJTextField.setText("19");
-    	pressedButton (csMenu19);
+    	csMenu19 = new CustomerMenu(19);
+    	orderFoodNameVec19 = new Vector<String>();
+    	orderFoodQnVec19 = new Vector<Integer>();
+    	orderFoodPriceVec19 = new Vector<Double>();
+    	pressedButton (csMenu19,"19");
     }
     
     private void Button20ActionPerformed(ActionEvent evt) {
     	Button20.setEnabled(false);
-    	csMenu20 = new CustomerMenu();
-    	csMenu20.tableNoJTextField.setText("20");
-    	pressedButton (csMenu20);
+    	csMenu20 = new CustomerMenu(20);
+    	orderFoodNameVec20 = new Vector<String>();
+    	orderFoodQnVec20 = new Vector<Integer>();
+    	orderFoodPriceVec20 = new Vector<Double>();
+    	pressedButton (csMenu20,"20");
     }
     
-    void pressedButton (CustomerMenu csm) {
+    void pressedButton (CustomerMenu csm, String tbN) {
     	
 
     	csm.setVisible(true);
     	csm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     	try {
-    		csm.rs = csm.stmt.executeQuery("INSERT INTO RECEIPTTABLE ("
+    		SystemMain.rs = SystemMain.stmt.executeQuery("INSERT INTO RECEIPTTABLE ("
                     + "RECEIPT_NO, TABLE_NO, PRICE_CHARGED) VALUES ("
                     + "RECEIPT_NO_SEQ.NEXTVAL, "
-                    + csm.tableNoJTextField.getText() + ", "
+                    + tbN + ", "
                     + "0.00"
                     + ")");
+    		
         }catch(SQLException e) {
             System.out.println("insert receipt failed : " + e.getMessage());
         }
         
-    	CashierModule.TableStatus[Integer.valueOf(csm.tableNoJTextField.getText())-1] = CashierModule.Seated;
+        CashierModule.TableStatus[Integer.valueOf(tbN)-1] = CashierModule.Seated;
     	CashierModule.refresh();
     }//pressedButton end
     
@@ -574,4 +648,4 @@ public class Table extends JFrame {
     }
 
     
-}
+}//class Table end
