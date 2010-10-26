@@ -199,6 +199,7 @@ public class OrderPopUp extends JFrame {
         else if (tbNo==20) assignIntoVector(Table.orderFoodNameVec20, Table.orderFoodQnVec20, Table.orderFoodPriceVec20, CustomerMenu.orderJTable20, CustomerMenu.totalPriceJTextField20);
         
         CashierModule.refresh();
+        Kitchen.tableview();
         dispose();
     }//okButtonActionPerformed end
 

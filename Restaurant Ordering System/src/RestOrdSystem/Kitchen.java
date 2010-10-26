@@ -36,14 +36,14 @@ public class Kitchen extends javax.swing.JFrame {
     private JButton jButton1;
     private JLabel jLabel1;
     private JLabel jLabel2;
-    private JLayeredPane jLayeredPane1;
+    private static JLayeredPane jLayeredPane1;
     private JScrollPane jScrollPane1;
-    private JTable jTable1;
-    private JButton btnServed;
+    private static JTable jTable1;
+    private static JButton btnServed;
     private JButton button;
-    private JRadioButton rdbtnPending;
-    private JRadioButton rdbtnInProgress;
-    private JRadioButton rdbtnDone;
+    private static JRadioButton rdbtnPending;
+    private static JRadioButton rdbtnInProgress;
+    private static JRadioButton rdbtnDone;
     private JLabel lblRefresh;
     private final ButtonGroup buttonGroup = new ButtonGroup();
     private JPanel panel;
@@ -210,17 +210,17 @@ public class Kitchen extends javax.swing.JFrame {
     
     Object[] confirm = {"Yes","No"};
     Object[] ok = {"ok"};
-    String status;
+    static String status;
     
-    int countRow = 0;
-    int countRow2 = 0;
-    int countColumn = 0;
-    int countColumn2 = 0;
-    int count = 0;
+    static int countRow = 0;
+    static int countRow2 = 0;
+    static int countColumn = 0;
+    static int countColumn2 = 0;
+    static int count = 0;
     
-    TableModel newtable1 = new TableModel();
+    static TableModel newtable1 = new TableModel();
     
-    public void tableview(){
+    public static void tableview(){
     	countRow = 0;
         countRow2 = 0;
         countColumn = 0;
@@ -285,7 +285,7 @@ public class Kitchen extends javax.swing.JFrame {
             System.out.println("error");
         }
         
-        this.setTable();
+        setTable();
         
         ListSelectionModel selectionModel = jTable1.getSelectionModel();
         selectionModel.addListSelectionListener(new ListSelectionListener(){
@@ -306,7 +306,7 @@ public class Kitchen extends javax.swing.JFrame {
         );//function to get value from the table when mouse clicked on the table 
     }
     
-    public void setTable(){
+    public static void setTable(){
     	jTable1.setModel(newtable1);
     }//called the setModel function after getting all the needed information
     
