@@ -98,7 +98,7 @@ public class Administrator extends JFrame {
 		
 		receiptcolumn.add("Receipt Number");
 		receiptcolumn.add("Receipt Date");
-		receiptcolumn.add("Price Number");
+		receiptcolumn.add("Table Number");
 		receiptcolumn.add("Price");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -132,13 +132,17 @@ public class Administrator extends JFrame {
 					Modifybutton.setEnabled(false);
 					Deletebutton.setEnabled(false);
 				}else{
+					
 					yearlabel.setVisible(false);
 					monthlabel.setVisible(false);
 					Datelabel.setVisible(false);
 					Totallabel.setVisible(false);
 					searchbutton.setVisible(false);
 					
-					
+					yeartextField.setText("");
+					monthtextField.setText("");
+					datetextField.setText("");
+					TotaltextField.setText("");
 					yeartextField.setVisible(false);
 					monthtextField.setVisible(false);
 					datetextField.setVisible(false);
@@ -365,7 +369,7 @@ public class Administrator extends JFrame {
 		FoddModel model=new FoddModel();
 		model.setFoodName(food.get(0).toString());
 		model.setFoodType(food.get(1).toString());
-		model.setFoodPrice(new Integer(food.get(2).toString()).intValue());
+		model.setFoodPrice(new Double(food.get(2).toString()).doubleValue());
 		model.setFoodQoh(new Integer(food.get(3).toString()).intValue());
 		model.setFoodMin(new Integer(food.get(4).toString()).intValue());
 		model.setPicture(food.get(5).toString());
@@ -396,7 +400,7 @@ public class Administrator extends JFrame {
 	
 	public void searchReceipt(){
 		Date date=null;
-		int total=0,price=0;
+		double total=0,price=0;
 		
 		SimpleDateFormat datefromat=new SimpleDateFormat("yyyy-MM-dd");
 		ReceiptModel receipt=new ReceiptModel();
@@ -433,10 +437,10 @@ public class Administrator extends JFrame {
 		int index=0;
 		for(index=0;index<allreceipt.size();index++){
 			Vector elem=(Vector) allreceipt.get(index);
-			price= new Integer(elem.get(3).toString()).intValue();
+			price= new Double(elem.get(3).toString()).doubleValue();
 			total+=price;			
 		}
-		TotaltextField.setText(new Integer(total).toString());
+		TotaltextField.setText(new Double(total).toString());
 		
 	}
 	

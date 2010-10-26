@@ -190,7 +190,7 @@ public class AddFood extends JFrame {
 		
 		food.setFoodName(NametextField.getText());
 		food.setFoodType(TypetextField.getText());
-		food.setFoodPrice(new Integer(PricetextField.getText()).intValue());
+		food.setFoodPrice(new Double(PricetextField.getText()).doubleValue());
 		food.setFoodQoh(new Integer(QOHtextField.getText()).intValue());
 		food.setFoodMin(new Integer(MINtextField.getText()).intValue());
 		food.setDescription(DescriptiontextArea.getText());

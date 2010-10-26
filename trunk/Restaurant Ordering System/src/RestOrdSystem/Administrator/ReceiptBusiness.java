@@ -25,7 +25,7 @@ public class ReceiptBusiness {
 				receipt.add(rs.getInt(1));
 				receipt.add(rs.getDate(2));
 				receipt.add(rs.getInt(3));
-				receipt.add(rs.getInt(4));
+				receipt.add(rs.getDouble(4));
 				all.add(receipt);
 			}
 		} catch (SQLException e) {
@@ -53,7 +53,7 @@ public class ReceiptBusiness {
 				receipt.add(rs.getInt(1));
 				receipt.add(rs.getDate(2));
 				receipt.add(rs.getInt(3));
-				receipt.add(rs.getInt(4));
+				receipt.add(rs.getDouble(4));
 				all.add(receipt);
 			}
 		} catch (SQLException e) {
