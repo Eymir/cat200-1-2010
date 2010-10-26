@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -34,6 +37,13 @@ public class ModifyAddministrator extends JFrame {
 	 * Create the frame.
 	 */
 	public ModifyAddministrator(final Administrator ads, final AdministratorModel model) {
+		
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		
 		setVisible(true);		
 		UserIDtextField.setEditable(false);
 		UserIDtextField.setText(model.getUserID());		
