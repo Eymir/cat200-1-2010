@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -34,30 +37,38 @@ public class LogIn extends JFrame {
 	 */
 	public LogIn() {
 		
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 457, 310);
+		setSize(460, 280);
+		setLocationRelativeTo(null);
+		setTitle("Restaurant Ordering System - Administrator");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblUserName = new JLabel("User Name:");
-		lblUserName.setBounds(32, 24, 88, 30);
+		lblUserName.setBounds(85, 68, 90, 30);
 		lblUserName.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(lblUserName);
 		
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(32, 89, 72, 24);
+		JLabel lblPassword = new JLabel("  Password:");
+		lblPassword.setBounds(85, 108, 90, 30);
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 12));
 		contentPane.add(lblPassword);
 		
 		userNameJField = new JTextField();
-		userNameJField.setBounds(140, 23, 144, 35);
+		userNameJField.setBounds(175, 70, 190, 30);
 		contentPane.add(userNameJField);
 		userNameJField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(140, 89, 144, 35);
+		passwordField.setBounds(175, 110, 190, 30);
 		contentPane.add(passwordField);
 		
 		JButton CancelJButton = new JButton("Cancel");
@@ -68,7 +79,7 @@ public class LogIn extends JFrame {
 			}
 		});
 		CancelJButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		CancelJButton.setBounds(66, 189, 103, 35);
+		CancelJButton.setBounds(175, 149, 90 ,27);
 		contentPane.add(CancelJButton);		
 		userNameJField.requestFocus();		
 		JButton ConfirmJButton = new JButton("Confirm");
@@ -93,7 +104,7 @@ public class LogIn extends JFrame {
 			}
 		});
 		ConfirmJButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		ConfirmJButton.setBounds(224, 189, 96, 35);
+		ConfirmJButton.setBounds(274, 149, 90 ,27);
 		contentPane.add(ConfirmJButton);
 		
 		setVisible(true);
