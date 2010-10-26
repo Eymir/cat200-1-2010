@@ -101,11 +101,8 @@ public class Table extends JFrame {
 	static Vector<Double> orderFoodPriceVec19;
 	static Vector<Double> orderFoodPriceVec20;
 	
-    private JPanel jPanel1;
-    private JSeparator jSeparator1;
-    private JLabel restaurantJLabel;
-    private JLabel promotionJLabel;
-    private JLabel selectTableJLabel;
+    private JPanel BasePanel;
+    private JSeparator Separator;
     protected static JButton Button1;
     protected static JButton Button2;
     protected static JButton Button3;
@@ -126,20 +123,21 @@ public class Table extends JFrame {
     protected static JButton Button18;
     protected static JButton Button19;
     protected static JButton Button20;
+    private JLabel label_1;
     
     private void initComponents() {
-    	
+
     	CashierModule.initTableStatus();
     	
     	setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    	setTitle("Restaurant Ordering System - Table Menu");
+    	setTitle("Restaurant Ordering System - Table Menu                                               "+SystemMain.getToday);
     	setMinimumSize(new Dimension(800, 500));
     	setResizable(false);
     	getContentPane().setLayout(null);
     	setLocationRelativeTo(null);
 
-        jPanel1 = new JPanel();
-        jSeparator1 = new JSeparator();
+        BasePanel = new JPanel();
+        Separator = new JSeparator();
         Button1 = new JButton();
         Button4 = new JButton();
         Button3 = new JButton();
@@ -160,278 +158,228 @@ public class Table extends JFrame {
         Button19 = new JButton();
         Button20 = new JButton();
         Button10 = new JButton();
-        selectTableJLabel = new JLabel();
-        promotionJLabel = new JLabel();
-        restaurantJLabel = new JLabel();
         
-        jPanel1.setBackground(new Color(204, 204, 204));
-        jPanel1.setPreferredSize(new Dimension(800, 480));
-        jPanel1.setLayout(null);
+        BasePanel.setBackground(UIManager.getColor("OptionPane.warningDialog.titlePane.shadow"));
+        BasePanel.setPreferredSize(new Dimension(800, 480));
+        BasePanel.setLayout(null);
         
-        jSeparator1.setOrientation(SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator1);
-        jSeparator1.setBounds(371, 0, 2, 480);
-        
-        restaurantJLabel.setFont(new Font("Tempus Sans ITC", 1, 18));
-        restaurantJLabel.setForeground(new Color(255, 0, 51));
-        restaurantJLabel.setText("            FOOD RESTAURENT");
-        restaurantJLabel.setBorder(BorderFactory.createCompoundBorder(new SoftBevelBorder(BevelBorder.RAISED), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
-        jPanel1.add(restaurantJLabel);
-        restaurantJLabel.setBounds(0, 10, 370, 30);
-        
-        promotionJLabel.setText("Promotion");
-        jPanel1.add(promotionJLabel);
-        promotionJLabel.setBounds(50, 130, 260, 200);
-
-        selectTableJLabel.setFont(new Font("Goudy Old Style", 1, 24));
-        selectTableJLabel.setForeground(new Color(255, 0, 0));
-        selectTableJLabel.setText("                 Please select your table");
-        selectTableJLabel.setBorder(BorderFactory.createCompoundBorder(new SoftBevelBorder(BevelBorder.RAISED), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
-        jPanel1.add(selectTableJLabel);
-        selectTableJLabel.setBounds(370, 10, 414, 30);
+        Separator.setOrientation(SwingConstants.VERTICAL);
+        BasePanel.add(Separator);
+        Separator.setBounds(300, 9, 2, 450);
 
         Button1.setIcon(new ImageIcon(getClass().getResource("/image1/table1.jpg")));
-        Button1.setBorder(null);
-        Button1.setBorderPainted(false);
-        Button1.setContentAreaFilled(false);
         Button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button1ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button1);
-        Button1.setBounds(390, 50, 71, 61);
+        BasePanel.add(Button1);
+        Button1.setBounds(340, 71, 71, 61);
 
         Button2.setIcon(new ImageIcon(getClass().getResource("/image1/table2.jpg")));
-        Button2.setBorder(null);
-        Button2.setBorderPainted(false);
-        Button2.setContentAreaFilled(false);
+ 
         Button2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button2ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button2);
-        Button2.setBounds(490, 50, 71, 61);
+        BasePanel.add(Button2);
+        Button2.setBounds(442, 71, 71, 61);
         
         Button3.setIcon(new ImageIcon(getClass().getResource("/image1/table3.jpg")));
-        Button3.setBorder(null);
-        Button3.setBorderPainted(false);
-        Button3.setContentAreaFilled(false);
         Button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button3ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button3);
-        Button3.setBounds(580, 50, 71, 61);
+        BasePanel.add(Button3);
+        Button3.setBounds(542, 71, 71, 61);
         
         Button4.setIcon(new ImageIcon(getClass().getResource("/image1/table4.jpg")));
-        Button4.setBorder(null);
-        Button4.setBorderPainted(false);
-        Button4.setContentAreaFilled(false);
+
         Button4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button4ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button4);
-        Button4.setBounds(680, 50, 71, 61);
+        BasePanel.add(Button4);
+        Button4.setBounds(642, 71, 71, 61);
         
         Button5.setIcon(new ImageIcon(getClass().getResource("/image1/table5.jpg")));
-        Button5.setBorder(null);
-        Button5.setBorderPainted(false);
-        Button5.setContentAreaFilled(false);
+
         Button5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button5ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button5);
-        Button5.setBounds(420, 120, 71, 61);
+        BasePanel.add(Button5);
+        Button5.setBounds(394, 149, 71, 61);
 
         Button6.setIcon(new ImageIcon(getClass().getResource("/image1/table6.jpg")));
-        Button6.setBorder(null);
-        Button6.setBorderPainted(false);
-        Button6.setContentAreaFilled(false);
+
         Button6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button6ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button6);
-        Button6.setBounds(529, 120, 71, 61);
+        BasePanel.add(Button6);
+        Button6.setBounds(491, 149, 71, 61);
 
         Button7.setIcon(new ImageIcon(getClass().getResource("/image1/table7.jpg")));
-        Button7.setBorder(null);
-        Button7.setBorderPainted(false);
-        Button7.setContentAreaFilled(false);
+
         Button7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button7ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button7);
-        Button7.setBounds(627, 120, 71, 61);
+        BasePanel.add(Button7);
+        Button7.setBounds(589, 149, 71, 61);
 
         Button8.setIcon(new ImageIcon(getClass().getResource("/image1/table8.jpg")));
-        Button8.setBorder(null);
-        Button8.setBorderPainted(false);
-        Button8.setContentAreaFilled(false);
+;
         Button8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button8ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button8);
-        Button8.setBounds(723, 120, 71, 61);
+        BasePanel.add(Button8);
+        Button8.setBounds(685, 149, 71, 61);
 
         Button9.setIcon(new ImageIcon(getClass().getResource("/image1/table9.jpg")));
-        Button9.setBorder(null);
-        Button9.setBorderPainted(false);
-        Button9.setContentAreaFilled(false);
+
         Button9.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button9ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button9);
-        Button9.setBounds(390, 190, 71, 61);
+        BasePanel.add(Button9);
+        Button9.setBounds(340, 226, 71, 61);
         
         Button10.setIcon(new ImageIcon(getClass().getResource("/image1/table10.jpg")));
-        Button10.setBorder(null);
-        Button10.setBorderPainted(false);
-        Button10.setContentAreaFilled(false);
+
         Button10.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button10ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button10);
-        Button10.setBounds(480, 190, 71, 61);
+        BasePanel.add(Button10);
+        Button10.setBounds(442, 226, 71, 61);
         
         Button11.setIcon(new ImageIcon(getClass().getResource("/image1/table11.jpg")));
-        Button11.setBorder(null);
-        Button11.setBorderPainted(false);
-        Button11.setContentAreaFilled(false);
+
+
         Button11.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button11ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button11);
-        Button11.setBounds(580, 190, 71, 61);
+        BasePanel.add(Button11);
+        Button11.setBounds(542, 226, 71, 61);
 
         Button12.setIcon(new ImageIcon(getClass().getResource("/image1/table12.jpg")));
-        Button12.setBorder(null);
-        Button12.setBorderPainted(false);
-        Button12.setContentAreaFilled(false);
+;
         Button12.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button12ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button12);
-        Button12.setBounds(680, 190, 71, 61);
+        BasePanel.add(Button12);
+        Button12.setBounds(642, 226, 71, 61);
         
         Button13.setIcon(new ImageIcon(getClass().getResource("/image1/table13.jpg")));
-        Button13.setBorder(null);
-        Button13.setBorderPainted(false);
-        Button13.setContentAreaFilled(false);
+
         Button13.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button13ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button13);
-        Button13.setBounds(420, 260, 71, 61);
+        BasePanel.add(Button13);
+        Button13.setBounds(394, 304, 71, 61);
 
         Button14.setIcon(new ImageIcon(getClass().getResource("/image1/table14.jpg")));
-        Button14.setBorder(null);
-        Button14.setBorderPainted(false);
-        Button14.setContentAreaFilled(false);
+
         Button14.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button14ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button14);
-        Button14.setBounds(529, 260, 71, 61);
+        BasePanel.add(Button14);
+        Button14.setBounds(491, 304, 71, 61);
 
         Button15.setIcon(new ImageIcon(getClass().getResource("/image1/table15.jpg")));
-        Button15.setBorder(null);
-        Button15.setBorderPainted(false);
-        Button15.setContentAreaFilled(false);
+
         Button15.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button15ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button15);
-        Button15.setBounds(627, 260, 71, 61);
+        BasePanel.add(Button15);
+        Button15.setBounds(589, 304, 71, 61);
         
         Button16.setIcon(new ImageIcon(getClass().getResource("/image1/table16.jpg")));
-        Button16.setBorder(null);
-        Button16.setBorderPainted(false);
-        Button16.setContentAreaFilled(false);
+
         Button16.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button16ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button16);
-        Button16.setBounds(713, 260, 71, 61);
+        BasePanel.add(Button16);
+        Button16.setBounds(685, 304, 71, 61);
         
         Button17.setIcon(new ImageIcon(getClass().getResource("/image1/table17.jpg")));
-        Button17.setBorder(null);
-        Button17.setBorderPainted(false);
-        Button17.setContentAreaFilled(false);
+
         Button17.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button17ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button17);
-        Button17.setBounds(390, 340, 71, 61);
+        BasePanel.add(Button17);
+        Button17.setBounds(340, 384, 71, 61);
 
         Button18.setIcon(new ImageIcon(getClass().getResource("/image1/table18.jpg")));
-        Button18.setBorder(null);
-        Button18.setBorderPainted(false);
-        Button18.setContentAreaFilled(false);
+
         Button18.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button18ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button18);
-        Button18.setBounds(490, 340, 71, 61);
+        BasePanel.add(Button18);
+        Button18.setBounds(442, 384, 71, 61);
         
         Button19.setIcon(new ImageIcon(getClass().getResource("/image1/table19.jpg")));
-        Button19.setBorder(null);
-        Button19.setBorderPainted(false);
-        Button19.setContentAreaFilled(false);
+
         Button19.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button19ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button19);
-        Button19.setBounds(590, 340, 71, 61);
+        BasePanel.add(Button19);
+        Button19.setBounds(542, 384, 71, 61);
 
         Button20.setIcon(new ImageIcon(getClass().getResource("/image1/table20.jpg")));
-        Button20.setBorder(null);
-        Button20.setBorderPainted(false);
-        Button20.setContentAreaFilled(false);
+
         Button20.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 Button20ActionPerformed(evt);
             }
         });
-        jPanel1.add(Button20);
-        Button20.setBounds(690, 340, 71, 61);
+        BasePanel.add(Button20);
+        Button20.setBounds(642, 384, 71, 61);
         
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0,0,800,480);
+        getContentPane().add(BasePanel);
+        BasePanel.setBounds(0,0,798,468);
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon(Table.class.getResource("/image1/cooltext474323728.png")));
+        label.setBounds(320, 11, 459, 41);
+        label.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(102, 102, 102)));
+        BasePanel.add(label);
+        BasePanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
+        
+        label_1 = new JLabel("");
+        label_1.setIcon(new ImageIcon(Table.class.getResource("/image1/cooltext474326281.png")));
+        label_1.setBounds(18, 11, 265, 41);
+        label_1.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(102, 102, 102)));
+        BasePanel.add(label_1);
         
     }//end init
 
@@ -646,6 +594,4 @@ public class Table extends JFrame {
             }
         });
     }
-
-    
 }//class Table end
