@@ -20,6 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -62,6 +65,13 @@ public class ModifyFood extends JFrame {
 	
 	
 	public ModifyFood(Administrator ads,FoddModel model) {
+		
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		
 		this.setVisible(true);
 		this.setResizable(false);
 		this.food=model;

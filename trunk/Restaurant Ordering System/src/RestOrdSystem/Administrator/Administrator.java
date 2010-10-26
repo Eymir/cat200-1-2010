@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.Font;
 import java.sql.Date;
@@ -84,6 +86,12 @@ public class Administrator extends JFrame {
 	 * Create the frame.
 	 */
 	public Administrator() {	
+		try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());}
+		catch (ClassNotFoundException e) {}
+		catch (InstantiationException e) {}
+		catch (IllegalAccessException e) {}
+		catch (UnsupportedLookAndFeelException e) {}
+		
 		admincolumn.add("User ID");
 		admincolumn.add("User Password");
 		
