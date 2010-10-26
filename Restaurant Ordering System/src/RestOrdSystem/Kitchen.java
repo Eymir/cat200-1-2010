@@ -29,7 +29,9 @@ public class Kitchen extends javax.swing.JFrame {
         rdbtnInProgress.setEnabled(false);
         rdbtnDone.setEnabled(false);
 
-    }
+    }//initialization
+    
+/*************************-Declaration And Settings-*******************************/
     
     private JButton jButton1;
     private JLabel jLabel1;
@@ -179,12 +181,12 @@ public class Kitchen extends javax.swing.JFrame {
               digitalclock();
               g.setFont(new Font("Tahoma", Font.BOLD, 25));
               g.setColor(Color.WHITE);
-              g.drawString(current.gettime(),2,35);
+              g.drawString(current.gettime(),5,35);
                }
         	
         };
         panel.setBackground(Color.BLACK);
-        panel.setBounds(605, 100, 120, 50);
+        panel.setBounds(605, 100, 132, 50);
         jLayeredPane1.add(panel);
         
         //myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds()
@@ -201,6 +203,10 @@ public class Kitchen extends javax.swing.JFrame {
 
         pack();
     }
+    
+/**********************************************************************************/    
+    
+/*************************-SQL And JTabel Settings-*******************************/
     
     Object[] confirm = {"Yes","No"};
     Object[] ok = {"ok"};
@@ -235,7 +241,7 @@ public class Kitchen extends javax.swing.JFrame {
 
             while (SystemMain.rs.next()){
                 countRow++;
-            }
+            }//get the table row count from the database
 
             ResultSetMetaData metadata = SystemMain.rs.getMetaData();
             countColumn = metadata.getColumnCount();
@@ -246,8 +252,6 @@ public class Kitchen extends javax.swing.JFrame {
 
             //adding column names to table model
             DatabaseMetaData meta = SystemMain.con.getMetaData();
-
-            ResultSet rset2 = meta.getColumns(null, null, "KITCHENTABLE", null);
             
             	newtable1.setColumnName(0, "Order Number");
                 newtable1.setColumnName(1, "Table");
@@ -299,12 +303,12 @@ public class Kitchen extends javax.swing.JFrame {
             
         }
         }
-        ); 
+        );//function to get value from the table when mouse clicked on the table 
     }
     
     public void setTable(){
     	jTable1.setModel(newtable1);
-    }
+    }//called the setModel function after getting all the needed information
     
     public void update(String edit){
 
@@ -319,7 +323,7 @@ public class Kitchen extends javax.swing.JFrame {
 
         }
 
-    }
+    }//function to update the SQL command to the database
     
     public void warn(){
     	
@@ -333,7 +337,7 @@ public class Kitchen extends javax.swing.JFrame {
             update(updateString);
             btnServed.setEnabled(false);
         }
-    }
+    }//function to update data from the database
     
     public void delete(){
     	
@@ -347,7 +351,7 @@ public class Kitchen extends javax.swing.JFrame {
 
             update(deleteString);
         }
-    }
+    }//function to delete data from the database
     
     public int warnMessage(){
         return (JOptionPane.showOptionDialog(jLayeredPane1,
@@ -358,7 +362,7 @@ public class Kitchen extends javax.swing.JFrame {
                 null,
                 confirm,
                 confirm[0]));
-    }
+    }//warning message when changing certain information
     
     public int deleteMessage(){
         return (JOptionPane.showOptionDialog(jLayeredPane1,
@@ -369,7 +373,7 @@ public class Kitchen extends javax.swing.JFrame {
                 null,
                 confirm,
                 confirm[0]));
-    }
+    }//warning message when deleting certain information
     
     public int failMessage(){
         return (JOptionPane.showOptionDialog(jLayeredPane1,
@@ -380,7 +384,11 @@ public class Kitchen extends javax.swing.JFrame {
                 null,
                 ok,
                 ok[0]));
-    }
+    }//fail message when the SQL command fail to work
+    
+/*****************************************************************************/
+    
+/*********************************-Get Time-**************************************/
     
     public class Time{
     	
@@ -402,7 +410,9 @@ public class Kitchen extends javax.swing.JFrame {
 		clock.start();
 		this.repaint();
 		
-	}
+	}//timer to make the digital clock move
+    
+/**********************************************************************************/
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
