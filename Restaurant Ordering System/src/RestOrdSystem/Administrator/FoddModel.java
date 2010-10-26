@@ -5,7 +5,7 @@ public class FoddModel {
 	
 	private String foodName;
 	private String foodType;
-	private int foodPrice;
+	private double foodPrice;
 	private int foodQoh;
 	private int foodMin;
 	private String picture;
@@ -23,10 +23,10 @@ public class FoddModel {
 	public void setFoodType(String foodType) {
 		this.foodType = foodType;
 	}
-	public int getFoodPrice() {
+	public double getFoodPrice() {
 		return foodPrice;
 	}
-	public void setFoodPrice(int foodPrice) {
+	public void setFoodPrice(double foodPrice) {
 		this.foodPrice = foodPrice;
 	}
 	public int getFoodQoh() {

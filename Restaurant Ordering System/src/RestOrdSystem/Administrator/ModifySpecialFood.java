@@ -122,14 +122,14 @@ public class ModifySpecialFood extends JFrame {
 		
 		specialmodel.setFoodName(specialFoodcomboBox.getSelectedItem().toString());
 		specialmodel=new FoodBusiness().returnPricePicture(specialmodel);
-		PricetextField.setText(new Integer(specialmodel.getFoodPrice()).toString());
+		PricetextField.setText(new Double(specialmodel.getFoodPrice()).toString());
 		if(specialFoodcomboBox.getSelectedIndex() != 0){
 		   Picturelabel.setIcon(new ImageIcon(getClass().getResource(path+specialmodel.getPicture())));
 		}
 	}
 	
 	public void ConfirmAction(){
-		specialmodel.setFoodPrice(new Integer(PricetextField.getText()).intValue());
+		specialmodel.setFoodPrice(new Double(PricetextField.getText()).doubleValue());
 		boolean flag=new FoodBusiness().updateSpecialFood(specialmodel);
 		 if(flag){
       	   JOptionPane.showMessageDialog(null, "Update Successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);

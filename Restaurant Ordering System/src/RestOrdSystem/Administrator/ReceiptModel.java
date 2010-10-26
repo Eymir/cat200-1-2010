@@ -7,7 +7,7 @@ public class ReceiptModel {
 	private int receiptNumber;
 	private Date receiptDate;
 	private int tableNumber;
-	private int priceCharged;
+	private double priceCharged;
 	
 	
 	public int getReceiptNumber() {
@@ -28,10 +28,10 @@ public class ReceiptModel {
 	public void setTableNumber(int tableNumber) {
 		this.tableNumber = tableNumber;
 	}
-	public int getPriceCharged() {
+	public double getPriceCharged() {
 		return priceCharged;
 	}
-	public void setPriceCharged(int priceCharged) {
+	public void setPriceCharged(double priceCharged) {
 		this.priceCharged = priceCharged;
 	}
 	

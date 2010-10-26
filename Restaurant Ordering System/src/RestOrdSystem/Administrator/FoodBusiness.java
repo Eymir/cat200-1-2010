@@ -26,7 +26,7 @@ public class FoodBusiness {
 				food=new Vector();
 				food.add(rs.getString(1));
 				food.add(rs.getString(2));			
-				food.add(rs.getInt(3));
+				food.add(rs.getDouble(3));
 				food.add(rs.getInt(4));
 				food.add(rs.getInt(5));
 				food.add(rs.getString(6));
@@ -52,7 +52,7 @@ public class FoodBusiness {
 			pst=new DBAccess().connOracle(sql);
 			pst.setString(1,food.getFoodName());
 			pst.setString(2, food.getFoodType());
-			pst.setInt(3,food.getFoodPrice());
+			pst.setDouble(3,food.getFoodPrice());
 			pst.setInt(4,food.getFoodQoh());
 			pst.setInt(5,food.getFoodMin());
 			pst.setString(6,food.getPicture());
@@ -103,7 +103,7 @@ public class FoodBusiness {
 		try {
 			pst=new DBAccess().connOracle(sql);
 			pst.setString(1, food.getFoodType());
-			pst.setInt(2,food.getFoodPrice());
+			pst.setDouble(2,food.getFoodPrice());
 			pst.setInt(3,food.getFoodQoh());
 			pst.setInt(4,food.getFoodMin());
 			pst.setString(5,food.getDescription());
@@ -206,7 +206,7 @@ public class FoodBusiness {
 		if(number>0){
 			try {
 				pst=new DBAccess().connOracle(sql2);
-				pst.setInt(1,model.getFoodPrice());
+				pst.setDouble(1,model.getFoodPrice());
 				pst.setString(2,model.getFoodName());
 				
 				if(pst.executeUpdate()>0){

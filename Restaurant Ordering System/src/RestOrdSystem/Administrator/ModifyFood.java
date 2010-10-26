@@ -51,7 +51,7 @@ public class ModifyFood extends JFrame {
 		
 		NametextField.setText(model.getFoodName());
 		TypetextField.setText(model.getFoodType());
-		PricetextField.setText(new Integer(model.getFoodPrice()).toString());
+		PricetextField.setText(new Double(model.getFoodPrice()).toString());
 		QOHtextField.setText(new Integer(model.getFoodQoh()).toString());
 		MINtextField.setText(new Integer(model.getFoodMin()).toString());
 		DesctextArea.setText(model.getDescription());
@@ -220,7 +220,7 @@ public class ModifyFood extends JFrame {
 		
 		food.setFoodName(NametextField.getText());
 		food.setFoodType(TypetextField.getText());
-		food.setFoodPrice(new Integer(PricetextField.getText()).intValue());
+		food.setFoodPrice(new Double(PricetextField.getText()).doubleValue());
 		food.setFoodQoh(new Integer(QOHtextField.getText()).intValue());
 		food.setFoodMin(new Integer(MINtextField.getText()).intValue());
 		food.setDescription(DesctextArea.getText());
