@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.util.Calendar;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.MatteBorder;
 
 public class Kitchen extends javax.swing.JFrame {
 
@@ -185,15 +187,17 @@ public class Kitchen extends javax.swing.JFrame {
                }
         	
         };
-        panel.setBackground(Color.BLACK);
-        panel.setBounds(605, 100, 132, 50);
+        panel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.BLACK));
+        panel.setForeground(Color.DARK_GRAY);
+        panel.setBackground(Color.GRAY);
+        panel.setBounds(607, 100, 136, 50);
         jLayeredPane1.add(panel);
         
         //myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds()
      
         jLabel1 = new javax.swing.JLabel();
         jLabel1.setBackground(SystemColor.controlDkShadow);
-        jLabel1.setForeground(Color.BLACK);
+        jLabel1.setForeground(Color.LIGHT_GRAY);
         jLabel1.setFont(new Font("Tahoma", Font.PLAIN, 11));
         
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image1/background.png"))); 
@@ -304,6 +308,7 @@ public class Kitchen extends javax.swing.JFrame {
         }
         }
         );//function to get value from the table when mouse clicked on the table 
+ 
     }
     
     public static void setTable(){
