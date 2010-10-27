@@ -107,7 +107,7 @@ public class LogIn extends JFrame {
 		ConfirmJButton.setBounds(274, 149, 90 ,27);
 		contentPane.add(ConfirmJButton);
 		
-		setVisible(true);
+		//setVisible(true);
 		setResizable(false);
 	}
 }

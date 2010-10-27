@@ -60,7 +60,7 @@ public class ModifyFood extends JFrame {
 		DesctextArea.setText(model.getDescription());
 		
 		
-		Picturelabel.setIcon(new ImageIcon(getClass().getResource(path+model.getPicture())));
+		Picturelabel.setIcon(new ImageIcon(getClass().getResource(model.getPicture())));
 	}
 	
 	
@@ -111,7 +111,7 @@ public class ModifyFood extends JFrame {
 		
 		JLabel lblFoodPicture = new JLabel("Food Picture");
 		lblFoodPicture.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFoodPicture.setBounds(521, 29, 77, 21);
+		lblFoodPicture.setBounds(520, 29, 121, 21);
 		contentPane.add(lblFoodPicture);
 		
 		JLabel lblFoodDescription = new JLabel("Food Description:");

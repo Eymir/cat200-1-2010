@@ -8,6 +8,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.*;
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.Vector;
 
 
@@ -15,6 +16,7 @@ public class Table extends JFrame {
 	
 	public Table() {
 		initComponents();
+		setPromoFood();
 	}
 	
 	CustomerMenu csMenu1;
@@ -124,6 +126,11 @@ public class Table extends JFrame {
     protected static JButton Button19;
     protected static JButton Button20;
     private JLabel label_1;
+    private JLabel promotionJLabel;
+    private JLabel promoPictJLabel;
+    private JLabel promoNameJLabel;
+    private JLabel promoPriceJLabel;
+    
     
     private void initComponents() {
 
@@ -138,26 +145,48 @@ public class Table extends JFrame {
 
         BasePanel = new JPanel();
         Separator = new JSeparator();
+        Separator.setBounds(300, 9, 2, 450);
         Button1 = new JButton();
+        Button1.setBounds(340, 71, 71, 61);
         Button4 = new JButton();
+        Button4.setBounds(642, 71, 71, 61);
         Button3 = new JButton();
+        Button3.setBounds(542, 71, 71, 61);
         Button8 = new JButton();
+        Button8.setBounds(685, 149, 71, 61);
         Button9 = new JButton();
+        Button9.setBounds(340, 226, 71, 61);
         Button5 = new JButton();
+        Button5.setBounds(394, 149, 71, 61);
         Button18 = new JButton();
+        Button18.setBounds(442, 384, 71, 61);
         Button2 = new JButton();
+        Button2.setBounds(442, 71, 71, 61);
         Button6 = new JButton();
+        Button6.setBounds(491, 149, 71, 61);
         Button7 = new JButton();
+        Button7.setBounds(589, 149, 71, 61);
         Button13 = new JButton();
+        Button13.setBounds(394, 304, 71, 61);
         Button14 = new JButton();
+        Button14.setBounds(491, 304, 71, 61);
         Button15 = new JButton();
+        Button15.setBounds(589, 304, 71, 61);
         Button17 = new JButton();
+        Button17.setBounds(340, 384, 71, 61);
         Button12 = new JButton();
+        Button12.setBounds(642, 226, 71, 61);
         Button11 = new JButton();
+        Button11.setBounds(542, 226, 71, 61);
         Button16 = new JButton();
+        Button16.setBounds(685, 304, 71, 61);
         Button19 = new JButton();
+        Button19.setBounds(542, 384, 71, 61);
         Button20 = new JButton();
+        Button20.setBounds(642, 384, 71, 61);
         Button10 = new JButton();
+        Button10.setBounds(442, 226, 71, 61);
+        
         
         BasePanel.setBackground(UIManager.getColor("OptionPane.warningDialog.titlePane.shadow"));
         BasePanel.setPreferredSize(new Dimension(800, 480));
@@ -165,7 +194,6 @@ public class Table extends JFrame {
         
         Separator.setOrientation(SwingConstants.VERTICAL);
         BasePanel.add(Separator);
-        Separator.setBounds(300, 9, 2, 450);
 
         Button1.setIcon(new ImageIcon(getClass().getResource("/image1/table1.jpg")));
         Button1.addActionListener(new ActionListener() {
@@ -174,7 +202,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button1);
-        Button1.setBounds(340, 71, 71, 61);
 
         Button2.setIcon(new ImageIcon(getClass().getResource("/image1/table2.jpg")));
  
@@ -184,7 +211,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button2);
-        Button2.setBounds(442, 71, 71, 61);
         
         Button3.setIcon(new ImageIcon(getClass().getResource("/image1/table3.jpg")));
         Button3.addActionListener(new ActionListener() {
@@ -193,7 +219,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button3);
-        Button3.setBounds(542, 71, 71, 61);
         
         Button4.setIcon(new ImageIcon(getClass().getResource("/image1/table4.jpg")));
 
@@ -203,7 +228,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button4);
-        Button4.setBounds(642, 71, 71, 61);
         
         Button5.setIcon(new ImageIcon(getClass().getResource("/image1/table5.jpg")));
 
@@ -213,7 +237,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button5);
-        Button5.setBounds(394, 149, 71, 61);
 
         Button6.setIcon(new ImageIcon(getClass().getResource("/image1/table6.jpg")));
 
@@ -223,7 +246,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button6);
-        Button6.setBounds(491, 149, 71, 61);
 
         Button7.setIcon(new ImageIcon(getClass().getResource("/image1/table7.jpg")));
 
@@ -233,7 +255,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button7);
-        Button7.setBounds(589, 149, 71, 61);
 
         Button8.setIcon(new ImageIcon(getClass().getResource("/image1/table8.jpg")));
 ;
@@ -243,7 +264,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button8);
-        Button8.setBounds(685, 149, 71, 61);
 
         Button9.setIcon(new ImageIcon(getClass().getResource("/image1/table9.jpg")));
 
@@ -253,7 +273,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button9);
-        Button9.setBounds(340, 226, 71, 61);
         
         Button10.setIcon(new ImageIcon(getClass().getResource("/image1/table10.jpg")));
 
@@ -263,7 +282,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button10);
-        Button10.setBounds(442, 226, 71, 61);
         
         Button11.setIcon(new ImageIcon(getClass().getResource("/image1/table11.jpg")));
 
@@ -274,7 +292,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button11);
-        Button11.setBounds(542, 226, 71, 61);
 
         Button12.setIcon(new ImageIcon(getClass().getResource("/image1/table12.jpg")));
 ;
@@ -284,7 +301,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button12);
-        Button12.setBounds(642, 226, 71, 61);
         
         Button13.setIcon(new ImageIcon(getClass().getResource("/image1/table13.jpg")));
 
@@ -294,7 +310,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button13);
-        Button13.setBounds(394, 304, 71, 61);
 
         Button14.setIcon(new ImageIcon(getClass().getResource("/image1/table14.jpg")));
 
@@ -304,7 +319,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button14);
-        Button14.setBounds(491, 304, 71, 61);
 
         Button15.setIcon(new ImageIcon(getClass().getResource("/image1/table15.jpg")));
 
@@ -314,7 +328,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button15);
-        Button15.setBounds(589, 304, 71, 61);
         
         Button16.setIcon(new ImageIcon(getClass().getResource("/image1/table16.jpg")));
 
@@ -324,7 +337,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button16);
-        Button16.setBounds(685, 304, 71, 61);
         
         Button17.setIcon(new ImageIcon(getClass().getResource("/image1/table17.jpg")));
 
@@ -334,7 +346,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button17);
-        Button17.setBounds(340, 384, 71, 61);
 
         Button18.setIcon(new ImageIcon(getClass().getResource("/image1/table18.jpg")));
 
@@ -344,7 +355,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button18);
-        Button18.setBounds(442, 384, 71, 61);
         
         Button19.setIcon(new ImageIcon(getClass().getResource("/image1/table19.jpg")));
 
@@ -354,7 +364,6 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button19);
-        Button19.setBounds(542, 384, 71, 61);
 
         Button20.setIcon(new ImageIcon(getClass().getResource("/image1/table20.jpg")));
 
@@ -364,26 +373,69 @@ public class Table extends JFrame {
             }
         });
         BasePanel.add(Button20);
-        Button20.setBounds(642, 384, 71, 61);
         
         getContentPane().add(BasePanel);
         BasePanel.setBounds(0,0,798,468);
         JLabel label = new JLabel();
-        label.setIcon(new ImageIcon(Table.class.getResource("/image1/cooltext474323728.png")));
         label.setBounds(320, 11, 459, 41);
+        label.setIcon(new ImageIcon(Table.class.getResource("/image1/cooltext474323728.png")));
         label.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(102, 102, 102)));
         BasePanel.add(label);
         BasePanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, new Color(102, 102, 102)));
         
         label_1 = new JLabel("");
-        label_1.setIcon(new ImageIcon(Table.class.getResource("/image1/cooltext474326281.png")));
         label_1.setBounds(18, 11, 265, 41);
+        label_1.setIcon(new ImageIcon(Table.class.getResource("/image1/cooltext474326281.png")));
         label_1.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(102, 102, 102)));
         BasePanel.add(label_1);
         
+        promotionJLabel = new JLabel("");
+        promotionJLabel.setBounds(28, 64, 238, 60);
+        //promoPictJLabel.setIcon(new ImageIcon(getClass().getResource("/image1/promotion.png")));
+        BasePanel.add(promotionJLabel);
+        
+        promoPictJLabel = new JLabel("");
+        promoPictJLabel.setBounds(26, 130, 240, 180);
+        BasePanel.add(promoPictJLabel);
+        
+        promoNameJLabel = new JLabel("");
+        promoNameJLabel.setFont(new Font("Tahoma", 0, 18)); 
+        promoNameJLabel.setBounds(28, 315, 234, 41);
+        BasePanel.add(promoNameJLabel);
+        
+        promoPriceJLabel = new JLabel("");
+        promoPriceJLabel.setFont(new Font("Tahoma", 0, 18)); 
+        promoPriceJLabel.setBounds(28, 365, 240, 41);
+        BasePanel.add(promoPriceJLabel);
+        
     }//end init
 
+    String promoFoodName = "";
+    Double promoFoodPrice = 0.00;
+    String promoFoodUrl = "";
+    DecimalFormat df = new DecimalFormat("0.00");
     
+    void setPromoFood() {
+    	try {
+    		SystemMain.rs = SystemMain.stmt.executeQuery("SELECT FOOD_NAME, FOOD_PRICE, FOOD_PICT_URL " +
+        			"FROM FOODTABLE " +
+        			"WHERE SPECIAL_FOOD = 1");
+    		SystemMain.rs.first();
+    		if (SystemMain.rs.first()) {
+    			promoFoodName = SystemMain.rs.getString(1);
+    			promoFoodPrice = SystemMain.rs.getDouble(2);
+    			promoFoodUrl = SystemMain.rs.getString(3);
+            }
+    		
+    		promoNameJLabel.setText(promoFoodName);
+    		promoPriceJLabel.setText("RM " + df.format(promoFoodPrice));
+    		promoPictJLabel.setIcon(new ImageIcon(getClass().getResource(promoFoodUrl)));
+    		
+    		
+    	}catch (SQLException e) {
+    		System.err.println("promotion food selection failed : " + e.getMessage());
+    	}
+    }
     
     private void Button1ActionPerformed(ActionEvent evt) {
     	Button1.setEnabled(false);
