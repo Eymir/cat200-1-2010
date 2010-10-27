@@ -98,7 +98,7 @@ public class LogIn extends JFrame {
 						dispose();
 				
 					}else{
-						JOptionPane.showMessageDialog(null, "username or password has problem", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Username or Password Incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 			
 			}
