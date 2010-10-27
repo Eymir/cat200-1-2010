@@ -1239,6 +1239,7 @@ public class CashierModule extends JFrame {
     Object[] confirm = {"Confirm & Print","Cancel"};
     String TPrice;
     
+    /////////////////confirm print button//////////////////////
     public void ConfirmPrintButtonActionPerformed(ActionEvent evt){
 
     	int n = Confirmation();
@@ -1247,7 +1248,7 @@ public class CashierModule extends JFrame {
     	{
     		TableStatus[TableNumber-1]=Available;
     		    		
-    	}
+    	
     	
     	if (TableNumber==1) { Table.Button1.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField1.getText(); }
         if (TableNumber==2) { Table.Button2.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField2.getText(); }
@@ -1270,7 +1271,7 @@ public class CashierModule extends JFrame {
          if (TableNumber==19) { Table.Button19.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField19.getText(); }
          if (TableNumber==20) { Table.Button20.setEnabled(true); TPrice = CustomerMenu.totalPriceJTextField20.getText(); }
     	
-       //update total price charged into oracle-------------------------------------------
+       //////////////////////update total price charged into oracle////////////////////////////////////
          try {
         	 SystemMain.rs = SystemMain.stmt.executeQuery("UPDATE RECEIPTTABLE " +
              		"SET PRICE_CHARGED = " + TPrice + " " +
@@ -1278,18 +1279,20 @@ public class CashierModule extends JFrame {
          }
          catch (SQLException e) {
              System.err.println("update total price charged failed : " + e.getMessage());
-         }//try catch end----------------------------------------------------------------
+         }
          
     	refresh();
+    	}
     }
     
+    //////////////////////////////////No./////////////////////////////
     static private int NoIncrement()
     {
         ++No;
         return new Integer(No);
     }
     
-    
+    ///////////////set Bill table///////////////////////////
     @SuppressWarnings("unchecked")
 	static public void SetBillTableDataOutputAndTotalPrice(){
     	
@@ -1298,6 +1301,7 @@ public class CashierModule extends JFrame {
     	BillDetailsRow.clear();
     	BillDetails.clear();
     	
+    	//////////////////////get current table receopt number/////////////////////////////
     	try {
             SQL = "SELECT MAX(RECEIPT_NO) FROM RECEIPTTABLE WHERE TABLE_NO = '"+TableNumber+"'";
             SystemMain.rs = SystemMain.stmt.executeQuery(SQL);
@@ -1307,6 +1311,7 @@ public class CashierModule extends JFrame {
         	System.out.println("data retrieval failed...");
         }
         
+        /////////////////get number of food ordered accoring to the receipt number above////////////////////////////////
     	try {
             SQL = "SELECT COUNT(DISTINCT ORD_FOOD_NAME) FROM ORDERTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"'";
             SystemMain.rs = SystemMain.stmt.executeQuery(SQL);
@@ -1316,7 +1321,7 @@ public class CashierModule extends JFrame {
         	System.out.println("data retrieval failed...");
         }
     	
-        ///////////////////////////////////////////////////////
+        //////////////get data from the database and set it into column and row vector/////////////////////////////////////////
     	try {
             SQL = "SELECT ORD_FOOD_NAME,SUM(ORD_FOOD_QN), FOOD_PRICE FROM ORDERTABLE,FOODTABLE WHERE RECEIPT_NO = '"+TableReceiptNumber+"' AND ORDERTABLE.ORD_FOOD_NAME = FOODTABLE.FOOD_NAME GROUP BY ORDERTABLE.ORD_FOOD_NAME,FOODTABLE.FOOD_PRICE";
             SystemMain.rs = SystemMain.stmt.executeQuery(SQL);
@@ -1343,6 +1348,8 @@ public class CashierModule extends JFrame {
     	else{
     		BillDetails.clear();
     	}
+    	
+    	/////////////////////////////////////////set up the table//////////////////////////////////////////
     	@SuppressWarnings("serial")
 		DefaultTableModel model = new DefaultTableModel(BillDetails,Title){
 
@@ -1367,6 +1374,8 @@ public class CashierModule extends JFrame {
     	    		
     }
    
+    ////message box for confirm & print button///////////////////////////////////////////////////
+    
 	public int Confirmation(){
     	return(JOptionPane.showOptionDialog(BasePanel,
                 "Confirm and Print Table "+TableNumber+"'s Bill?",

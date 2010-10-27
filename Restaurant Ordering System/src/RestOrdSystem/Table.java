@@ -390,8 +390,9 @@ public class Table extends JFrame {
         BasePanel.add(label_1);
         
         promotionJLabel = new JLabel("");
-        promotionJLabel.setBounds(31, 64, 238, 60);
-        //promoPictJLabel.setIcon(new ImageIcon(getClass().getResource("/image1/promotion.png")));
+        promotionJLabel.setIcon(new ImageIcon(Table.class.getResource("/image1/promotion.png")));
+        promotionJLabel.setBounds(33, 67, 238, 50);
+        
         BasePanel.add(promotionJLabel);
         
         promoPictJLabel = new JLabel("");
@@ -401,13 +402,13 @@ public class Table extends JFrame {
         promoNameJLabel = new JLabel("");
         promoNameJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         promoNameJLabel.setFont(new Font("Tahoma", 0, 18)); 
-        promoNameJLabel.setBounds(33, 315, 234, 41);
+        promoNameJLabel.setBounds(33, 315, 234, 28);
         BasePanel.add(promoNameJLabel);
         
         promoPriceJLabel = new JLabel("");
         promoPriceJLabel.setHorizontalAlignment(SwingConstants.CENTER);
         promoPriceJLabel.setFont(new Font("Tahoma", 0, 18)); 
-        promoPriceJLabel.setBounds(30, 365, 240, 41);
+        promoPriceJLabel.setBounds(30, 340, 240, 28);
         BasePanel.add(promoPriceJLabel);
         
     }//end init
