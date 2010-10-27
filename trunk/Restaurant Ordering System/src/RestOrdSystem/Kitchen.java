@@ -110,6 +110,7 @@ public class Kitchen extends javax.swing.JFrame {
         jLayeredPane1.add(btnServed);
                 
         rdbtnPending = new JRadioButton("Pending");
+        rdbtnPending.setBackground(UIManager.getColor("RadioButton.background"));
         rdbtnPending.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		status = "Pending";
@@ -123,6 +124,7 @@ public class Kitchen extends javax.swing.JFrame {
         jLayeredPane1.add(rdbtnPending);
                 
         rdbtnInProgress = new JRadioButton("In Progress");
+        rdbtnInProgress.setBackground(UIManager.getColor("RadioButton.background"));
         rdbtnInProgress.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		status = "In Progress";
@@ -136,6 +138,7 @@ public class Kitchen extends javax.swing.JFrame {
         jLayeredPane1.add(rdbtnInProgress);
                 
         rdbtnDone = new JRadioButton("Done");
+        rdbtnDone.setBackground(UIManager.getColor("RadioButton.background"));
         rdbtnDone.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		status = "Done";
@@ -190,7 +193,7 @@ public class Kitchen extends javax.swing.JFrame {
         panel.setBorder(new MatteBorder(2, 2, 2, 2, (Color) Color.BLACK));
         panel.setForeground(Color.DARK_GRAY);
         panel.setBackground(Color.GRAY);
-        panel.setBounds(607, 100, 136, 50);
+        panel.setBounds(607, 100, 134, 50);
         jLayeredPane1.add(panel);
         
         //myDate.getHours()+":"+myDate.getMinutes()+":"+myDate.getSeconds()
