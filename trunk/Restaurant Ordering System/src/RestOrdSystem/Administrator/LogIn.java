@@ -76,6 +76,7 @@ public class LogIn extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				userNameJField.setText("");
 				passwordField.setText("");
+				dispose();
 			}
 		});
 		CancelJButton.setFont(new Font("Tahoma", Font.BOLD, 12));
