@@ -128,13 +128,13 @@ public class ModifySpecialFood extends JFrame {
 	}
 	
 	public void specialfoodnamechange(){
-		String path="/image1/";
+	
 		
 		specialmodel.setFoodName(specialFoodcomboBox.getSelectedItem().toString());
 		specialmodel=new FoodBusiness().returnPricePicture(specialmodel);
 		PricetextField.setText(new Double(specialmodel.getFoodPrice()).toString());
 		if(specialFoodcomboBox.getSelectedIndex() != 0){
-		   Picturelabel.setIcon(new ImageIcon(getClass().getResource(path+specialmodel.getPicture())));
+		   Picturelabel.setIcon(new ImageIcon(getClass().getResource(specialmodel.getPicture())));
 		}
 	}
 	

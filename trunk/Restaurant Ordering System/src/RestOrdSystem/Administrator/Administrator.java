@@ -311,6 +311,7 @@ public class Administrator extends JFrame {
 			foodJTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			foodJTable.setRowSelectionAllowed(true);
 		    foodJTable.setRowSelectionInterval(0,0);
+		    
 		}
 		FoodscrollPane.setViewportView(foodJTable);
 		
@@ -432,6 +433,7 @@ public class Administrator extends JFrame {
 		
 		
 		allreceipt=new ReceiptBusiness().searchThroughDate(receipt);
+		System.out.println(allreceipt.toString());
 		receiptdefault=new DefaultTableModel(allreceipt,receiptcolumn);
 		receiptJTable=new JTable(receiptdefault);
 		

@@ -23,6 +23,7 @@ public class ReceiptBusiness {
 			while(rs.next()){
 				receipt=new Vector();
 				receipt.add(rs.getInt(1));
+				
 				receipt.add(rs.getDate(2));
 				receipt.add(rs.getInt(3));
 				receipt.add(rs.getDouble(4));
@@ -35,6 +36,7 @@ public class ReceiptBusiness {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return all;
 		
 	}
@@ -42,15 +44,19 @@ public class ReceiptBusiness {
 	public Vector searchThroughDate(ReceiptModel model){
 		Vector all=new Vector();
 		Vector receipt;
-		String sql="select * from RECEIPTTABLE where RECEIPT_DATE =?";
+		String sql="select * from RECEIPTTABLE where TO_CHAR(RECEIPT_DATE,'YYYY-MM-DD') =?";
 		
 		try {
 			pst=new DBAccess().connOracle(sql);
-			pst.setDate(1,model.getReceiptDate());
+			pst.setString(1,model.getReceiptDate().toString());
+			
 			rs=pst.executeQuery();
+			
+			
 			while(rs.next()){
 				receipt=new Vector();
 				receipt.add(rs.getInt(1));
+				System.out.println("RS="+rs.getInt(1));
 				receipt.add(rs.getDate(2));
 				receipt.add(rs.getInt(3));
 				receipt.add(rs.getDouble(4));

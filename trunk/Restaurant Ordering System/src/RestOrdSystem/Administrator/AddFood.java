@@ -103,7 +103,7 @@ public class AddFood extends JFrame {
 		
 		JLabel lblFoodPicture = new JLabel("Food Picture");
 		lblFoodPicture.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFoodPicture.setBounds(477, 24, 86, 20);
+		lblFoodPicture.setBounds(477, 24, 110, 20);
 		contentPane.add(lblFoodPicture);
 		
 		TypetextField = new JTextField();

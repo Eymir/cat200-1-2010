@@ -21,7 +21,7 @@ public class SystemMain extends JFrame {
 	static public Table TableModule;
     static public CashierModule CashierModule;
     static public Kitchen KitchenModule;
-   // static public LogIn AdministratorModule;
+    static public LogIn AdministratorModule;
     
     private JButton CustomerModuleButton;    
     private JButton CashierModuleButton;
@@ -111,11 +111,11 @@ public class SystemMain extends JFrame {
         getToday=Day+", "+Date;
         
         
-        //CustomerModule = new CustomerMenu();
+        
         TableModule = new Table();
         CashierModule = new CashierModule();
         KitchenModule = new Kitchen();
-        //AdministratorModule = new LogIn();
+        AdministratorModule = new LogIn();
         
         
         CustomerModuleButton = new JButton();
@@ -205,6 +205,6 @@ public class SystemMain extends JFrame {
     
     private void AdministratorModuleActionPerformed(ActionEvent evt) 
     {
- //      AdministratorModule.setVisible(true);
+       AdministratorModule.setVisible(true);
     }
 }

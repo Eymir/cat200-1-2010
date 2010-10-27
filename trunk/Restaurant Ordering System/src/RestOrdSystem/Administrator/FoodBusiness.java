@@ -55,7 +55,7 @@ public class FoodBusiness {
 			pst.setDouble(3,food.getFoodPrice());
 			pst.setInt(4,food.getFoodQoh());
 			pst.setInt(5,food.getFoodMin());
-			pst.setString(6,food.getPicture());
+			pst.setString(6,"/image1/"+food.getPicture());
 			pst.setString(7,food.getDescription());
 			
 			if(pst.executeUpdate()>0){
@@ -80,7 +80,7 @@ public class FoodBusiness {
 		String sql="update FOODTABLE set FOOD_PICT_URL=? where lower(FOOD_NAME)=lower(?)";
 		try {
 			pst=new DBAccess().connOracle(sql);
-			pst.setString(1,food.getPicture());
+			pst.setString(1,"/image1/"+food.getPicture());
 			pst.setString(2,food.getFoodName());
 			if(pst.executeUpdate()>0){
 				flag=true;
