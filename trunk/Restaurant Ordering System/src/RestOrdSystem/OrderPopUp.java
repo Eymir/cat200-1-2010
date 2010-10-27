@@ -115,7 +115,7 @@ public class OrderPopUp extends JFrame {
         jLayeredPane1.add(quantityJLabel, JLayeredPane.DEFAULT_LAYER);
 
         quantityJSpinner.setFont(new Font("Tahoma", 0, 24));
-        quantityJSpinner.setModel(new SpinnerNumberModel(1, 1, 99, 1));
+        quantityJSpinner.setModel(new SpinnerNumberModel(1, 1, 9, 1));
         quantityJSpinner.setBounds(260, 160, 120, 60);
         jLayeredPane1.add(quantityJSpinner, JLayeredPane.DEFAULT_LAYER);
 
